@@ -13,4 +13,11 @@
       <PackageReference Include="Npgsql" Version="7.0.1" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="DataBase\Repositories" />
+      <Folder Include="Models\DataBase" />
+      <Folder Include="Pages" />
+      <Folder Include="Services\Interfaces" />
+    </ItemGroup>
+
 </Project>
