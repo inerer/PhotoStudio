@@ -14,9 +14,7 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="DataBase\Repositories" />
       <Folder Include="Pages" />
-      <Folder Include="Services\Interfaces" />
     </ItemGroup>
 
 </Project>
