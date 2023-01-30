@@ -1,4 +1,5 @@
-﻿using PhotoStudio.Models.DataBase;
+﻿using System.Collections.Generic;
+using PhotoStudio.Models.DataBase;
 
 namespace PhotoStudio.Services.Interfaces;
 
@@ -8,5 +9,5 @@ public interface IClientInterface
     public Client AddClient(Client client);
     public bool EditClient(Client client);
     public bool DeleteClient(int id);
-    public Client GetAllClients(Client client);
+    public List<Client> GetAllClients(Client client);
 }
