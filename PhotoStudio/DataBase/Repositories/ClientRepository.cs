@@ -126,7 +126,7 @@ public class ClientRepository:IClientInterface
             connection.Close();
         }
     }
-
+    
     public List<Client> GetAllClients(Client client)
     {
         connection.Open();
