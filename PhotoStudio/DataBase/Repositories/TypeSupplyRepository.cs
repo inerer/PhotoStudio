@@ -1,28 +1,27 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Windows.Documents;
 using Npgsql;
 using PhotoStudio.Models.DataBase;
 using PhotoStudio.Services.Interfaces;
 
 namespace PhotoStudio.DataBase.Repositories;
 
-public class RoleRepository:IRoleInterface
+public class TypeSupplyRepository:ITypeSupplyInterface
 {
     private readonly string _connectionString;
     private NpgsqlConnection connection;
 
-    public RoleRepository(string connectionString)
+    public TypeSupplyRepository(string connectionString)
     {
         _connectionString = connectionString;
         connection = new NpgsqlConnection(_connectionString);
     }
 
-    public Role GetRole(int id)
+    public TypeSupply GetTypeSupply(int id)
     {
         connection.Open();
-        Role role = new();
-        string query = "select * from role where id_role = $1";
+        TypeSupply typeSupply = new();
+        string query = "select * from type_supply where id_type_supply = ($1)";
         NpgsqlCommand command = new(query, connection)
         {
             Parameters = { new NpgsqlParameter() { Value = id } }
@@ -33,48 +32,49 @@ public class RoleRepository:IRoleInterface
             {
                 while (reader.Read())
                 {
-                    role.Id = Convert.ToInt32(reader["id_role"]);
-                    role.RoleName = reader["role_name"].ToString();
+                    typeSupply.Id = Convert.ToInt32(reader["id_type_supply"]);
+                    typeSupply.Name = reader["type_supply_name"].ToString();
+                    
                 }
             }
         }
         connection.Close();
-        return role;
+        return typeSupply;
     }
 
-    public Role AddRole(Role role)
+    public TypeSupply AddTypeSupply(TypeSupply typeSupply)
     {
-        connection.Open();
-        string query = "insert into role(role_name) values ($1)";
-        NpgsqlCommand command = new(query, connection)
-        {
-            Parameters = { new NpgsqlParameter() { Value = role.RoleName } }
-        };
-        try
-        {
-            command.ExecuteNonQuery();
-            return role;
-        }
-        catch (Exception e)
-        {
-            return null;
-        }
-        finally
-        {
-            connection.Close();  
-        }
+       connection.Open();
+       string query = "insert into type_supply(type_supply_name) values ($1)";
+       NpgsqlCommand command = new(query, connection)
+       {
+           Parameters = { new NpgsqlParameter() { Value = typeSupply.Name } }
+       };
+       try
+       {
+           command.ExecuteNonQuery();
+           return typeSupply;
+       }
+       catch (Exception e)
+       {
+           return null;
+       }
+       finally
+       {
+           connection.Close();  
+       }     
     }
 
-    public bool EditRole(Role role)
+    public bool EditTypeSupply(TypeSupply typeSupply)
     {
         connection.Open();
-        string query = "update role set role_name=($1) where id_role =($2)";
+        string query = "update type_supply set type_supply_name = ($1) where id_type_supply=($2)";
         NpgsqlCommand command = new(query, connection)
         {
             Parameters =
             {
-                new NpgsqlParameter() { Value = role.RoleName }, 
-                new NpgsqlParameter() {Value = role.Id}
+                new NpgsqlParameter() { Value = typeSupply.Name, },
+                new NpgsqlParameter() { Value = typeSupply.Id }
             }
         };
         try
@@ -92,10 +92,10 @@ public class RoleRepository:IRoleInterface
         }
     }
 
-    public bool DeleteRole(int id)
+    public bool DeleteTypeSupply(int id)
     {
         connection.Open();
-        string query = "delete from role where id_role = ($1)";
+        string query = "delete from type_supply where id_type_supply = ($1)";
         NpgsqlCommand command = new(query, connection)
         {
             Parameters = { new NpgsqlParameter() { Value = id } }
@@ -112,14 +112,15 @@ public class RoleRepository:IRoleInterface
         finally
         {
             connection.Close();
-        }
+        } 
+
     }
 
-    public List<Role> GetAllRoles(Role role)
+    public List<TypeSupply> GetAllTypeSupplies(TypeSupply typeSupply)
     {
         connection.Open();
-        List<Role> roles = new();
-        string query = "select * from role";
+        List<TypeSupply> typeSupplies = new();
+        string query = "select * from type_supply";
         NpgsqlCommand command = new(query, connection);
         using (command)
         {
@@ -127,13 +128,14 @@ public class RoleRepository:IRoleInterface
             {
                 while (reader.Read())
                 {
-                    role.Id = Convert.ToInt32(reader["id_role"]);
-                    role.RoleName = reader["role_name"].ToString();
-                    roles.Add(role);
+                    typeSupply.Id = Convert.ToInt32(reader["id_type_supply"]);
+                    typeSupply.Name = reader["type_supply_name"].ToString();
+                    typeSupplies.Add(typeSupply);
+                    
                 }
             }
         }
         connection.Close();
-        return roles;
+        return typeSupplies;
     }
 }

@@ -74,13 +74,14 @@ public class RentRepository:IRentInterface
     public bool EditRent(Rent rent)
     {
         connection.Open();
-        string query = "update rent set price = ($1), id_hall = ($2)";
+        string query = "update rent set price = ($1), id_hall = ($2) where id_rent = ($3)";
         NpgsqlCommand command = new(query, connection)
         {
             Parameters =
             {
                 new NpgsqlParameter() { Value = rent.PriceHour },
-                new NpgsqlParameter() { Value = rent.Hall.Id }
+                new NpgsqlParameter() { Value = rent.Hall.Id },
+                new NpgsqlParameter() {Value = rent.Id}
             }
         };
         try
