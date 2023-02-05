@@ -55,7 +55,7 @@ public class ClientRepository:IClientInterface
         {
             Parameters =
             {
-                new NpgsqlParameter() { Value = client.PersonalInfo }
+                new NpgsqlParameter() { Value = client.PersonalInfo.Id }
             }
         };
         try
