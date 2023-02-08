@@ -3,6 +3,6 @@
 public class EquipmentRent
 {
     public int Id { get; set; }
-    public Equipment Equipment { get; set; }
-    public Rent Rent { get; set; }
+    public Equipment? Equipment { get; set; }
+    public Rent? Rent { get; set; }
 }

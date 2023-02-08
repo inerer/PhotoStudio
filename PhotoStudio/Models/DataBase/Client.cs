@@ -3,5 +3,5 @@
 public class Client
 {
     public int Id { get; set; }
-    public PersonalInfo PersonalInfo { get; set; }
+    public PersonalInfo? PersonalInfo { get; set; }
 }
