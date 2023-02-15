@@ -9,12 +9,17 @@ namespace PhotoStudio.DataBase.Repositories;
 public class WorkerRepository:IWorkerInterface
 {
     private readonly string _connectionString;
+    private readonly RoleRepository _roleRepository;
+    private readonly PersonalInfoRepository _personalInfo;
     private NpgsqlConnection connection;
 
     public WorkerRepository(string connectionString)
     {
+        
         _connectionString = connectionString;
         connection = new NpgsqlConnection(_connectionString);
+        _roleRepository = new RoleRepository(_connectionString);
+        _personalInfo = new PersonalInfoRepository(_connectionString);
     }
 
     public Worker GetWorker(int id)
@@ -34,19 +39,14 @@ public class WorkerRepository:IWorkerInterface
                 while (reader.Read())
                 {
                     worker.Id = Convert.ToInt32(reader["id_worker"]);
-                    worker.Role.RoleName = reader["role_name"].ToString();
-                    worker.PersonalInfo.LastName = reader["last_name"].ToString();
-                    worker.PersonalInfo.FirstName = reader["first_name"].ToString();
-                    worker.PersonalInfo.MiddleName = reader["middle_name"].ToString();
-                    worker.PersonalInfo.Email = reader["email"].ToString();
-                    worker.PersonalInfo.MobilePhone = reader["mobile_phone"].ToString();
                     worker.Login = reader["login"].ToString();
                     worker.Password = reader["password"].ToString();
-
                 }
             }
         }
         connection.Close();
+        worker.Role = _roleRepository.GetRole(worker.Id);
+        worker.PersonalInfo = _personalInfo.GetPersonalInfo(worker.Id);
         return worker;
     }
 
@@ -58,8 +58,8 @@ public class WorkerRepository:IWorkerInterface
         {
             Parameters =
             {
-                new NpgsqlParameter() { Value = worker.Role.Id },
-                new NpgsqlParameter() { Value = worker.PersonalInfo.Id },
+                new NpgsqlParameter() { Value = worker.RoleId },
+                new NpgsqlParameter() { Value = worker.PersonalInfoId },
                 new NpgsqlParameter() { Value = worker.Login },
                 new NpgsqlParameter() { Value = worker.Password }
             }
@@ -88,8 +88,8 @@ public class WorkerRepository:IWorkerInterface
         {
             Parameters =
             {
-                new NpgsqlParameter() { Value = worker.Role.Id },
-                new NpgsqlParameter() { Value = worker.PersonalInfo.Id },
+                new NpgsqlParameter() { Value = worker.RoleId },
+                new NpgsqlParameter() { Value = worker.PersonalInfoId },
                 new NpgsqlParameter() { Value = worker.Login },
                 new NpgsqlParameter() { Value = worker.Password },
                 new NpgsqlParameter() { Value = worker.Id }
@@ -147,12 +147,8 @@ public class WorkerRepository:IWorkerInterface
                 while (reader.Read())
                 {
                     worker.Id = Convert.ToInt32(reader["id_worker"]);
-                    worker.Role.RoleName = reader["role_name"].ToString();
-                    worker.PersonalInfo.LastName = reader["last_name"].ToString();
-                    worker.PersonalInfo.FirstName = reader["first_name"].ToString();
-                    worker.PersonalInfo.MiddleName = reader["middle_name"].ToString();
-                    worker.PersonalInfo.Email = reader["email"].ToString();
-                    worker.PersonalInfo.MobilePhone = reader["mobile_phone"].ToString();
+                    worker.RoleId = Convert.ToInt32(reader["id_role"]);
+                    worker.PersonalInfoId = Convert.ToInt32(reader["id_personal_info"]);
                     worker.Login = reader["login"].ToString();
                     worker.Password = reader["password"].ToString();
                     workers.Add(worker);
@@ -160,6 +156,11 @@ public class WorkerRepository:IWorkerInterface
             }
         }
         connection.Close();
+        foreach (var work in workers)
+        {
+            worker.PersonalInfo = _personalInfo.GetPersonalInfo(worker.PersonalInfoId);
+            worker.Role = _roleRepository.GetRole(worker.RoleId);
+        }
         return workers;
     }
 
@@ -179,19 +180,16 @@ public class WorkerRepository:IWorkerInterface
             {
                 while (reader.Read())
                 {
-                    worker.Id = Convert.ToInt32(reader["id_worker"]);
-                    worker.Role.Id = Convert.ToInt32(reader["id_role"]);
-                    worker.Role.RoleName = reader["role_name"].ToString();
-                    worker.PersonalInfo.LastName = reader["last_name"].ToString();
-                    worker.PersonalInfo.FirstName = reader["first_name"].ToString();
-                    worker.PersonalInfo.MiddleName = reader["middle_name"].ToString();
-                    worker.PersonalInfo.Email = reader["email"].ToString();
-                    worker.PersonalInfo.MobilePhone = reader["mobile_phone"].ToString();
+                    worker.Id = reader.GetInt32(reader.GetOrdinal("id_worker"));
+                    worker.RoleId = reader.GetInt32(reader.GetOrdinal("id_role"));
+                    worker.PersonalInfoId = Convert.ToInt32(reader["id_personal_info"]);
                     worker.Login = reader["login"].ToString();
                     worker.Password = reader["password"].ToString();
                 }
             }
         }
+        worker.Role = _roleRepository.GetRole(worker.RoleId);
+        worker.PersonalInfo = _personalInfo.GetPersonalInfo(worker.PersonalInfoId);//
         connection.Close();
         return worker;
     }

@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using PhotoStudio.Pages;
 
 namespace PhotoStudio
 {
@@ -23,6 +24,7 @@ namespace PhotoStudio
         public MainWindow()
         {
             InitializeComponent();
+            MainFrame.Navigate(new AuthPage());
         }
     }
 }
