@@ -46,11 +46,11 @@ public class PersonalInfoRepository:IPersonalInfoRepository
         return personalInfo;
     }
 
-    public PersonalInfo AddPersonalInfo(PersonalInfo personalInfo)
+    public int AddPersonalInfo(PersonalInfo personalInfo)
     {
         connection.Open();
         string query =
-            "insert into personal_info(last_name, first_name, middle_name, email, mobile_phone) values ($1,$2,$3,$4,$5)";
+            "insert into personal_info(last_name, first_name, middle_name, email, mobile_phone) values ($1,$2,$3,$4,$5) returning id_personal_info";
         NpgsqlCommand command = new(query, connection)
         {
             Parameters =
@@ -62,14 +62,26 @@ public class PersonalInfoRepository:IPersonalInfoRepository
                 new NpgsqlParameter() { Value = personalInfo.MobilePhone }
             }
         };
+        using (command)
+        {
+            // создаем reader
+            using (NpgsqlDataReader reader = command.ExecuteReader())
+            {
+                // проход по полученным данным
+                while (reader.Read())
+                {
+                    personalInfo.Id = Convert.ToInt32(reader["id_personal_info"]);
+                }
+            }
+        }
+        
         try
         {
-            command.ExecuteNonQuery();
-            return personalInfo;
+            return personalInfo.Id;
         }
         catch (Exception e)
         {
-            return null;
+            return 0;
         }
         finally
         {

@@ -39,8 +39,8 @@ public class RoleService:IRoleInterface
         throw new System.NotImplementedException();
     }
 
-    public List<Role> GetAllRoles(Role role)
+    public List<Role> GetAllRoles()
     {
-        return _roleRepository.GetAllRoles(role);
+        return _roleRepository.GetAllRoles();
     }
 }

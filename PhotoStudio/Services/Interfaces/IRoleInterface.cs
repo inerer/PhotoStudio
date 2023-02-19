@@ -9,5 +9,5 @@ public interface IRoleInterface
     public Role AddRole(Role role);
     public bool EditRole(Role role);
     public bool DeleteRole(int id);
-    public List<Role> GetAllRoles(Role role);
+    public List<Role> GetAllRoles();
 }

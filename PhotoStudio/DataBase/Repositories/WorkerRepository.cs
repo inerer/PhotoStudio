@@ -12,6 +12,7 @@ public class WorkerRepository:IWorkerInterface
     private readonly RoleRepository _roleRepository;
     private readonly PersonalInfoRepository _personalInfo;
     private NpgsqlConnection connection;
+    private PersonalInfoRepository _personalInfoRepository;
 
     public WorkerRepository(string connectionString)
     {
@@ -20,6 +21,7 @@ public class WorkerRepository:IWorkerInterface
         connection = new NpgsqlConnection(_connectionString);
         _roleRepository = new RoleRepository(_connectionString);
         _personalInfo = new PersonalInfoRepository(_connectionString);
+        _personalInfoRepository = new PersonalInfoRepository(_connectionString);
     }
 
     public Worker GetWorker(int id)
@@ -53,12 +55,13 @@ public class WorkerRepository:IWorkerInterface
     public Worker AddWorker(Worker worker)
     {
         connection.Open();
+        int personalInfoId = _personalInfoRepository.AddPersonalInfo(worker.PersonalInfo);
         string query = "insert into worker(id_role, id_personal_info, login, password) values ($1, $2, $3, $4)";
         NpgsqlCommand command = new(query, connection)
         {
             Parameters =
             {
-                new NpgsqlParameter() { Value = worker.RoleId },
+                new NpgsqlParameter() { Value = worker.Role.Id },
                 new NpgsqlParameter() { Value = worker.PersonalInfoId },
                 new NpgsqlParameter() { Value = worker.Login },
                 new NpgsqlParameter() { Value = worker.Password }

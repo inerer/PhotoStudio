@@ -25,7 +25,7 @@ public partial class AuthPage : Page
 
     private void RegisterButton_OnClick(object sender, RoutedEventArgs e)
     {
-        throw new System.NotImplementedException();
+        NavigationService.Navigate(new RegistrPage());
     }
 
     private void Login()

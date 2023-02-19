@@ -115,7 +115,7 @@ public class RoleRepository:IRoleInterface
         }
     }
 
-    public List<Role> GetAllRoles(Role role)
+    public List<Role> GetAllRoles()
     {
         connection.Open();
         List<Role> roles = new();
@@ -127,6 +127,7 @@ public class RoleRepository:IRoleInterface
             {
                 while (reader.Read())
                 {
+                    Role role = new Role();
                     role.Id = Convert.ToInt32(reader["id_role"]);
                     role.RoleName = reader["role_name"].ToString();
                     roles.Add(role);

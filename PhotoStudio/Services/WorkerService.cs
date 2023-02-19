@@ -34,7 +34,7 @@ public class WorkerService:IWorkerInterface
 
     public Worker AddWorker(Worker worker)
     {
-        return null;
+        return _workerRepository.AddWorker(worker);
     }
 
     public bool EditWorker(Worker worker)

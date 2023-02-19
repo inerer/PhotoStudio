@@ -5,7 +5,7 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:local="clr-namespace:PhotoStudio.Pages"
       mc:Ignorable="d"
-      Title="RegistrPage" Height="450" Width="800">
+      Title="RegistrPage" Loaded="RegistrPage_OnLoaded" Height="450" Width="800">
     <Grid>
       <TextBlock Text="Регистрация" FontSize="30" Margin="20"></TextBlock>
         <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
@@ -17,6 +17,8 @@
                     <TextBlock Text="LastName" Style="{StaticResource StandardTextBlock}"/>
                     <TextBlock Text="FirstName" Style="{StaticResource StandardTextBlock}"/>
                     <TextBlock Text="MiddleName" Style="{StaticResource StandardTextBlock}"/>
+                    <TextBlock Text="Email" Style="{StaticResource StandardTextBlock}"/>
+                    <TextBlock Text="Phone" Style="{StaticResource StandardTextBlock}"/>
                     <TextBlock Text="Role" Style="{StaticResource StandardTextBlock}"/>
                 </StackPanel>
             
@@ -26,8 +28,10 @@
                     <TextBox Name="LastNameTextBox" Style="{StaticResource StandardTextBox}"/>
                     <TextBox Name="FirstNameTextBox" Style="{StaticResource StandardTextBox}"/>
                     <TextBox Name="MiddleNameTextBox" Style="{StaticResource StandardTextBox}"/>
+                    <TextBox Name="EmailTextBox" Style="{StaticResource StandardTextBox}"/>
+                    <TextBox Name="MobilePhoneTextBox" Style="{StaticResource StandardTextBox}"/>
                     <StackPanel Orientation="Horizontal">
-                        <ComboBox Name="RoleComboBox" Width="125" Height="25" Margin="5" DisplayMemberPath="Name" SelectionChanged="RoleComboBox_OnSelectionChanged"></ComboBox>
+                        <ComboBox Name="RoleComboBox" Width="125" Height="25" Margin="5" DisplayMemberPath="RoleName" SelectionChanged="RoleComboBox_OnSelectionChanged"></ComboBox>
                         <Button Name="AddRoleButton" Width="25" Height="25" Content="+" Click="AddRoleButton_OnClick"></Button>
                     </StackPanel>
                     
