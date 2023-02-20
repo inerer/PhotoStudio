@@ -55,7 +55,6 @@ public class WorkerRepository:IWorkerInterface
     public Worker AddWorker(Worker worker)
     {
         connection.Open();
-        int personalInfoId = _personalInfoRepository.AddPersonalInfo(worker.PersonalInfo);
         string query = "insert into worker(id_role, id_personal_info, login, password) values ($1, $2, $3, $4)";
         NpgsqlCommand command = new(query, connection)
         {

@@ -1,5 +1,6 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 using PhotoStudio.DataBase.Repositories;
 using PhotoStudio.Models.DataBase;
 using PhotoStudio.Services;
@@ -23,18 +24,13 @@ public partial class AuthPage : Page
         Login();
     }
 
-    private void RegisterButton_OnClick(object sender, RoutedEventArgs e)
-    {
-        NavigationService.Navigate(new RegistrPage());
-    }
-
     private void Login()
     {
         GetData();
         if (_workerService.Auth(_login, _password))
         {
             Worker worker = _workerService.GetWorkerByLogin(_login);
-            NavigationService.Navigate(new NextPAge());
+                //NavigationService.Navigate();
         }
         else
         {
@@ -47,5 +43,15 @@ public partial class AuthPage : Page
     {
         _login = LoginTextBox.Text;
         _password = PasswordBox.Password;
+    }
+
+    private void RegistrationTextBlock_OnMouseDown(object sender, MouseButtonEventArgs e)
+    {
+        NavigationService.Navigate(new RegistrPage());
+    }
+
+    private void GuestButton_OnClick(object sender, RoutedEventArgs e)
+    {
+        throw new System.NotImplementedException();
     }
 }

@@ -10,17 +10,19 @@ namespace PhotoStudio.Pages;
 public partial class RegistrPage : Page
 {
     private PersonalInfo _newPersonalInfo;
-    private  Worker _newWorker;
+    private Worker _newWorker;
     private PersonalInfoService _personalInfoService;
     private RoleService _roleService;
     private Role _role;
     private WorkerService _workerService;
     
+    
     public RegistrPage()
     {
-        InitializeComponent();
-        _newPersonalInfo = new PersonalInfo();
         _newWorker = new Worker();
+        _newPersonalInfo = new PersonalInfo();
+        InitializeComponent();
+        
         _workerService = new WorkerService();
         _newPersonalInfo = new PersonalInfo();
         _personalInfoService = new PersonalInfoService();
@@ -46,6 +48,7 @@ public partial class RegistrPage : Page
     private void RegistrationButton_OnClick(object sender, RoutedEventArgs e)
     {
         GetAllInfoFromPage();
+        _newWorker.PersonalInfoId = _personalInfoService.AddPersonalInfo(_newPersonalInfo);
         _workerService.AddWorker(_newWorker);
     }
 
@@ -57,11 +60,13 @@ public partial class RegistrPage : Page
 
     private void GetAllInfoFromPage()
     {
-        _newWorker.PersonalInfo.LastName = LastNameTextBox.Text;
-        _newWorker.PersonalInfo.FirstName = FirstNameTextBox.Text;
-        _newWorker.PersonalInfo.MiddleName = MiddleNameTextBox.Text;
-        _newWorker.PersonalInfo.Email = EmailTextBox.Text;
-        _newWorker.PersonalInfo.MobilePhone = MobilePhoneTextBox.Text;
+        _newPersonalInfo.FirstName = FirstNameTextBox.Text;
+        _newPersonalInfo.LastName = LastNameTextBox.Text;
+        _newPersonalInfo.MiddleName = MiddleNameTextBox.Text;
+        _newPersonalInfo.MobilePhone = MobilePhoneTextBox.Text;
+        _newPersonalInfo.Email = EmailTextBox.Text;
+        _newWorker.Login = LoginTextBox.Text;
+        _newWorker.Password = PasswordBox.Password;
     }
     
 }

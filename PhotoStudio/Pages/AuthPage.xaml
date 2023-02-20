@@ -26,9 +26,26 @@
             </StackPanel>
             <!-- кнопки -->
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                <Button Name="LoginButton" Width="100" Height="25" Margin="5" Content="Вход" Click="LoginButton_OnClick"/>
-                <Button Name="RegisterButton" Width="100" Height="25" Margin="5" Content="Регистрация" Click="RegisterButton_OnClick"/>
+                <Button Background="Transparent"  Name="LoginButton" Width="100" Height="25" Margin="5" Content="Вход" Click="LoginButton_OnClick"/>
+                <Button Background="Transparent" Name="GuestButton" Width="100" Height="25" Margin="5" Content="Гость" Click="GuestButton_OnClick"/>
             </StackPanel>
+            
+            <TextBlock Name="RegistrationTextBlock" Text="Регистрация" MouseDown="RegistrationTextBlock_OnMouseDown">
+                <TextBlock.Style>
+                    <Style TargetType="TextBlock">
+                        <Setter Property="Foreground" Value="Blue"></Setter>
+                        <Setter Property="ToolTip" Value="Регистрация нового аккаунта"></Setter>
+                        <Setter Property="HorizontalAlignment" Value="Center"></Setter>
+                        <Setter Property="FontSize" Value="12"></Setter>
+                        <Style.Triggers>
+                            <Trigger Property="TextBlock.IsMouseOver" Value="True">
+                                <Setter Property="Foreground" Value="DodgerBlue"></Setter>
+                                <Setter Property="TextDecorations" Value="Underline"></Setter>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </TextBlock.Style>
+            </TextBlock>
             
         </StackPanel>
     </Grid>

@@ -46,6 +46,8 @@ public class PersonalInfoRepository:IPersonalInfoRepository
         return personalInfo;
     }
 
+    
+
     public int AddPersonalInfo(PersonalInfo personalInfo)
     {
         connection.Open();
