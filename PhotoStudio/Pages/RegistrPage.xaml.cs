@@ -4,6 +4,7 @@ using System.Windows.Controls;
 using PhotoStudio.DataBase.Repositories;
 using PhotoStudio.Models.DataBase;
 using PhotoStudio.Services;
+using PhotoStudio.Windows;
 
 namespace PhotoStudio.Pages;
 
@@ -36,7 +37,8 @@ public partial class RegistrPage : Page
 
     private void AddRoleButton_OnClick(object sender, RoutedEventArgs e)
     {
-        throw new System.NotImplementedException();
+        AddRoleWindow addRoleWindow = new();
+        addRoleWindow.ShowDialog();
     }
 
     private void CancelButton_OnClick(object sender, RoutedEventArgs e)

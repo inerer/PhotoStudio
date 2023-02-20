@@ -26,7 +26,7 @@ public class RoleService:IRoleInterface
 
     public Role AddRole(Role role)
     {
-        throw new System.NotImplementedException();
+        return _roleRepository.AddRole(role);
     }
 
     public bool EditRole(Role role)
