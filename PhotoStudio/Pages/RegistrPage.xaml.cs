@@ -10,12 +10,14 @@ namespace PhotoStudio.Pages;
 
 public partial class RegistrPage : Page
 {
-    private PersonalInfo _newPersonalInfo;
-    private Worker _newWorker;
-    private PersonalInfoService _personalInfoService;
+    private readonly PersonalInfo _newPersonalInfo;
+    private readonly Worker _newWorker;
+    private readonly PersonalInfoService _personalInfoService;
     private RoleService _roleService;
     private Role _role;
-    private WorkerService _workerService;
+    private readonly WorkerService _workerService;
+    private PasswordValidate _passwordValidate;
+    private GetHash _getHash;
     
     
     public RegistrPage()
@@ -23,10 +25,10 @@ public partial class RegistrPage : Page
         _newWorker = new Worker();
         _newPersonalInfo = new PersonalInfo();
         InitializeComponent();
-        
         _workerService = new WorkerService();
         _newPersonalInfo = new PersonalInfo();
         _personalInfoService = new PersonalInfoService();
+        
         _role = new Role();
     }
 
@@ -50,6 +52,7 @@ public partial class RegistrPage : Page
     private void RegistrationButton_OnClick(object sender, RoutedEventArgs e)
     {
         GetAllInfoFromPage();
+        PasswordCheck();
         _newWorker.PersonalInfoId = _personalInfoService.AddPersonalInfo(_newPersonalInfo);
         _workerService.AddWorker(_newWorker);
     }
@@ -68,7 +71,16 @@ public partial class RegistrPage : Page
         _newPersonalInfo.MobilePhone = MobilePhoneTextBox.Text;
         _newPersonalInfo.Email = EmailTextBox.Text;
         _newWorker.Login = LoginTextBox.Text;
-        _newWorker.Password = PasswordBox.Password;
+    }
+
+    private void PasswordCheck()
+    {
+        _passwordValidate = new PasswordValidate();
+        _getHash = new GetHash();
+        if (_passwordValidate.PasswordResult(PasswordBox.Password))
+            _newWorker.Password = _getHash.GetHash1(PasswordBox.Password);
+        else
+            MessageBox.Show("Пароль не подходит под стандарты");
     }
     
 }

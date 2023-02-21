@@ -11,6 +11,7 @@ public partial class AuthPage : Page
 {
     private string? _login;
     private string? _password;
+    private GetHash _getHash;
     private readonly WorkerService _workerService;
     public AuthPage()
     {
@@ -41,8 +42,11 @@ public partial class AuthPage : Page
 
     private void GetData()
     {
+        _getHash = new GetHash();
         _login = LoginTextBox.Text;
-        _password = PasswordBox.Password;
+        _password = _getHash.GetHash1(PasswordBox.Password);
+
+
     }
 
     private void RegistrationTextBlock_OnMouseDown(object sender, MouseButtonEventArgs e)
