@@ -18,6 +18,7 @@ public partial class RegistrPage : Page
     private readonly WorkerService _workerService;
     private PasswordValidate _passwordValidate;
     private GetHash _getHash;
+    private PhoneNumberValidate _phoneNumberValidate;
     
     
     public RegistrPage()
@@ -52,9 +53,16 @@ public partial class RegistrPage : Page
     private void RegistrationButton_OnClick(object sender, RoutedEventArgs e)
     {
         GetAllInfoFromPage();
-        PasswordCheck();
-        _newWorker.PersonalInfoId = _personalInfoService.AddPersonalInfo(_newPersonalInfo);
-        _workerService.AddWorker(_newWorker);
+        if (PasswordCheck() &&  PhoneNumberCheck() )
+        {
+            _newWorker.PersonalInfoId = _personalInfoService.AddPersonalInfo(_newPersonalInfo);
+            _workerService.AddWorker(_newWorker);
+        }
+        else
+        {
+            MessageBox.Show("Регистрация прошла не удачно");
+        }
+       
     }
 
     private void RegistrPage_OnLoaded(object sender, RoutedEventArgs e)
@@ -68,19 +76,39 @@ public partial class RegistrPage : Page
         _newPersonalInfo.FirstName = FirstNameTextBox.Text;
         _newPersonalInfo.LastName = LastNameTextBox.Text;
         _newPersonalInfo.MiddleName = MiddleNameTextBox.Text;
-        _newPersonalInfo.MobilePhone = MobilePhoneTextBox.Text;
         _newPersonalInfo.Email = EmailTextBox.Text;
         _newWorker.Login = LoginTextBox.Text;
     }
 
-    private void PasswordCheck()
+    private bool PhoneNumberCheck()
+    {
+        _phoneNumberValidate = new PhoneNumberValidate();
+        if (_phoneNumberValidate.CheckFirstSymbol(MobilePhoneTextBox.Text))
+        {
+            _newPersonalInfo.MobilePhone = MobilePhoneTextBox.Text;
+            return true;
+        }
+        else
+        {
+            return false;
+            MessageBox.Show("Неверный номер");
+        }
+    }
+
+    private bool PasswordCheck()
     {
         _passwordValidate = new PasswordValidate();
         _getHash = new GetHash();
         if (_passwordValidate.PasswordResult(PasswordBox.Password))
+        {
             _newWorker.Password = _getHash.GetHash1(PasswordBox.Password);
+            return true;
+        }
+
         else
+        {
             MessageBox.Show("Пароль не подходит под стандарты");
+            return false;
+        }
     }
-    
 }
