@@ -31,11 +31,11 @@ public partial class AuthPage : Page
         if (_workerService.Auth(_login, _password))
         {
             Worker worker = _workerService.GetWorkerByLogin(_login);
-                //NavigationService.Navigate();
+                NavigationService.Navigate(new RegistrPage());
         }
         else
         {
-            MessageBox.Show("Иди в попу");
+            MessageBox.Show("Не удалось зайти");
         }
         
     }
@@ -45,8 +45,6 @@ public partial class AuthPage : Page
         _getHash = new GetHash();
         _login = LoginTextBox.Text;
         _password = _getHash.GetHash1(PasswordBox.Password);
-
-
     }
 
     private void RegistrationTextBlock_OnMouseDown(object sender, MouseButtonEventArgs e)

@@ -23,27 +23,27 @@ public partial class RegistrPage : Page
     
     public RegistrPage()
     {
-        _newWorker = new Worker();
-        _newPersonalInfo = new PersonalInfo();
         InitializeComponent();
         _workerService = new WorkerService();
         _newPersonalInfo = new PersonalInfo();
         _personalInfoService = new PersonalInfoService();
-        
         _role = new Role();
+        _newWorker = new Worker();
+        _newPersonalInfo = new PersonalInfo();
     }
-
+    
     private void RoleComboBox_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
     {
         _newWorker.Role = (Role)RoleComboBox.SelectedItem;
     }
-
+    
     private void AddRoleButton_OnClick(object sender, RoutedEventArgs e)
     {
         AddRoleWindow addRoleWindow = new();
         addRoleWindow.ShowDialog();
+        RoleComboBox.ItemsSource = _roleService.GetAllRoles();
     }
-
+    
     private void CancelButton_OnClick(object sender, RoutedEventArgs e)
     {
         if(NavigationService.CanGoBack)
@@ -62,24 +62,31 @@ public partial class RegistrPage : Page
         {
             MessageBox.Show("Регистрация прошла не удачно");
         }
-       
     }
-
+    
     private void RegistrPage_OnLoaded(object sender, RoutedEventArgs e)
     {
         _roleService = new RoleService();
         RoleComboBox.ItemsSource = _roleService.GetAllRoles();
     }
-
+    
     private void GetAllInfoFromPage()
     {
-        _newPersonalInfo.FirstName = FirstNameTextBox.Text;
-        _newPersonalInfo.LastName = LastNameTextBox.Text;
-        _newPersonalInfo.MiddleName = MiddleNameTextBox.Text;
-        _newPersonalInfo.Email = EmailTextBox.Text;
-        _newWorker.Login = LoginTextBox.Text;
+        try
+        {
+            _newPersonalInfo.FirstName = FirstNameTextBox.Text;
+            _newPersonalInfo.LastName = LastNameTextBox.Text;
+            _newPersonalInfo.MiddleName = MiddleNameTextBox.Text;
+            _newPersonalInfo.Email = EmailTextBox.Text;
+            _newWorker.Login = LoginTextBox.Text;
+        }
+        catch 
+        {
+            MessageBox.Show("Ошибка!");
+        }
+        
     }
-
+    
     private bool PhoneNumberCheck()
     {
         _phoneNumberValidate = new PhoneNumberValidate();
@@ -104,7 +111,6 @@ public partial class RegistrPage : Page
             _newWorker.Password = _getHash.GetHash1(PasswordBox.Password);
             return true;
         }
-
         else
         {
             MessageBox.Show("Пароль не подходит под стандарты");
