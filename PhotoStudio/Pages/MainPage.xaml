@@ -1,0 +1,45 @@
+﻿<Page x:Class="PhotoStudio.Pages.MainPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:local="clr-namespace:PhotoStudio.Pages"
+      mc:Ignorable="d"
+      Title="MainPage" Height="450" Width="800">
+    <Grid >
+        <Grid.RowDefinitions>
+            <RowDefinition Height="10*"></RowDefinition>
+            <RowDefinition Height="90*"></RowDefinition>
+        </Grid.RowDefinitions>
+        
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="10*"></ColumnDefinition>
+            <ColumnDefinition Width="50*"></ColumnDefinition>
+            <ColumnDefinition Width="40*"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        
+        <StackPanel Grid.Column="2" Grid.Row="0">
+            <TextBlock Name="LastNameTextBlock"></TextBlock>
+            <TextBlock Name="FirstNameTextBlock"></TextBlock>
+        </StackPanel>
+        <TabControl Grid.Row="1" Grid.ColumnSpan="3" Grid.Column="0">
+            <TabItem Header="Заявки">
+                <ListView Name="RequestListView" Margin="0,0,15,0" >
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Vertical" Height="75" Margin="5" MouseDown="UIElement_OnMouseDown" >
+                                <TextBlock  Name="ClientLastNameNameTextBlock" Text="{Binding Client.PersonalInfo.LastName}" ></TextBlock>
+                                <TextBlock Name="ClientFirstNAmeTextBlock" Text="{Binding Client.PersonalInfo.FirstName}"></TextBlock>
+                                <TextBlock Name="RequestTimeStamp" Text="{Binding RequestTimestamp}"></TextBlock>
+                            </StackPanel>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </TabItem>
+            <TabItem Header="Заказы">
+                
+            </TabItem>
+        </TabControl>
+        
+    </Grid>
+</Page>

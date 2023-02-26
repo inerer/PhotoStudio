@@ -139,14 +139,23 @@ public class RequestRepository:IRequestInterface
             {
                 while (reader.Read())
                 {
-                    request.Id = Convert.ToInt32(reader["id_request"]);
-                    request.RequestTimestamp = Convert.ToDateTime(reader["request_timestamp"]);
-                    request.Client.Id = Convert.ToInt32(reader["id_client"]);
-                    request.Client.PersonalInfo.LastName = reader["last_name"].ToString();
-                    request.Client.PersonalInfo.FirstName = reader["first_name"].ToString();
-                    request.Client.PersonalInfo.MiddleName = reader["middle_name"].ToString();
-                    request.Client.PersonalInfo.MobilePhone = reader["mobile_phone"].ToString();
-                    request.Client.PersonalInfo.Email = reader["email"].ToString();
+                    request = new Request
+                    {
+                        Id = Convert.ToInt32(reader["id_request"]),
+                        RequestTimestamp = Convert.ToDateTime(reader["request_timestamp"]),
+                        Client =
+                        {
+                            Id = Convert.ToInt32(reader["id_client"]),
+                            PersonalInfo =
+                            {
+                                LastName = reader["last_name"].ToString(),
+                                FirstName = reader["first_name"].ToString(),
+                                MiddleName = reader["middle_name"].ToString(),
+                                MobilePhone = reader["mobile_phone"].ToString(),
+                                Email = reader["email"].ToString()
+                            }
+                        }
+                    };
                     requests.Add(request);
                 }
             }

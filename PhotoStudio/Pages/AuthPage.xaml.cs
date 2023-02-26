@@ -31,7 +31,7 @@ public partial class AuthPage : Page
         if (_workerService.Auth(_login, _password))
         {
             Worker worker = _workerService.GetWorkerByLogin(_login);
-                NavigationService.Navigate(new RegistrPage());
+                NavigationService.Navigate(new MainPage(worker));
         }
         else
         {

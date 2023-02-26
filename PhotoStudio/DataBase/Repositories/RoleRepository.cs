@@ -127,9 +127,11 @@ public class RoleRepository:IRoleInterface
             {
                 while (reader.Read())
                 {
-                    Role role = new Role();
-                    role.Id = Convert.ToInt32(reader["id_role"]);
-                    role.RoleName = reader["role_name"].ToString();
+                    Role role = new Role
+                    {
+                        Id = Convert.ToInt32(reader["id_role"]),
+                        RoleName = reader["role_name"].ToString()
+                    };
                     roles.Add(role);
                 }
             }
