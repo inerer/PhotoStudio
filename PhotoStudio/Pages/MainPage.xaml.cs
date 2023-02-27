@@ -38,4 +38,9 @@ public partial class MainPage : Page
     {
         throw new System.NotImplementedException();
     }
+
+    private void RequestListView_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
+    {
+        throw new System.NotImplementedException();
+    }
 }

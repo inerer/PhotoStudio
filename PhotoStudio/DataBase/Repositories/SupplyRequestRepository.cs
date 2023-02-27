@@ -22,7 +22,7 @@ public class SupplyRequestRepository:ISupplyRequestInterface
         connection.Open();
         SupplyRequest supplyRequest = new();
         string query =
-            "select * from supply_request join supply s on supply_request.id_supply = s.id_supply join request r on supply_request.id_request = r.id_request where id_supply_request=($1)";
+            "select * from supply_request join supply s on supply_request.id_supply = s.id_supply join request r on supply_request.id_request = r.id_request join rent r2 on s.id_rent = r2.id_rent join client c on r.id_client = c.id_client where id_supply_request=($1)";
         NpgsqlCommand command = new(query, connection)
         {
             Parameters = { new NpgsqlParameter() { Value = id } }

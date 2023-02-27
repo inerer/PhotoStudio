@@ -24,10 +24,10 @@
         </StackPanel>
         <TabControl Grid.Row="1" Grid.ColumnSpan="3" Grid.Column="0">
             <TabItem Header="Заявки">
-                <ListView Name="RequestListView" Margin="0,0,15,0" >
+                <ListView Name="RequestListView" Margin="0,0,15,0" SelectionChanged="RequestListView_OnSelectionChanged" >
                     <ListView.ItemTemplate>
                         <DataTemplate>
-                            <StackPanel Orientation="Vertical" Height="75" Margin="5" MouseDown="UIElement_OnMouseDown" >
+                            <StackPanel Orientation="Vertical" Height="75" Margin="5" >
                                 <TextBlock  Name="ClientLastNameNameTextBlock" Text="{Binding Client.PersonalInfo.LastName}" ></TextBlock>
                                 <TextBlock Name="ClientFirstNAmeTextBlock" Text="{Binding Client.PersonalInfo.FirstName}"></TextBlock>
                                 <TextBlock Name="RequestTimeStamp" Text="{Binding RequestTimestamp}"></TextBlock>
@@ -40,6 +40,5 @@
                 
             </TabItem>
         </TabControl>
-        
     </Grid>
 </Page>
