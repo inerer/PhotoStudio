@@ -2,6 +2,7 @@
 using System.Windows.Input;
 using PhotoStudio.Models.DataBase;
 using PhotoStudio.Services;
+using PhotoStudio.Windows;
 
 namespace PhotoStudio.Pages;
 
@@ -16,6 +17,7 @@ public partial class MainPage : Page
         _worker = worker;
         _request = new Request();
         _requestService = new RequestService();
+        
         InitializeComponent();
         RenderWorker();
         RequestListBoxRendered();
@@ -30,17 +32,14 @@ public partial class MainPage : Page
     private void RequestListBoxRendered()
     {
         RequestListView.ItemsSource = _requestService.Requests(_request);
-        var a = RequestListView.SelectedItem;
-    }
-
-
-    private void UIElement_OnMouseDown(object sender, MouseButtonEventArgs e)
-    {
-        throw new System.NotImplementedException();
     }
 
     private void RequestListView_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
     {
-        throw new System.NotImplementedException();
+        var selectedItem = (Request)RequestListView.SelectedItem;
+        FullRequestInfoWindow fullRequestInfoWindow = new FullRequestInfoWindow(selectedItem);
+        fullRequestInfoWindow.ShowDialog();
+        //NavigationService.Navigate(new FullInfo(selectedItem));
+
     }
 }

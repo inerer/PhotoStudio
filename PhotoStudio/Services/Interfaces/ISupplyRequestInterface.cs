@@ -10,4 +10,5 @@ public interface ISupplyRequestInterface
     public bool EditSupplyRequest(SupplyRequest supplyRequest);
     public bool DeleteSupplyRequest(int id);
     public List<SupplyRequest> GetAllSupplyRequests(SupplyRequest supplyRequest);
+    public List<SupplyRequest> GelSupplyRequestByRequestId(Request request);
 }

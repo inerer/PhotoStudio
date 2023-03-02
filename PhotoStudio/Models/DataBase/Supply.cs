@@ -4,6 +4,12 @@ namespace PhotoStudio.Models.DataBase;
 
 public class Supply
 {
+    public Supply()
+    {
+        TypeSupply = new TypeSupply();
+        Rent = new Rent();
+    }
+
     public int Id { get; set; }
     public TypeSupply? TypeSupply { get; set; }
     public Rent? Rent { get; set; }

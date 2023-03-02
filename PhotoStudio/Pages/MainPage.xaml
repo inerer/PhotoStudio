@@ -5,6 +5,7 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:local="clr-namespace:PhotoStudio.Pages"
       mc:Ignorable="d"
+      
       Title="MainPage" Height="450" Width="800">
     <Grid >
         <Grid.RowDefinitions>
@@ -22,14 +23,14 @@
             <TextBlock Name="LastNameTextBlock"></TextBlock>
             <TextBlock Name="FirstNameTextBlock"></TextBlock>
         </StackPanel>
+        
         <TabControl Grid.Row="1" Grid.ColumnSpan="3" Grid.Column="0">
             <TabItem Header="Заявки">
                 <ListView Name="RequestListView" Margin="0,0,15,0" SelectionChanged="RequestListView_OnSelectionChanged" >
                     <ListView.ItemTemplate>
                         <DataTemplate>
                             <StackPanel Orientation="Vertical" Height="75" Margin="5" >
-                                <TextBlock  Name="ClientLastNameNameTextBlock" Text="{Binding Client.PersonalInfo.LastName}" ></TextBlock>
-                                <TextBlock Name="ClientFirstNAmeTextBlock" Text="{Binding Client.PersonalInfo.FirstName}"></TextBlock>
+                                <TextBlock  Name="ClientLastNameNameTextBlock" Text="{Binding Client.PersonalInfo.FullName}" ></TextBlock>
                                 <TextBlock Name="RequestTimeStamp" Text="{Binding RequestTimestamp}"></TextBlock>
                             </StackPanel>
                         </DataTemplate>

@@ -26,5 +26,10 @@ namespace PhotoStudio
             InitializeComponent();
             MainFrame.Navigate(new AuthPage());
         }
+
+        private void MainFrame_OnContentRendered(object? sender, EventArgs e)
+        {
+            
+        }
     }
 }

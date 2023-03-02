@@ -7,6 +7,7 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
-        <Frame Name="MainFrame" NavigationUIVisibility="Hidden"></Frame>
+        <Frame Name="MainFrame" NavigationUIVisibility="Hidden" ContentRendered="MainFrame_OnContentRendered"></Frame>
+        <Button Content="Назад" VerticalAlignment="Top" HorizontalAlignment="Left" ></Button>
     </Grid>
 </Window>
