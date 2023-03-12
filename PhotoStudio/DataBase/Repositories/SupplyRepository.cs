@@ -157,8 +157,8 @@ public class SupplyRepository:ISupplyInterface
                     supply.SupplyTimestamp = Convert.ToDateTime(reader["timestamp_supply"]);
                     supply.TypeSupply.Name = reader["type_supply_name"].ToString();
                     supply.Rent.PriceHour = Convert.ToDecimal(reader["price_hour"]);
-                    supply.Rent.Hall.Description = reader["description"].ToString();
-                    supply.Rent.Hall.Address = reader["address"].ToString();
+                    //supply.Rent.Hall.Description = reader["description"].ToString();
+                   // supply.Rent.Hall.Address = reader["address"].ToString();
                     supplies.Add(supply);
                 }
             }

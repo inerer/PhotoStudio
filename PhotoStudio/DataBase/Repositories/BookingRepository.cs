@@ -174,7 +174,6 @@ public class BookingRepository : IBookingInterface
                 }
             }
         }
-
         connection.Close();
         return bookings;
     }

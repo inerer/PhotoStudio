@@ -54,6 +54,6 @@ public partial class AuthPage : Page
 
     private void GuestButton_OnClick(object sender, RoutedEventArgs e)
     {
-        throw new System.NotImplementedException();
+        NavigationService.Navigate(new ClientPage());
     }
 }

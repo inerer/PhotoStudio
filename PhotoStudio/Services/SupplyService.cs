@@ -6,41 +6,41 @@ using PhotoStudio.Services.Interfaces;
 
 namespace PhotoStudio.Services;
 
-public class PersonalInfoService:IPersonalInfoRepository
+public class SupplyService:ISupplyInterface
 {
     private readonly string _connectionString;
-    private readonly PersonalInfoRepository _personalInfoRepository;
-    public PersonalInfoService()
+    private readonly SupplyRepository _supplyRepository;
+
+    public SupplyService()
     {
         var configBuilder = new ConfigurationBuilder().AddJsonFile( "C:/Users/arshi/RiderProjects/PhotoStudio/PhotoStudio/appsettings.json").Build();
         var configSection = configBuilder.GetSection("ConnectionStrings");
         _connectionString = configSection["PhotoStudioDB"] ?? null;
-        _personalInfoRepository = new PersonalInfoRepository(_connectionString);
-        
+        _supplyRepository = new SupplyRepository(_connectionString);
     }
 
-    public PersonalInfo GetPersonalInfo(int id)
+    public Supply GetSupply(int id)
     {
         throw new System.NotImplementedException();
     }
 
-    public int AddPersonalInfo(PersonalInfo personalInfo)
-    {
-        return _personalInfoRepository.AddPersonalInfo(personalInfo);
-    }
-
-    public bool EditPersonalInfo(PersonalInfo personalInfo)
+    public Supply AddSupply(Supply supply)
     {
         throw new System.NotImplementedException();
     }
 
-    public bool DeletePersonalInfo(int id)
+    public bool EditSupply(Supply supply)
     {
         throw new System.NotImplementedException();
     }
 
-    public List<PersonalInfo> GelAllPersonalInfos(PersonalInfo personalInfo)
+    public bool DeleteSupply(int id)
     {
         throw new System.NotImplementedException();
+    }
+
+    public List<Supply> GetAllSupplies(Supply supply)
+    {
+        return _supplyRepository.GetAllSupplies(supply);
     }
 }
