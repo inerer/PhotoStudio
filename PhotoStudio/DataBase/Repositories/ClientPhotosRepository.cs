@@ -6,24 +6,23 @@ using PhotoStudio.Services.Interfaces;
 
 namespace PhotoStudio.DataBase.Repositories;
 
-public class ClientPhotosRepository:IClientPhotosInterface
+public class ClientPhotosRepository:RepositoryBase ,IClientPhotosInterface
 {
-    private readonly string _connectionString;
-    private NpgsqlConnection connection;
+    private readonly NpgsqlConnection _connection;
 
-    public ClientPhotosRepository(string connectionString)
+    public ClientPhotosRepository()
     {
-        _connectionString = connectionString;
-        connection = new NpgsqlConnection(_connectionString);
+        
+        _connection = GetConnection();
     }
 
     public ClientPhotos GetClientPhotos(int id)
     {
-        connection.Open();
+        _connection.Open();
         ClientPhotos clientPhotos = new();
         string query =
             "select * from client_photos join request r on r.id_request = client_photos.id_request where id_client_photos=($1)";
-        NpgsqlCommand command = new(query, connection)
+        NpgsqlCommand command = new(query, _connection)
         {
             Parameters =
             {
@@ -49,18 +48,18 @@ public class ClientPhotosRepository:IClientPhotosInterface
                 }
             }
         }
-        connection.Close();
+        _connection.Close();
         return clientPhotos;
     }
 
     public List<ClientPhotos> GetPhotoForRequest(int id)
     {
-        connection.Open();
+        _connection.Open();
         ClientPhotos clientPhotos = new();
         List<ClientPhotos> clientPhotosList = new();
         string query =
             "select * from client_photos join request r on r.id_request = client_photos.id_request where r.id_request=($1)";
-        NpgsqlCommand command = new(query, connection)
+        NpgsqlCommand command = new(query, _connection)
         {
             Parameters = { new NpgsqlParameter() { Value = id } }
         };
@@ -84,15 +83,15 @@ public class ClientPhotosRepository:IClientPhotosInterface
                 }
             }
         }
-        connection.Close();
+        _connection.Close();
         return clientPhotosList;
     }
 
     public ClientPhotos AddClientPhotos(ClientPhotos clientPhotos)
     {
-        connection.Open();
+        _connection.Open();
         string query = "insert into client_photos(photo, id_request) values ($1, $2)";
-        NpgsqlCommand command = new(query, connection)
+        NpgsqlCommand command = new(query, _connection)
         {
             Parameters =
             {
@@ -111,15 +110,15 @@ public class ClientPhotosRepository:IClientPhotosInterface
         }
         finally
         {
-            connection.Close();
+            _connection.Close();
         } 
     }
 
     public bool EditClientPhotos(ClientPhotos clientPhotos)
     {
-        connection.Open();
+        _connection.Open();
         string query = "update client_photos set photo = ($1), id_request = ($2) where id_client_photos =($3)";
-        NpgsqlCommand command = new(query, connection)
+        NpgsqlCommand command = new(query, _connection)
         {
             Parameters =
             {
@@ -139,15 +138,15 @@ public class ClientPhotosRepository:IClientPhotosInterface
         }
         finally
         {
-            connection.Close();
+            _connection.Close();
         }  
     }
 
     public bool DeleteClientPhotos(int id)
     {
-        connection.Open();
+        _connection.Open();
         string query = "delete from client_photos where id_client_photos= ($1)";
-        NpgsqlCommand command = new(query, connection)
+        NpgsqlCommand command = new(query, _connection)
         {
             Parameters = { new NpgsqlParameter() { Value = id } }
         };
@@ -162,17 +161,17 @@ public class ClientPhotosRepository:IClientPhotosInterface
         }
         finally
         {
-            connection.Close();
+            _connection.Close();
         }  
     }
 
     public List<ClientPhotos> GetAllClientPhotosList(ClientPhotos clientPhotos)
     {
-       connection.Open();
+       _connection.Open();
        List<ClientPhotos> clientPhotosList = new();
        string query =
            "select * from client_photos join request r on r.id_request = client_photos.id_request";
-       NpgsqlCommand command = new(query, connection);
+       NpgsqlCommand command = new(query, _connection);
        using (command)
        {
            using (NpgsqlDataReader reader = command.ExecuteReader())
@@ -193,7 +192,7 @@ public class ClientPhotosRepository:IClientPhotosInterface
                }
            }
        }
-       connection.Close();
+       _connection.Close();
        return clientPhotosList;
     }
 }

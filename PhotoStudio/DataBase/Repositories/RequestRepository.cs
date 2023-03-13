@@ -6,24 +6,23 @@ using PhotoStudio.Services.Interfaces;
 
 namespace PhotoStudio.DataBase.Repositories;
 
-public class RequestRepository:IRequestInterface
+public class RequestRepository:RepositoryBase ,IRequestInterface
 {
-    private readonly string _connectionString;
-    private NpgsqlConnection connection;
+    private readonly NpgsqlConnection _connection;
 
-    public RequestRepository(string connectionString)
+    public RequestRepository()
     {
-        _connectionString = connectionString;
-        connection = new NpgsqlConnection(_connectionString);
+        
+        _connection = GetConnection();
     }
 
     public Request GetRequest(int id)
     {
-        connection.Open();
+        _connection.Open();
         Request request = new();
         string query =
             "select * from request join client  on request.id_client = client.id_client join personal_info pi on client.id_personal_info = pi.id_personal_info where id_request=($1)";
-        NpgsqlCommand command = new(query, connection)
+        NpgsqlCommand command = new(query, _connection)
         {
             Parameters = { new NpgsqlParameter() { Value = id } }
         };
@@ -44,15 +43,15 @@ public class RequestRepository:IRequestInterface
                 }
             }
         }
-        connection.Close();
+        _connection.Close();
         return request;
     }
 
     public Request AddRequest(Request request)
     {
-        connection.Open();
+        _connection.Open();
         string query = "insert into request(id_client, request_timestamp) values ($1, $2)";
-        NpgsqlCommand command = new(query, connection)
+        NpgsqlCommand command = new(query, _connection)
         {
             Parameters =
             {
@@ -71,15 +70,15 @@ public class RequestRepository:IRequestInterface
         }
         finally
         {
-            connection.Close();  
+            _connection.Close();  
         } 
     }
 
     public bool EditRequest(Request request)
     {
-        connection.Open();
+        _connection.Open();
         string query = "update request set id_client = ($1), request_timestamp = ($2) where id_request=($3)";
-        NpgsqlCommand command = new(query, connection)
+        NpgsqlCommand command = new(query, _connection)
         {
             Parameters =
             {
@@ -99,15 +98,15 @@ public class RequestRepository:IRequestInterface
         }
         finally
         {
-            connection.Close();  
+            _connection.Close();  
         }
     }
 
     public bool DeleteRequest(int id)
     {
-        connection.Open();
+        _connection.Open();
         string query = "delete from request where id_request =($1)";
-        NpgsqlCommand command = new(query, connection)
+        NpgsqlCommand command = new(query, _connection)
         {
             Parameters = { new NpgsqlParameter() { Value = id } }
         };
@@ -122,17 +121,17 @@ public class RequestRepository:IRequestInterface
         }
         finally
         {
-            connection.Close();
+            _connection.Close();
         }
     }
 
     public List<Request> Requests(Request request)
     {
-        connection.Open();
+        _connection.Open();
         List<Request> requests = new();
         string query =
             "select * from request join client  on request.id_client = client.id_client join personal_info pi on client.id_personal_info = pi.id_personal_info";
-        NpgsqlCommand command = new(query, connection);
+        NpgsqlCommand command = new(query, _connection);
         using (command)
         {
             using (NpgsqlDataReader reader = command.ExecuteReader())
@@ -160,7 +159,7 @@ public class RequestRepository:IRequestInterface
                 }
             }
         }
-        connection.Close();
+        _connection.Close();
         return requests;
     }
 }

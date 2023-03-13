@@ -7,23 +7,22 @@ using PhotoStudio.Services.Interfaces;
 
 namespace PhotoStudio.DataBase.Repositories;
 
-public class PersonalInfoRepository:IPersonalInfoRepository
+public class PersonalInfoRepository:RepositoryBase ,IPersonalInfoRepository
 {
-    private readonly string _connectionString;
-    private NpgsqlConnection connection;
+    private readonly NpgsqlConnection _connection;
 
-    public PersonalInfoRepository(string connectionString)
+    public PersonalInfoRepository()
     {
-        _connectionString = connectionString;
-        connection = new NpgsqlConnection(_connectionString);
+        
+        _connection = GetConnection();
     }
 
     public PersonalInfo GetPersonalInfo(int id)
     {
-        connection.Open();
+        _connection.Open();
         PersonalInfo personalInfo = new();
         string query = "Select * from personal_info where id_personal_info=($1)";
-        NpgsqlCommand command = new(query, connection)
+        NpgsqlCommand command = new(query, _connection)
         {
             Parameters = { new NpgsqlParameter() { Value = id } }
         };
@@ -42,7 +41,7 @@ public class PersonalInfoRepository:IPersonalInfoRepository
                 }
             }
         }
-        connection.Close();
+        _connection.Close();
         return personalInfo;
     }
 
@@ -50,10 +49,10 @@ public class PersonalInfoRepository:IPersonalInfoRepository
 
     public int AddPersonalInfo(PersonalInfo personalInfo)
     {
-        connection.Open();
+        _connection.Open();
         string query =
             "insert into personal_info(last_name, first_name, middle_name, email, mobile_phone) values ($1,$2,$3,$4,$5) returning id_personal_info";
-        NpgsqlCommand command = new(query, connection)
+        NpgsqlCommand command = new(query, _connection)
         {
             Parameters =
             {
@@ -87,16 +86,16 @@ public class PersonalInfoRepository:IPersonalInfoRepository
         }
         finally
         {
-            connection.Close();  
+            _connection.Close();  
         }
     }
 
     public bool EditPersonalInfo(PersonalInfo personalInfo)
     {
-        connection.Open();
+        _connection.Open();
         string query =
             "update personal_info set last_name=($1), first_name=($2), middle_name=($3), email = ($4), mobile_phone=($5) where id_personal_info=($6)";
-        NpgsqlCommand command = new(query, connection)
+        NpgsqlCommand command = new(query, _connection)
         {
             Parameters =
             {
@@ -120,15 +119,15 @@ public class PersonalInfoRepository:IPersonalInfoRepository
         }
         finally
         {
-            connection.Close();  
+            _connection.Close();  
         }
     }
 
     public bool DeletePersonalInfo(int id)
     {
-        connection.Open();
+        _connection.Open();
         string query = "delete from personal_info where id_personal_info = ($1) ";
-        NpgsqlCommand command = new(query, connection)
+        NpgsqlCommand command = new(query, _connection)
         {
             Parameters = { new NpgsqlParameter() { Value = id } }
         };
@@ -143,16 +142,16 @@ public class PersonalInfoRepository:IPersonalInfoRepository
         }
         finally
         {
-            connection.Close();
+            _connection.Close();
         }
     }
 
     public List<PersonalInfo> GelAllPersonalInfos(PersonalInfo personalInfo)
     {
-        connection.Open();
+        _connection.Open();
         List<PersonalInfo> personalInfos = new();
         string query = "Select * from personal_info";
-        NpgsqlCommand command = new(query, connection);
+        NpgsqlCommand command = new(query, _connection);
         using (command)
         {
             using (NpgsqlDataReader reader = command.ExecuteReader())
@@ -169,7 +168,7 @@ public class PersonalInfoRepository:IPersonalInfoRepository
                 }
             }
         }
-        connection.Close();
+        _connection.Close();
         return personalInfos;
     }
 }

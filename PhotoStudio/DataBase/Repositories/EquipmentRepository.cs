@@ -6,23 +6,22 @@ using PhotoStudio.Services.Interfaces;
 
 namespace PhotoStudio.DataBase.Repositories;
 
-public class EquipmentRepository:IEquipmentInterface
+public class EquipmentRepository:RepositoryBase ,IEquipmentInterface
 {
-    private readonly string _connectionString;
-    private NpgsqlConnection connection;
+    private readonly NpgsqlConnection _connection;
 
-    public EquipmentRepository(string connectionString)
+    public EquipmentRepository()
     {
-        _connectionString = connectionString;
-        connection = new NpgsqlConnection(_connectionString);
+        
+        _connection = GetConnection();
     }
 
     public Equipment GetEquipment(int id)
     {
-        connection.Open();
+        _connection.Open();
         Equipment equipment = new();
         string query = "select * from equipment where id_equipment=$1";
-        NpgsqlCommand command = new(query, connection)
+        NpgsqlCommand command = new(query, _connection)
         {
             Parameters = { new NpgsqlParameter() { Value = id } }
         };
@@ -37,15 +36,15 @@ public class EquipmentRepository:IEquipmentInterface
                 }
             }
         }
-        connection.Close();
+        _connection.Close();
         return equipment;
     }
 
     public Equipment AddEquipment(Equipment equipment)
     {
-        connection.Open();
+        _connection.Open();
         string query = "insert into equipment(equipment_name) values ($1)";
-        NpgsqlCommand command = new(query, connection)
+        NpgsqlCommand command = new(query, _connection)
         {
             Parameters = { new NpgsqlParameter() { Value = equipment.Name } }
         };
@@ -60,15 +59,15 @@ public class EquipmentRepository:IEquipmentInterface
         }
         finally
         {
-            connection.Close();  
+            _connection.Close();  
         } 
     }
 
     public bool EditEquipment(Equipment equipment)
     {
-        connection.Open();
+        _connection.Open();
         string query = "update equipment set equipment_name = ($1) where id_equipment = ($2)";
-        NpgsqlCommand command = new(query, connection)
+        NpgsqlCommand command = new(query, _connection)
         {
             Parameters =
             {
@@ -87,15 +86,15 @@ public class EquipmentRepository:IEquipmentInterface
         }
         finally
         {
-            connection.Close();
+            _connection.Close();
         }
     }
 
     public bool DeleteEquipment(int id)
     {
-        connection.Open();
+        _connection.Open();
         string query = "delete from equipment where id_equipment = ($1)";
-        NpgsqlCommand command = new(query, connection)
+        NpgsqlCommand command = new(query, _connection)
         {
             Parameters = { new NpgsqlParameter() { Value = id } }
         };
@@ -110,16 +109,16 @@ public class EquipmentRepository:IEquipmentInterface
         }
         finally
         {
-            connection.Close();
+            _connection.Close();
         }
     }
 
     public List<Equipment> GetAllEquipments(Equipment equipment)
     {
-        connection.Open();
+        _connection.Open();
         List<Equipment> equipments = new();
         string query = "select * from equipment";
-        NpgsqlCommand command = new(query, connection);
+        NpgsqlCommand command = new(query, _connection);
         using (command)
         {
             using (NpgsqlDataReader reader = command.ExecuteReader())
@@ -132,7 +131,7 @@ public class EquipmentRepository:IEquipmentInterface
                 }
             }
         }
-        connection.Close();
+        _connection.Close();
         return equipments; 
     }
 }

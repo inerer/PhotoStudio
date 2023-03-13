@@ -8,15 +8,10 @@ namespace PhotoStudio.Services;
 
 public class PersonalInfoService:IPersonalInfoRepository
 {
-    private readonly string _connectionString;
     private readonly PersonalInfoRepository _personalInfoRepository;
     public PersonalInfoService()
     {
-        var configBuilder = new ConfigurationBuilder().AddJsonFile( "C:/Users/arshi/RiderProjects/PhotoStudio/PhotoStudio/appsettings.json").Build();
-        var configSection = configBuilder.GetSection("ConnectionStrings");
-        _connectionString = configSection["PhotoStudioDB"] ?? null;
-        _personalInfoRepository = new PersonalInfoRepository(_connectionString);
-        
+        _personalInfoRepository = new PersonalInfoRepository();
     }
 
     public PersonalInfo GetPersonalInfo(int id)

@@ -8,15 +8,11 @@ namespace PhotoStudio.Services;
 
 public class RoleService:IRoleInterface
 {
-    private readonly string _connectionString;
     private readonly RoleRepository _roleRepository;
 
     public RoleService()
     {
-        var configBuilder = new ConfigurationBuilder().AddJsonFile( "C:/Users/arshi/RiderProjects/PhotoStudio/PhotoStudio/appsettings.json").Build();
-        var configSection = configBuilder.GetSection("ConnectionStrings");
-        _connectionString = configSection["PhotoStudioDB"] ?? null;
-        _roleRepository = new RoleRepository(_connectionString);
+        _roleRepository = new RoleRepository();
     }
 
     public Role GetRole(int id)

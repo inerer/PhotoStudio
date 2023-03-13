@@ -6,24 +6,23 @@ using PhotoStudio.Services.Interfaces;
 
 namespace PhotoStudio.DataBase.Repositories;
 
-public class ClientRepository:IClientInterface
+public class ClientRepository:RepositoryBase ,IClientInterface
 {
-    private readonly string _connectionString;
-    private NpgsqlConnection connection;
+    private readonly NpgsqlConnection _connection;
     
-    public ClientRepository(string connectionString)
+    public ClientRepository()
     {
-        _connectionString = connectionString;
-        connection = new NpgsqlConnection(_connectionString);
+        
+        _connection = GetConnection();
     }
     
     public Client GetClient(int id)
     {
-        connection.Open();
+        _connection.Open();
         Client client = new Client();
         string query =
             @"select * from client join personal_info on client.id_personal_info = personal_info.id_personal_info where id_client = $1";
-        NpgsqlCommand cmd = new NpgsqlCommand(query, connection)
+        NpgsqlCommand cmd = new NpgsqlCommand(query, _connection)
         {
             Parameters = { new NpgsqlParameter() { Value = id } }
         };
@@ -43,15 +42,15 @@ public class ClientRepository:IClientInterface
                 }
             }
         }
-        connection.Close();
+        _connection.Close();
         return client;
     }
 
     public Client AddClient(Client client)
     {
-        connection.Open();
+        _connection.Open();
         string query = @"insert into client(id_personal_info) values ($1)";
-        NpgsqlCommand command = new NpgsqlCommand(query, connection)
+        NpgsqlCommand command = new NpgsqlCommand(query, _connection)
         {
             Parameters =
             {
@@ -69,15 +68,15 @@ public class ClientRepository:IClientInterface
         }
         finally
         {
-            connection.Close();  
+            _connection.Close();  
         }
     }
 
     public bool EditClient(Client client)
     {
-        connection.Open();
+        _connection.Open();
         string query = @"update client set id_personal_info = (@1) where id_client=($2)";
-        NpgsqlCommand cmd = new(query, connection)
+        NpgsqlCommand cmd = new(query, _connection)
         {
             Parameters =
             {
@@ -96,16 +95,16 @@ public class ClientRepository:IClientInterface
         }
         finally
         {
-            connection.Close();
+            _connection.Close();
         }
     }
 
     public bool DeleteClient(int id)
     {
         Client client = new();
-        connection.Open();
+        _connection.Open();
         string query = @"delete from client where id_client=($1)";
-        NpgsqlCommand command = new(query, connection)
+        NpgsqlCommand command = new(query, _connection)
         {
             Parameters =
             {
@@ -123,17 +122,17 @@ public class ClientRepository:IClientInterface
         }
         finally
         {
-            connection.Close();
+            _connection.Close();
         }
     }
     
     public List<Client> GetAllClients(Client client)
     {
-        connection.Open();
+        _connection.Open();
         List<Client> clients = new();
         string query =
             @"select * from client join personal_info on client.id_personal_info = personal_info.id_personal_info ";
-        NpgsqlCommand cmd = new NpgsqlCommand(query, connection);
+        NpgsqlCommand cmd = new NpgsqlCommand(query, _connection);
         using (cmd)
         {
             using (NpgsqlDataReader reader = cmd.ExecuteReader())
@@ -151,7 +150,7 @@ public class ClientRepository:IClientInterface
                 }
             }
         }
-        connection.Close();
+        _connection.Close();
         return clients;
     }
 }

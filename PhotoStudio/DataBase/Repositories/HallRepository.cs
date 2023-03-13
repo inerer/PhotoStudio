@@ -6,23 +6,22 @@ using PhotoStudio.Services.Interfaces;
 
 namespace PhotoStudio.DataBase.Repositories;
 
-public class HallRepository:IHallInterface
+public class HallRepository:RepositoryBase ,IHallInterface
 {
-    private readonly string _connectionString;
-    private  NpgsqlConnection connection;
+    private readonly NpgsqlConnection _connection;
 
-    public HallRepository(string connectionString)
+    public HallRepository()
     {
-        _connectionString = connectionString;
-        connection = new NpgsqlConnection(_connectionString);
+        
+        _connection = GetConnection();
     }
 
     public Hall GetHall(int id)
     {
-        connection.Open();
+        _connection.Open();
         Hall hall = new();
         string query = "select * from hall where id_hall = $1";
-        NpgsqlCommand command = new(query, connection)
+        NpgsqlCommand command = new(query, _connection)
         {
             Parameters = { new NpgsqlParameter() { Value = id } }
         };
@@ -38,15 +37,15 @@ public class HallRepository:IHallInterface
                 }
             }
         }
-        connection.Close();
+        _connection.Close();
         return hall;
     }
 
     public Hall AddHall(Hall hall)
     {
-        connection.Open();
+        _connection.Open();
         string query = "insert into hall(description, address) values ($1, $2)";
-        NpgsqlCommand command = new(query, connection)
+        NpgsqlCommand command = new(query, _connection)
         {
             Parameters =
             {
@@ -65,15 +64,15 @@ public class HallRepository:IHallInterface
         }
         finally
         {
-            connection.Close();  
+            _connection.Close();  
         }
     }
 
     public bool EditHall(Hall hall)
     {
-        connection.Open();
+        _connection.Open();
         string query = "update hall set description = ($1), address = ($2) where id_hall = ($3)";
-        NpgsqlCommand command = new(query, connection)
+        NpgsqlCommand command = new(query, _connection)
         {
             Parameters =
             {
@@ -93,15 +92,15 @@ public class HallRepository:IHallInterface
         }
         finally
         {
-            connection.Close();
+            _connection.Close();
         }
     }
 
     public bool DeleteHall(int id)
     {
-        connection.Open();
+        _connection.Open();
         string query = "delete from hall where id_hall = ($1)";
-        NpgsqlCommand command = new(query, connection)
+        NpgsqlCommand command = new(query, _connection)
         {
             Parameters = { new NpgsqlParameter() { Value = id } }
         };
@@ -116,16 +115,16 @@ public class HallRepository:IHallInterface
         }
         finally
         {
-            connection.Close();
+            _connection.Close();
         }
     }
 
     public List<Hall> GetAllHalls(Hall hall)
     {
-        connection.Open();
+        _connection.Open();
         List<Hall> halls = new();
         string query = "select * from hall";
-        NpgsqlCommand command = new(query, connection);
+        NpgsqlCommand command = new(query, _connection);
         using (command)
         {
             using (NpgsqlDataReader reader = command.ExecuteReader())
@@ -139,7 +138,7 @@ public class HallRepository:IHallInterface
                 }
             }
         }
-        connection.Close();
+        _connection.Close();
         return halls;
     }
 }

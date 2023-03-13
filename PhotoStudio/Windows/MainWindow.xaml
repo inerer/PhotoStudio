@@ -8,6 +8,6 @@
         Title="MainWindow" Height="450" Width="800">
     <Grid>
         <Frame Name="MainFrame" NavigationUIVisibility="Hidden" ContentRendered="MainFrame_OnContentRendered"></Frame>
-        <Button Content="Назад" VerticalAlignment="Top" HorizontalAlignment="Left" ></Button>
+        <Button Content="Назад" VerticalAlignment="Top" HorizontalAlignment="Left" Name="BackButton" Click="BackButton_OnClick" ></Button>
     </Grid>
 </Window>

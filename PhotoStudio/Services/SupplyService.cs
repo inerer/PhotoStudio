@@ -8,15 +8,11 @@ namespace PhotoStudio.Services;
 
 public class SupplyService:ISupplyInterface
 {
-    private readonly string _connectionString;
     private readonly SupplyRepository _supplyRepository;
 
     public SupplyService()
     {
-        var configBuilder = new ConfigurationBuilder().AddJsonFile( "C:/Users/arshi/RiderProjects/PhotoStudio/PhotoStudio/appsettings.json").Build();
-        var configSection = configBuilder.GetSection("ConnectionStrings");
-        _connectionString = configSection["PhotoStudioDB"] ?? null;
-        _supplyRepository = new SupplyRepository(_connectionString);
+        _supplyRepository = new SupplyRepository();
     }
 
     public Supply GetSupply(int id)

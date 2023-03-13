@@ -6,24 +6,23 @@ using PhotoStudio.Services.Interfaces;
 
 namespace PhotoStudio.DataBase.Repositories;
 
-public class EquipmentRentRepository:IEquipmentRentInterface
+public class EquipmentRentRepository:RepositoryBase ,IEquipmentRentInterface
 {
-    private readonly string _connectionString;
-    private  NpgsqlConnection connection;
+    private readonly NpgsqlConnection _connection;
 
-    public EquipmentRentRepository(string connectionString)
+    public EquipmentRentRepository()
     {
-        _connectionString = connectionString;
-        connection = new NpgsqlConnection(_connectionString);
+        
+        _connection = GetConnection();
     }
 
     public EquipmentRent GetEquipmentRent(int id)
     {
-        connection.Open();
+        _connection.Open();
         EquipmentRent equipmentRent = new();
         string query =
             "select * from equipment_rent join equipment on equipment_rent.id_equipment = equipment.id_equipment join rent on equipment_rent.id_rent = rent.id_rent join hall on rent.id_hall = hall.id_hall where id_request_rent = ($1)";
-        NpgsqlCommand command = new(query, connection)
+        NpgsqlCommand command = new(query, _connection)
         {
             Parameters = { new NpgsqlParameter() { Value = id } }
         };
@@ -41,15 +40,15 @@ public class EquipmentRentRepository:IEquipmentRentInterface
                 }
             }
         }
-        connection.Close();
+        _connection.Close();
         return equipmentRent;
     }
 
     public EquipmentRent AddEquipmentRent(EquipmentRent equipmentRent)
     {
-        connection.Open();
+        _connection.Open();
         string query = "insert into equipment_rent(id_equipment, id_rent) values ($1, $2)";
-        NpgsqlCommand command = new(query, connection)
+        NpgsqlCommand command = new(query, _connection)
         {
             Parameters =
             {
@@ -68,15 +67,15 @@ public class EquipmentRentRepository:IEquipmentRentInterface
         }
         finally
         {
-            connection.Close();  
+            _connection.Close();  
         } 
     }
 
     public bool EditEquipmentRent(EquipmentRent equipmentRent)
     {
-        connection.Open();
+        _connection.Open();
         string query = "update equipment_rent set id_equipment = ($1), id_rent=($2) where id_equipment = ($3)";
-        NpgsqlCommand command = new(query, connection)
+        NpgsqlCommand command = new(query, _connection)
         {
             Parameters =
             {
@@ -96,15 +95,15 @@ public class EquipmentRentRepository:IEquipmentRentInterface
         }
         finally
         {
-            connection.Close();
+            _connection.Close();
         }
     }
 
     public bool DeleteEquipmentRent(EquipmentRent equipmentRent)
     {
-        connection.Open();
+        _connection.Open();
         string query = "delete from equipment_rent where id_equipment = ($1)";
-        NpgsqlCommand command = new(query, connection)
+        NpgsqlCommand command = new(query, _connection)
         {
             Parameters = { new NpgsqlParameter() { Value = equipmentRent.Id } }
         };
@@ -119,17 +118,17 @@ public class EquipmentRentRepository:IEquipmentRentInterface
         }
         finally
         {
-            connection.Close();
+            _connection.Close();
         }
     }
 
     public List<EquipmentRent> GelAllEquipmentRents(EquipmentRent equipmentRent)
     {
-        connection.Open();
+        _connection.Open();
         List<EquipmentRent> equipmentRents = new();
         string query =
             "select * from equipment_rent join equipment on equipment_rent.id_equipment = equipment.id_equipment join rent on equipment_rent.id_rent = rent.id_rent join hall on rent.id_hall = hall.id_hall";
-        NpgsqlCommand command = new(query, connection);
+        NpgsqlCommand command = new(query, _connection);
         using (command)
         {
             using (NpgsqlDataReader reader = command.ExecuteReader())
@@ -145,7 +144,7 @@ public class EquipmentRentRepository:IEquipmentRentInterface
                 }
             }
         }
-        connection.Close();
+        _connection.Close();
         return equipmentRents;
     }
 }

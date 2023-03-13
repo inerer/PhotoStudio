@@ -6,23 +6,21 @@ using PhotoStudio.Services.Interfaces;
 
 namespace PhotoStudio.DataBase.Repositories;
 
-public class TypeSupplyRepository:ITypeSupplyInterface
+public class TypeSupplyRepository:RepositoryBase ,ITypeSupplyInterface
 {
-    private readonly string _connectionString;
-    private NpgsqlConnection connection;
+    private readonly NpgsqlConnection _connection;
 
-    public TypeSupplyRepository(string connectionString)
+    public TypeSupplyRepository()
     {
-        _connectionString = connectionString;
-        connection = new NpgsqlConnection(_connectionString);
+        _connection = GetConnection();
     }
 
     public TypeSupply GetTypeSupply(int id)
     {
-        connection.Open();
+        _connection.Open();
         TypeSupply typeSupply = new();
         string query = "select * from type_supply where id_type_supply = ($1)";
-        NpgsqlCommand command = new(query, connection)
+        NpgsqlCommand command = new(query, _connection)
         {
             Parameters = { new NpgsqlParameter() { Value = id } }
         };
@@ -38,15 +36,15 @@ public class TypeSupplyRepository:ITypeSupplyInterface
                 }
             }
         }
-        connection.Close();
+        _connection.Close();
         return typeSupply;
     }
 
     public TypeSupply AddTypeSupply(TypeSupply typeSupply)
     {
-       connection.Open();
+       _connection.Open();
        string query = "insert into type_supply(type_supply_name) values ($1)";
-       NpgsqlCommand command = new(query, connection)
+       NpgsqlCommand command = new(query, _connection)
        {
            Parameters = { new NpgsqlParameter() { Value = typeSupply.Name } }
        };
@@ -61,15 +59,15 @@ public class TypeSupplyRepository:ITypeSupplyInterface
        }
        finally
        {
-           connection.Close();  
+           _connection.Close();  
        }     
     }
 
     public bool EditTypeSupply(TypeSupply typeSupply)
     {
-        connection.Open();
+        _connection.Open();
         string query = "update type_supply set type_supply_name = ($1) where id_type_supply=($2)";
-        NpgsqlCommand command = new(query, connection)
+        NpgsqlCommand command = new(query, _connection)
         {
             Parameters =
             {
@@ -88,15 +86,15 @@ public class TypeSupplyRepository:ITypeSupplyInterface
         }
         finally
         {
-            connection.Close();  
+            _connection.Close();  
         }
     }
 
     public bool DeleteTypeSupply(int id)
     {
-        connection.Open();
+        _connection.Open();
         string query = "delete from type_supply where id_type_supply = ($1)";
-        NpgsqlCommand command = new(query, connection)
+        NpgsqlCommand command = new(query, _connection)
         {
             Parameters = { new NpgsqlParameter() { Value = id } }
         };
@@ -111,17 +109,17 @@ public class TypeSupplyRepository:ITypeSupplyInterface
         }
         finally
         {
-            connection.Close();
+            _connection.Close();
         } 
 
     }
 
     public List<TypeSupply> GetAllTypeSupplies(TypeSupply typeSupply)
     {
-        connection.Open();
+        _connection.Open();
         List<TypeSupply> typeSupplies = new();
         string query = "select * from type_supply";
-        NpgsqlCommand command = new(query, connection);
+        NpgsqlCommand command = new(query, _connection);
         using (command)
         {
             using (NpgsqlDataReader reader = command.ExecuteReader())
@@ -135,7 +133,7 @@ public class TypeSupplyRepository:ITypeSupplyInterface
                 }
             }
         }
-        connection.Close();
+        _connection.Close();
         return typeSupplies;
     }
 }

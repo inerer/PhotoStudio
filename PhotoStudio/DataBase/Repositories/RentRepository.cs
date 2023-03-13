@@ -6,24 +6,22 @@ using PhotoStudio.Services;
 
 namespace PhotoStudio.DataBase.Repositories;
 
-public class RentRepository:IRentInterface
+public class RentRepository:RepositoryBase ,IRentInterface
 {
-    private readonly string _connectionString;
-    private NpgsqlConnection connection;
+    private readonly NpgsqlConnection _connection;
 
-
-    public RentRepository(string connectionString)
+    public RentRepository()
     {
-        _connectionString = connectionString;
-        connection = new NpgsqlConnection(_connectionString);
+        
+        _connection = GetConnection();
     }
 
     public Rent GetRent(int id)
     {
-        connection.Open();
+        _connection.Open();
         Rent rent = new();
         string query = "select * from rent join hall on rent.id_hall = hall.id_hall where id_rent = $1";
-        NpgsqlCommand command = new(query, connection)
+        NpgsqlCommand command = new(query, _connection)
         {
             Parameters = { new NpgsqlParameter() { Value = id } }
         };
@@ -40,15 +38,15 @@ public class RentRepository:IRentInterface
                 }
             }
         }
-        connection.Close();
+        _connection.Close();
         return rent;
     }
 
     public Rent AddRent(Rent rent)
     {
-        connection.Open();
+        _connection.Open();
         string query = "insert into rent(price_hour, id_hall) values ($1, $2)";
-        NpgsqlCommand command = new(query, connection)
+        NpgsqlCommand command = new(query, _connection)
         {
             Parameters =
             {
@@ -67,15 +65,15 @@ public class RentRepository:IRentInterface
         }
         finally
         {
-            connection.Close();  
+            _connection.Close();  
         }
     }
 
     public bool EditRent(Rent rent)
     {
-        connection.Open();
+        _connection.Open();
         string query = "update rent set price = ($1), id_hall = ($2) where id_rent = ($3)";
-        NpgsqlCommand command = new(query, connection)
+        NpgsqlCommand command = new(query, _connection)
         {
             Parameters =
             {
@@ -95,15 +93,15 @@ public class RentRepository:IRentInterface
         }
         finally
         {
-            connection.Close();  
+            _connection.Close();  
         }
     }
 
     public bool DeleteRent(int id)
     {
-        connection.Open();
+        _connection.Open();
         string query = "delete from rent where id_rent = ($1)";
-        NpgsqlCommand command = new(query, connection)
+        NpgsqlCommand command = new(query, _connection)
         {
             Parameters = { new NpgsqlParameter() { Value = id } }
         };
@@ -118,16 +116,16 @@ public class RentRepository:IRentInterface
         }
         finally
         {
-            connection.Close();
+            _connection.Close();
         }
     }
 
     public List<Rent> GetAllRents(Rent rent)
     {
-        connection.Open();
+        _connection.Open();
         List<Rent> rents = new();
         string query = "select * from rent join hall on rent.id_hall = hall.id_hall";
-        NpgsqlCommand command = new(query, connection);
+        NpgsqlCommand command = new(query, _connection);
         using (command)
         {
             using (NpgsqlDataReader reader = command.ExecuteReader())
@@ -142,7 +140,7 @@ public class RentRepository:IRentInterface
                 }
             }
         }
-        connection.Close();
+        _connection.Close();
         return rents;
             
     }

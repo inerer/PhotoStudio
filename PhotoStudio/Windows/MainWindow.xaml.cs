@@ -29,7 +29,16 @@ namespace PhotoStudio
 
         private void MainFrame_OnContentRendered(object? sender, EventArgs e)
         {
-            
+            if (MainFrame.CanGoBack)
+                BackButton.Visibility = Visibility.Visible;
+            else
+                BackButton.Visibility = Visibility.Collapsed;
+        }
+
+        private void BackButton_OnClick(object sender, RoutedEventArgs e)
+        {
+            if(MainFrame.CanGoBack)
+                MainFrame.GoBack();
         }
     }
 }

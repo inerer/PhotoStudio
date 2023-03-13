@@ -8,15 +8,11 @@ namespace PhotoStudio.Services;
 
 public class RequestService:IRequestInterface
 {
-    private readonly string _connectionString;
     private readonly RequestRepository _requestRepository;
 
     public RequestService()
     {
-        var configBuilder = new ConfigurationBuilder().AddJsonFile( "C:/Users/arshi/RiderProjects/PhotoStudio/PhotoStudio/appsettings.json").Build();
-        var configSection = configBuilder.GetSection("ConnectionStrings");
-        _connectionString = configSection["PhotoStudioDB"] ?? null;
-        _requestRepository = new RequestRepository(_connectionString);
+        _requestRepository = new RequestRepository();
     }
 
     public Request GetRequest(int id)

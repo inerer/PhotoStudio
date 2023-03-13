@@ -16,10 +16,7 @@ public class WorkerService:IWorkerInterface
     public WorkerService()
     {
         
-        var configBuilder = new ConfigurationBuilder().AddJsonFile( "C:/Users/arshi/RiderProjects/PhotoStudio/PhotoStudio/appsettings.json").Build();
-        var configSection = configBuilder.GetSection("ConnectionStrings");
-        _connectionString = configSection["PhotoStudioDB"] ?? null;
-        _workerRepository = new WorkerRepository(_connectionString);
+        _workerRepository = new WorkerRepository();
     }
 
     public bool Auth(string login, string password)

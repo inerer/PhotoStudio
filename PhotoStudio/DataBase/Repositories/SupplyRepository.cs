@@ -6,24 +6,23 @@ using PhotoStudio.Services.Interfaces;
 
 namespace PhotoStudio.DataBase.Repositories;
 
-public class SupplyRepository:ISupplyInterface
+public class SupplyRepository:RepositoryBase ,ISupplyInterface
 {
-    private readonly string _connectionString;
-    private NpgsqlConnection connection;
+    private readonly NpgsqlConnection _connection;
 
-    public SupplyRepository(string connectionString)
+    public SupplyRepository()
     {
-        _connectionString = connectionString;
-        connection = new NpgsqlConnection(_connectionString);
+        
+        _connection = GetConnection();
     }
 
     public Supply GetSupply(int id)
     {
-        connection.Open();
+        _connection.Open();
         Supply supply = new();
         string query =
             "select * from supply join type_supply ts on supply.id_type_supply = ts.id_type_supply join rent r on supply.id_rent = r.id_rent where id_supply=($1)";
-        NpgsqlCommand command = new(query, connection)
+        NpgsqlCommand command = new(query, _connection)
         {
             Parameters = { new NpgsqlParameter() { Value = id } }
         };
@@ -45,16 +44,16 @@ public class SupplyRepository:ISupplyInterface
                 }
             }
         }
-        connection.Close();
+        _connection.Close();
         return supply;
     }
 
     public Supply AddSupply(Supply supply)
     {
-        connection.Open();
+        _connection.Open();
         string query =
             "insert into supply(id_type_supply, id_rent, supply_name, price_supply, supply_description, timestamp_supply) values ($1, $2, $3, $4,$5,$6)";
-        NpgsqlCommand command = new(query, connection)
+        NpgsqlCommand command = new(query, _connection)
         {
             Parameters =
             {
@@ -77,16 +76,16 @@ public class SupplyRepository:ISupplyInterface
         }
         finally
         {
-            connection.Close();  
+            _connection.Close();  
         }
     }
 
     public bool EditSupply(Supply supply)
     {
-        connection.Open();
+        _connection.Open();
         string query =
             "update supply set id_type_supply = ($1), id_rent = ($2), supply_name = ($3), price_supply=($4), supply_description=($5), timestamp_supply=($6) where id_supply=($7)";
-        NpgsqlCommand command = new(query, connection)
+        NpgsqlCommand command = new(query, _connection)
         {
             Parameters =
             {
@@ -110,15 +109,15 @@ public class SupplyRepository:ISupplyInterface
         }
         finally
         {
-            connection.Close();  
+            _connection.Close();  
         }
     }
 
     public bool DeleteSupply(int id)
     {
-        connection.Open();
+        _connection.Open();
         string query = "delete from supply where id_supply = ($1)";
-        NpgsqlCommand command = new(query, connection)
+        NpgsqlCommand command = new(query, _connection)
         {
             Parameters = { new NpgsqlParameter() { Value = id } }
         };
@@ -133,17 +132,17 @@ public class SupplyRepository:ISupplyInterface
         }
         finally
         {
-            connection.Close();  
+            _connection.Close();  
         }
     }
 
     public List<Supply> GetAllSupplies(Supply supply)
     {
-        connection.Open();
+        _connection.Open();
         List<Supply> supplies = new();
         string query =
             "select * from supply join type_supply ts on supply.id_type_supply = ts.id_type_supply join rent r on supply.id_rent = r.id_rent";
-        NpgsqlCommand command = new(query, connection);
+        NpgsqlCommand command = new(query, _connection);
         using (command)
         {
             using (NpgsqlDataReader reader = command.ExecuteReader())
@@ -163,7 +162,7 @@ public class SupplyRepository:ISupplyInterface
                 }
             }
         }
-        connection.Close();
+        _connection.Close();
         return supplies;
     }
 }

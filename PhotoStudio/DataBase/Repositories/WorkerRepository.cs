@@ -6,31 +6,28 @@ using PhotoStudio.Services.Interfaces;
 
 namespace PhotoStudio.DataBase.Repositories;
 
-public class WorkerRepository:IWorkerInterface
+public class WorkerRepository:RepositoryBase ,IWorkerInterface
 {
-    private readonly string _connectionString;
     private readonly RoleRepository _roleRepository;
     private readonly PersonalInfoRepository _personalInfo;
-    private NpgsqlConnection connection;
+    private readonly NpgsqlConnection _connection;
     private PersonalInfoRepository _personalInfoRepository;
 
-    public WorkerRepository(string connectionString)
+    public WorkerRepository()
     {
         
-        _connectionString = connectionString;
-        connection = new NpgsqlConnection(_connectionString);
-        _roleRepository = new RoleRepository(_connectionString);
-        _personalInfo = new PersonalInfoRepository(_connectionString);
-        _personalInfoRepository = new PersonalInfoRepository(_connectionString);
+        _connection = GetConnection();
+        _roleRepository = new RoleRepository();
+        _personalInfo = new PersonalInfoRepository();
     }
 
     public Worker GetWorker(int id)
     {
-        connection.Open();
+        _connection.Open();
         Worker worker = new();
         string query =
             "select * from worker join role r on worker.id_role = r.id_role join personal_info pi on worker.id_personal_info = pi.id_personal_info where id_worker =($1)";
-        NpgsqlCommand command = new(query, connection)
+        NpgsqlCommand command = new(query, _connection)
         {
             Parameters = { new NpgsqlParameter() { Value = id } }
         };
@@ -46,7 +43,7 @@ public class WorkerRepository:IWorkerInterface
                 }
             }
         }
-        connection.Close();
+        _connection.Close();
         worker.Role = _roleRepository.GetRole(worker.Id);
         worker.PersonalInfo = _personalInfo.GetPersonalInfo(worker.Id);
         return worker;
@@ -54,9 +51,9 @@ public class WorkerRepository:IWorkerInterface
 
     public Worker AddWorker(Worker worker)
     {
-        connection.Open();
+        _connection.Open();
         string query = "insert into worker(id_role, id_personal_info, login, password) values ($1, $2, $3, $4)";
-        NpgsqlCommand command = new(query, connection)
+        NpgsqlCommand command = new(query, _connection)
         {
             Parameters =
             {
@@ -77,16 +74,16 @@ public class WorkerRepository:IWorkerInterface
         }
         finally
         {
-            connection.Close();  
+            _connection.Close();  
         }     
     }
 
     public bool EditWorker(Worker worker)
     {
-        connection.Open();
+        _connection.Open();
         string query =
             "update worker set id_role = ($1), id_personal_info = ($2), login = ($3), password = ($4) where id_worker = ($5)";
-        NpgsqlCommand command = new(query, connection)
+        NpgsqlCommand command = new(query, _connection)
         {
             Parameters =
             {
@@ -108,15 +105,15 @@ public class WorkerRepository:IWorkerInterface
         }
         finally
         {
-            connection.Close();  
+            _connection.Close();  
         }     
     }
 
     public bool DeleteWorker(int id)
     {
-        connection.Open();
+        _connection.Open();
         string query = "delete from worker where id_worker = ($1)";
-        NpgsqlCommand command = new(query, connection)
+        NpgsqlCommand command = new(query, _connection)
         {
             Parameters = { new NpgsqlParameter() { Value = id } }
         };
@@ -131,17 +128,17 @@ public class WorkerRepository:IWorkerInterface
         }
         finally
         {
-            connection.Close();  
+            _connection.Close();  
         }     
     }
 
     public List<Worker> GetAllWorkers(Worker worker)
     {
-        connection.Open();
+        _connection.Open();
         List<Worker> workers = new();
         string query =
             "select * from worker join role r on worker.id_role = r.id_role join personal_info pi on worker.id_personal_info = pi.id_personal_info";
-        NpgsqlCommand command = new(query, connection);
+        NpgsqlCommand command = new(query, _connection);
         using (command)
         {
             using (NpgsqlDataReader reader = command.ExecuteReader())
@@ -157,7 +154,7 @@ public class WorkerRepository:IWorkerInterface
                 }
             }
         }
-        connection.Close();
+        _connection.Close();
         foreach (var work in workers)
         {
             worker.PersonalInfo = _personalInfo.GetPersonalInfo(worker.PersonalInfoId);
@@ -168,11 +165,11 @@ public class WorkerRepository:IWorkerInterface
 
     public Worker GetWorkerByLogin(string login)
     {
-        connection.Open();
+        _connection.Open();
         Worker worker = new();
         string query =
             "select * from worker join role r on worker.id_role = r.id_role join personal_info pi on worker.id_personal_info = pi.id_personal_info where login =($1)";
-        NpgsqlCommand command = new(query, connection)
+        NpgsqlCommand command = new(query, _connection)
         {
             Parameters = { new NpgsqlParameter() { Value = login } }
         };
@@ -192,7 +189,7 @@ public class WorkerRepository:IWorkerInterface
         }
         worker.Role = _roleRepository.GetRole(worker.RoleId);
         worker.PersonalInfo = _personalInfo.GetPersonalInfo(worker.PersonalInfoId);//
-        connection.Close();
+        _connection.Close();
         return worker;
     }
 }

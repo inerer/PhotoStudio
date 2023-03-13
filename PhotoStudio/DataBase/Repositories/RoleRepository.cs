@@ -7,23 +7,22 @@ using PhotoStudio.Services.Interfaces;
 
 namespace PhotoStudio.DataBase.Repositories;
 
-public class RoleRepository:IRoleInterface
+public class RoleRepository:RepositoryBase ,IRoleInterface
 {
-    private readonly string _connectionString;
-    private NpgsqlConnection connection;
+    private readonly NpgsqlConnection _connection;
 
-    public RoleRepository(string connectionString)
+    public RoleRepository()
     {
-        _connectionString = connectionString;
-        connection = new NpgsqlConnection(_connectionString);
+        
+        _connection = GetConnection();
     }
 
     public Role GetRole(int id)
     {
-        connection.Open();
+        _connection.Open();
         Role role = new();
         string query = "select * from role where id_role = $1";
-        NpgsqlCommand command = new(query, connection)
+        NpgsqlCommand command = new(query, _connection)
         {
             Parameters = { new NpgsqlParameter() { Value = id } }
         };
@@ -38,15 +37,15 @@ public class RoleRepository:IRoleInterface
                 }
             }
         }
-        connection.Close();
+        _connection.Close();
         return role;
     }
 
     public Role AddRole(Role role)
     {
-        connection.Open();
+        _connection.Open();
         string query = "insert into role(role_name) values ($1)";
-        NpgsqlCommand command = new(query, connection)
+        NpgsqlCommand command = new(query, _connection)
         {
             Parameters = { new NpgsqlParameter() { Value = role.RoleName } }
         };
@@ -61,15 +60,15 @@ public class RoleRepository:IRoleInterface
         }
         finally
         {
-            connection.Close();  
+            _connection.Close();  
         }
     }
 
     public bool EditRole(Role role)
     {
-        connection.Open();
+        _connection.Open();
         string query = "update role set role_name=($1) where id_role =($2)";
-        NpgsqlCommand command = new(query, connection)
+        NpgsqlCommand command = new(query, _connection)
         {
             Parameters =
             {
@@ -88,15 +87,15 @@ public class RoleRepository:IRoleInterface
         }
         finally
         {
-            connection.Close();  
+            _connection.Close();  
         }
     }
 
     public bool DeleteRole(int id)
     {
-        connection.Open();
+        _connection.Open();
         string query = "delete from role where id_role = ($1)";
-        NpgsqlCommand command = new(query, connection)
+        NpgsqlCommand command = new(query, _connection)
         {
             Parameters = { new NpgsqlParameter() { Value = id } }
         };
@@ -111,16 +110,16 @@ public class RoleRepository:IRoleInterface
         }
         finally
         {
-            connection.Close();
+            _connection.Close();
         }
     }
 
     public List<Role> GetAllRoles()
     {
-        connection.Open();
+        _connection.Open();
         List<Role> roles = new();
         string query = "select * from role";
-        NpgsqlCommand command = new(query, connection);
+        NpgsqlCommand command = new(query, _connection);
         using (command)
         {
             using (NpgsqlDataReader reader = command.ExecuteReader())
@@ -136,7 +135,7 @@ public class RoleRepository:IRoleInterface
                 }
             }
         }
-        connection.Close();
+        _connection.Close();
         return roles;
     }
 }
