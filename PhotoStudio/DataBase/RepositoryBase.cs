@@ -4,13 +4,14 @@ namespace PhotoStudio.DataBase;
 
 public class RepositoryBase
 {
-    public RepositoryBase()
+    protected RepositoryBase()
     {
         GetConnectionString();
     }
 
     private string? _connectionString;
-    public NpgsqlConnection GetConnection()
+
+    protected NpgsqlConnection GetConnection()
     {
         return new NpgsqlConnection(_connectionString);
     }
