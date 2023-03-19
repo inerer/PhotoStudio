@@ -1,6 +1,7 @@
 ﻿using System.Windows.Controls;
 using System.Windows.Input;
 using PhotoStudio.Models.DataBase;
+using PhotoStudio.Models.DataBase.SupplyRequestModels;
 using PhotoStudio.Services;
 using PhotoStudio.Windows;
 

@@ -1,4 +1,4 @@
-﻿namespace PhotoStudio.Models.DataBase;
+﻿namespace PhotoStudio.Models.DataBase.SupplyRequestModels;
 
 public class TypeSupply
 {

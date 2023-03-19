@@ -1,5 +1,6 @@
 ﻿using System.Windows;
 using PhotoStudio.Models.DataBase;
+using PhotoStudio.Models.DataBase.SupplyRequestModels;
 using PhotoStudio.Services.Interfaces;
 
 namespace PhotoStudio.Windows;

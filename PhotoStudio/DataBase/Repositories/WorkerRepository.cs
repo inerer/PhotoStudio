@@ -11,7 +11,6 @@ public class WorkerRepository:RepositoryBase ,IWorkerInterface
     private readonly RoleRepository _roleRepository;
     private readonly PersonalInfoRepository _personalInfo;
     private readonly NpgsqlConnection _connection;
-    private PersonalInfoRepository _personalInfoRepository;
 
     public WorkerRepository()
     {

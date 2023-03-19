@@ -2,6 +2,7 @@
 using Microsoft.Extensions.Configuration;
 using PhotoStudio.DataBase.Repositories;
 using PhotoStudio.Models.DataBase;
+using PhotoStudio.Models.DataBase.SupplyRequestModels;
 
 namespace PhotoStudio.Services.Interfaces;
 

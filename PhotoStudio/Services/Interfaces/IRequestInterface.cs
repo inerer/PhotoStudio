@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using PhotoStudio.Models.DataBase;
+using PhotoStudio.Models.DataBase.SupplyRequestModels;
 
 namespace PhotoStudio.Services.Interfaces;
 

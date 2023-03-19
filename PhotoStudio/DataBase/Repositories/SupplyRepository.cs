@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Npgsql;
 using PhotoStudio.Models.DataBase;
+using PhotoStudio.Models.DataBase.SupplyRequestModels;
 using PhotoStudio.Services.Interfaces;
 
 namespace PhotoStudio.DataBase.Repositories;
@@ -141,7 +142,7 @@ public class SupplyRepository:RepositoryBase ,ISupplyInterface
         _connection.Open();
         List<Supply> supplies = new();
         string query =
-            "select * from supply join type_supply ts on supply.id_type_supply = ts.id_type_supply join rent r on supply.id_rent = r.id_rent";
+            "select * from supply join type_supply ts on supply.id_type_supply = ts.id_type_supply join rent r on supply.id_rent = r.id_rent join hall h on r.id_hall = h.id_hall";
         NpgsqlCommand command = new(query, _connection);
         using (command)
         {
@@ -156,8 +157,9 @@ public class SupplyRepository:RepositoryBase ,ISupplyInterface
                     supply.SupplyTimestamp = Convert.ToDateTime(reader["timestamp_supply"]);
                     supply.TypeSupply.Name = reader["type_supply_name"].ToString();
                     supply.Rent.PriceHour = Convert.ToDecimal(reader["price_hour"]);
-                    //supply.Rent.Hall.Description = reader["description"].ToString();
-                   // supply.Rent.Hall.Address = reader["address"].ToString();
+                    supply.Rent.Hall.Description = reader["description"].ToString();
+                    supply.Rent.Hall.Address = reader["address"].ToString();
+                    supply.Rent.Hall.Photo = reader["hall_photo"].ToString();
                     supplies.Add(supply);
                 }
             }

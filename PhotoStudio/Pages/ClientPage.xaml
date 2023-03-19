@@ -34,7 +34,17 @@
                     </ListView>
                 </TabItem>
                 <TabItem Header="Аренда">
-                    
+                    <ListView Name="RentListView" SelectionChanged="RentListView_OnSelectionChanged">
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel>
+                                    <TextBlock Name="HallPriceTextBlock" Text ="{Binding Price}"/>
+                                    <TextBlock Name="HallAddressTextBlock" Text="{Binding Rent.Hall.Address}"/>
+                                    <Image Name="HallImage" Source="{Binding Rent.Hall.Photo}" Width="50" Height="50"/>
+                                </StackPanel>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
                 </TabItem>
             </TabControl>
         </StackPanel>

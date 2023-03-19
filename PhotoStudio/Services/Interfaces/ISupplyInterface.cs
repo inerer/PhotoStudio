@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Windows.Documents;
 using PhotoStudio.Models.DataBase;
+using PhotoStudio.Models.DataBase.SupplyRequestModels;
 
 namespace PhotoStudio.Services.Interfaces;
 

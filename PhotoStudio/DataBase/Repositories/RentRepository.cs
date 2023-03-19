@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Npgsql;
 using PhotoStudio.Models.DataBase;
+using PhotoStudio.Models.DataBase.SupplyRequestModels;
 using PhotoStudio.Services;
 
 namespace PhotoStudio.DataBase.Repositories;

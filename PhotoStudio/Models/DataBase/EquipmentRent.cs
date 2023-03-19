@@ -1,4 +1,6 @@
-﻿namespace PhotoStudio.Models.DataBase;
+﻿using PhotoStudio.Models.DataBase.SupplyRequestModels;
+
+namespace PhotoStudio.Models.DataBase;
 
 public class EquipmentRent
 {

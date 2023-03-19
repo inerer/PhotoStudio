@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Npgsql;
 using PhotoStudio.Models.DataBase;
+using PhotoStudio.Models.DataBase.SupplyRequestModels;
 using PhotoStudio.Services.Interfaces;
 
 namespace PhotoStudio.DataBase.Repositories;
@@ -34,6 +35,7 @@ public class HallRepository:RepositoryBase ,IHallInterface
                     hall.Id = Convert.ToInt32(reader["id_hall"]);
                     hall.Address = reader["address"].ToString();
                     hall.Description = reader["description"].ToString();
+                    hall.Photo = reader["hall_photo"].ToString();
                 }
             }
         }
@@ -134,6 +136,7 @@ public class HallRepository:RepositoryBase ,IHallInterface
                     hall.Id = Convert.ToInt32(reader["id_hall"]);
                     hall.Address = reader["address"].ToString();
                     hall.Description = reader["description"].ToString();
+                    hall.Photo = reader["hall_photo"].ToString();
                     halls.Add(hall);
                 }
             }
