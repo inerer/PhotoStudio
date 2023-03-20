@@ -152,14 +152,14 @@ public class SupplyRepository:RepositoryBase ,ISupplyInterface
                 {
                     supply.Id = Convert.ToInt32(reader["id_supply"]);
                     supply.Name = reader["supply_name"].ToString();
-                    supply.Price = Convert.ToDecimal(reader["price_supply"]);
+                    supply.Price = reader.GetDecimal(reader.GetOrdinal("price_supply"));
                     supply.Description = reader["supply_description"].ToString();
                     supply.SupplyTimestamp = Convert.ToDateTime(reader["timestamp_supply"]);
                     supply.TypeSupply.Name = reader["type_supply_name"].ToString();
                     supply.Rent.PriceHour = Convert.ToDecimal(reader["price_hour"]);
                     supply.Rent.Hall.Description = reader["description"].ToString();
                     supply.Rent.Hall.Address = reader["address"].ToString();
-                    supply.Rent.Hall.Photo = reader["hall_photo"].ToString();
+                    // supply.Rent.Hall.Photo = reader.GetString(reader.GetOrdinal("hall_photo"));
                     supplies.Add(supply);
                 }
             }

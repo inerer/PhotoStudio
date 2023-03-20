@@ -10,12 +10,10 @@ namespace PhotoStudio.Services;
 
 public class WorkerService:IWorkerInterface
 {
-    private readonly string _connectionString;
     private readonly WorkerRepository? _workerRepository;
 
     public WorkerService()
     {
-        
         _workerRepository = new WorkerRepository();
     }
 

@@ -14,20 +14,20 @@
             <StackPanel Orientation="Horizontal">
                 <!-- подписи к блокам -->
                 <StackPanel Orientation="Vertical">
-                    <TextBlock Text="Login" Style="{StaticResource StandardTextBlock}"/>
-                    <TextBlock Text="Password" Style="{StaticResource StandardTextBlock}"/>
+                    <Label Content="Login" Width="100" Height="32" Margin="5"/>
+                    <Label Content="Password" Width="100" Height="32" Margin="5"/>
                 </StackPanel>
                 <!-- блоки ввода данных -->
                 <StackPanel Orientation="Vertical">
-                    <TextBox Name="LoginTextBox" FontSize="16" Height="25" Width="150" Margin="5">admin</TextBox>
-                    <PasswordBox Name="PasswordBox" FontSize="16" Height="25" Width="150" Margin="5" Password="admin"></PasswordBox>
+                    <TextBox Name="LoginTextBox" FontSize="16" Height="32" Width="150" Margin="5">admin</TextBox>
+                    <PasswordBox Name="PasswordBox" FontSize="16" Height="32" Width="150" Margin="5" Password="admin"></PasswordBox>
                 </StackPanel>
                 
             </StackPanel>
             <!-- кнопки -->
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                <Button Background="Transparent"  Name="LoginButton" Width="100" Height="25" Margin="5" Content="Вход" Click="LoginButton_OnClick"/>
-                <Button Background="Transparent" Name="GuestButton" Width="100" Height="25" Margin="5" Content="Гость" Click="GuestButton_OnClick"/>
+                <Button Background="Transparent" Name="LoginButton" Width="100" Height="32" Margin="5" Content="Вход" Click="LoginButton_OnClick"/>
+                <Button Background="Transparent" Name="GuestButton" Width="100" Height="32" Margin="5" Content="Гость" Click="GuestButton_OnClick"/>
             </StackPanel>
             
             <TextBlock Name="RegistrationTextBlock" Text="Регистрация" MouseDown="RegistrationTextBlock_OnMouseDown">

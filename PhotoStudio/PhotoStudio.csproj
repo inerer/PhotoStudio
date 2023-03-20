@@ -29,4 +29,8 @@
       <None Remove="appsettings.json" />
     </ItemGroup>
 
+    <ItemGroup>
+      <None Remove="appsettings.json" />
+    </ItemGroup>
+
 </Project>

@@ -5,9 +5,11 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PhotoStudio"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow" Height="450" Width="800"
+        xmlns:ui="http://schemas.modernwpf.com/2019"
+        ui:WindowHelper.UseModernWindowStyle="True">
     <Grid>
         <Frame Name="MainFrame" NavigationUIVisibility="Hidden" ContentRendered="MainFrame_OnContentRendered"></Frame>
-        <Button Content="Назад" VerticalAlignment="Top" HorizontalAlignment="Left" Name="BackButton" Click="BackButton_OnClick" ></Button>
+        <ui:AppBarButton Icon="Back" VerticalAlignment="Top" HorizontalAlignment="Left" Name="BackButton" Click="BackButton_OnClick" ></ui:AppBarButton>
     </Grid>
 </Window>

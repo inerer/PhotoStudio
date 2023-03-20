@@ -12,24 +12,24 @@
             
             <StackPanel Orientation="Horizontal">
                 <StackPanel Orientation="Vertical">
-                    <TextBlock Text="Login"  Style="{StaticResource StandardTextBlock}" />
-                    <TextBlock Text="Password" Style="{StaticResource StandardTextBlock}"/>
-                    <TextBlock Text="LastName" Style="{StaticResource StandardTextBlock}"/>
-                    <TextBlock Text="FirstName" Style="{StaticResource StandardTextBlock}"/>
-                    <TextBlock Text="MiddleName" Style="{StaticResource StandardTextBlock}"/>
-                    <TextBlock Text="Email" Style="{StaticResource StandardTextBlock}"/>
-                    <TextBlock Text="Phone" Style="{StaticResource StandardTextBlock}"/>
-                    <TextBlock Text="Role" Style="{StaticResource StandardTextBlock}"/>
+                    <TextBlock Text="Login"  Width="100" Height="32" Margin="5" />
+                    <TextBlock Text="Password" Width="100" Height="32" Margin="5"/>
+                    <TextBlock Text="LastName" Width="100" Height="32" Margin="5"/>
+                    <TextBlock Text="FirstName" Width="100" Height="32" Margin="5"/>
+                    <TextBlock Text="MiddleName" Width="100" Height="32" Margin="5"/>
+                    <TextBlock Text="Email" Width="100" Height="32" Margin="5"/>
+                    <TextBlock Text="Phone" Width="100" Height="32" Margin="5"/>
+                    <TextBlock Text="Role" Width="100" Height="32" Margin="5"/>
                 </StackPanel>
             
                 <StackPanel Orientation="Vertical">
-                    <TextBox Name="LoginTextBox" Style="{StaticResource StandardTextBox}"/>
-                    <PasswordBox Name="PasswordBox" Style="{StaticResource StandardPasswordBox}"/>
-                    <TextBox Name="LastNameTextBox" Text="{Binding LastName}"  Style="{StaticResource StandardTextBox}"/>
-                    <TextBox Name="FirstNameTextBox" Text="{Binding FirstName}" Style="{StaticResource StandardTextBox}"/>
-                    <TextBox Name="MiddleNameTextBox" Text="{Binding MiddleName}" Style="{StaticResource StandardTextBox}"/>
-                    <TextBox Name="EmailTextBox" Text="{Binding Email}" Style="{StaticResource StandardTextBox}"/>
-                    <TextBox Name="MobilePhoneTextBox" Text="{Binding MobilePhone}" Style="{StaticResource StandardTextBox}"/>
+                    <TextBox Name="LoginTextBox" Width="100" Height="32" Margin="5"/>
+                    <PasswordBox Name="PasswordBox" Width="100" Height="32" Margin="5"/>
+                    <TextBox Name="LastNameTextBox" Text="{Binding LastName}"  Width="100" Height="32" Margin="5"/>
+                    <TextBox Name="FirstNameTextBox" Text="{Binding FirstName}" Width="100" Height="32" Margin="5"/>
+                    <TextBox Name="MiddleNameTextBox" Text="{Binding MiddleName}" Width="100" Height="32" Margin="5"/>
+                    <TextBox Name="EmailTextBox" Text="{Binding Email}" Width="100" Height="32" Margin="5"/>
+                    <TextBox Name="MobilePhoneTextBox" Text="{Binding MobilePhone}" Width="100" Height="32" Margin="5"/>
                     <StackPanel Orientation="Horizontal">
                         <ComboBox Name="RoleComboBox" Width="125" Height="25" Margin="5" DisplayMemberPath="RoleName" SelectionChanged="RoleComboBox_OnSelectionChanged"></ComboBox>
                         <Button Name="AddRoleButton" Width="25" Height="25" Content="+" Click="AddRoleButton_OnClick"></Button>

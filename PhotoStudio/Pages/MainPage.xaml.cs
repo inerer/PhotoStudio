@@ -1,9 +1,13 @@
-﻿using System.Windows.Controls;
+﻿using System.Threading.Tasks;
+using System.Windows.Controls;
 using System.Windows.Input;
+using ModernWpf.Controls;
 using PhotoStudio.Models.DataBase;
 using PhotoStudio.Models.DataBase.SupplyRequestModels;
 using PhotoStudio.Services;
+using PhotoStudio.Views;
 using PhotoStudio.Windows;
+using Page = System.Windows.Controls.Page;
 
 namespace PhotoStudio.Pages;
 
@@ -38,9 +42,24 @@ public partial class MainPage : Page
     private void RequestListView_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
     {
         var selectedItem = (Request)RequestListView.SelectedItem;
-        FullRequestInfoWindow fullRequestInfoWindow = new FullRequestInfoWindow(selectedItem);
-        fullRequestInfoWindow.ShowDialog();
+
+        ShowFullRequestInfoDialog(selectedItem);
+        //
+        // FullRequestInfoWindow fullRequestInfoWindow = new FullRequestInfoWindow(selectedItem);
+        // fullRequestInfoWindow.ShowDialog();
         //NavigationService.Navigate(new FullInfo(selectedItem));
 
+    }
+
+    private async Task ShowFullRequestInfoDialog(Request request)
+    {
+        ContentDialog contentDialog = new ContentDialog
+        {
+            Title = "Абоба",
+            Content = new FullRequestView(request),
+            CloseButtonText = "Закрыть"
+        };
+
+        await contentDialog.ShowAsync();
     }
 }

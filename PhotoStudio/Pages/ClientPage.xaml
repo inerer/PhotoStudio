@@ -26,8 +26,8 @@
                         <ListView.ItemTemplate>
                             <DataTemplate>
                                 <StackPanel>
-                                    <TextBlock Name="NameSupply" Text="{Binding Name}"/>
-                                    <TextBlock Name="PriceSupply" Text="{Binding Price}"/>
+                                    <Label Name="NameSupply" Content="{Binding Name}"/>
+                                    <Label Name="PriceSupply" Content="{Binding Price}"/>
                                 </StackPanel>
                             </DataTemplate>  
                         </ListView.ItemTemplate>
@@ -38,8 +38,8 @@
                         <ListView.ItemTemplate>
                             <DataTemplate>
                                 <StackPanel>
-                                    <TextBlock Name="HallPriceTextBlock" Text ="{Binding Price}"/>
-                                    <TextBlock Name="HallAddressTextBlock" Text="{Binding Rent.Hall.Address}"/>
+                                    <Label Name="HallPriceTextBlock" Content ="{Binding Price}"/>
+                                    <Label Name="HallAddressTextBlock" Content="{Binding Rent.Hall.Address}"/>
                                     <Image Name="HallImage" Source="{Binding Rent.Hall.Photo}" Width="50" Height="50"/>
                                 </StackPanel>
                             </DataTemplate>
