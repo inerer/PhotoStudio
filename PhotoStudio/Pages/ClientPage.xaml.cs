@@ -38,7 +38,7 @@ public partial class ClientPage : Page
         var selectedItem = (Supply)SupplyListView.SelectedItem;
         if (selectedItem.TypeSupply.Id == 2)
         {
-
+            
         }
         else
             MessageBox.Show("В попу иди");

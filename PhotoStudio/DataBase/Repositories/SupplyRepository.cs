@@ -159,7 +159,7 @@ public class SupplyRepository:RepositoryBase ,ISupplyInterface
                     supply.Rent.PriceHour = Convert.ToDecimal(reader["price_hour"]);
                     supply.Rent.Hall.Description = reader["description"].ToString();
                     supply.Rent.Hall.Address = reader["address"].ToString();
-                    // supply.Rent.Hall.Photo = reader.GetString(reader.GetOrdinal("hall_photo"));
+                    supply.Rent.Hall.Photo = reader.GetString(reader.GetOrdinal("hall_photo"));
                     supplies.Add(supply);
                 }
             }
