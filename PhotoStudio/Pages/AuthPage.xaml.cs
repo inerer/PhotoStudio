@@ -46,10 +46,7 @@ public partial class AuthPage : Page
         _login = LoginTextBox.Text;
 
         _password = PasswordBox.Password;
-        
-        if(_password == "admin")
-            return;
-        
+
         _password = _getHash.GetHash1(_password);
     }
 

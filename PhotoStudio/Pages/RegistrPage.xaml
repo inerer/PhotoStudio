@@ -12,14 +12,14 @@
             
             <StackPanel Orientation="Horizontal">
                 <StackPanel Orientation="Vertical">
-                    <TextBlock Text="Login"  Width="100" Height="32" Margin="5" />
-                    <TextBlock Text="Password" Width="100" Height="32" Margin="5"/>
-                    <TextBlock Text="LastName" Width="100" Height="32" Margin="5"/>
-                    <TextBlock Text="FirstName" Width="100" Height="32" Margin="5"/>
-                    <TextBlock Text="MiddleName" Width="100" Height="32" Margin="5"/>
-                    <TextBlock Text="Email" Width="100" Height="32" Margin="5"/>
-                    <TextBlock Text="Phone" Width="100" Height="32" Margin="5"/>
-                    <TextBlock Text="Role" Width="100" Height="32" Margin="5"/>
+                    <Label Content="Login"  Width="100" Height="32" Margin="5" />
+                    <Label Content="Password" Width="100" Height="32" Margin="5"/>
+                    <Label Content="LastName" Width="100" Height="32" Margin="5"/>
+                    <Label Content="FirstName" Width="100" Height="32" Margin="5"/>
+                    <Label Content="MiddleName" Width="100" Height="32" Margin="5"/>
+                    <Label Content="Email" Width="100" Height="32" Margin="5"/>
+                    <Label Content="Phone" Width="100" Height="32" Margin="5"/>
+                    <Label Content="Role" Width="100" Height="32" Margin="5"/>
                 </StackPanel>
             
                 <StackPanel Orientation="Vertical">
