@@ -1,0 +1,38 @@
+﻿<UserControl x:Class="PhotoStudio.Views.CartView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:local="clr-namespace:PhotoStudio.Views"
+             mc:Ignorable="d"
+             d:DesignHeight="300" d:DesignWidth="300">
+    <Grid ShowGridLines="True">
+        
+        <Grid.RowDefinitions>
+            <RowDefinition Height="5*"/>
+            <RowDefinition Height="5*"/>
+        </Grid.RowDefinitions>
+        
+        <ScrollViewer>
+            <StackPanel>
+                <ListView Name="CartListView">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel>
+                                <Label Name="HallPriceTextBlock" Content ="{Binding Price}"/>
+                                <Label Name="HallAddressTextBlock" Content="{Binding Rent.Hall.Address}"/>
+                                <Image Name="HallImage" Source="{Binding Rent.Hall.Photo}" Width="50" Height="50"/>
+                            </StackPanel>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </StackPanel>
+        </ScrollViewer>
+        
+        <StackPanel Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center">
+            <Button Name="DeleteCartElementButton" Width="70" Height="40" Content="Удалить" Click="DeleteCartElementButton_OnClick"/>
+            <Button Name="DesignCartButton" Width="70" Height="40" Content="Заказать" Click="DesignCartButton_OnClick"/>
+        </StackPanel>
+        
+    </Grid>
+</UserControl>

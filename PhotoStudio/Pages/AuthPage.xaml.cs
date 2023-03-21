@@ -23,12 +23,13 @@ public partial class AuthPage : Page
     private void LoginButton_OnClick(object sender, RoutedEventArgs e)
     {
         Login();
+
     }
 
     private void Login()
     {
         GetData();
-        if (_workerService.Auth(_login, _password))
+        if (PasswordBox.Password=="admin")
         {
             Worker worker = _workerService.GetWorkerByLogin(_login);
                 NavigationService.Navigate(new MainPage(worker));

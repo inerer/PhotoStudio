@@ -48,5 +48,15 @@
                 </TabItem>
             </TabControl>
         </StackPanel>
+        
+        <StackPanel Grid.Row="0" Grid.Column="2" Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
+            <Button Width="50" Height="50" Background="Gray" Click="ButtonBase_OnClick">
+                <Image Source="C:\Users\arshi\Downloads\1374128.png"/>
+            </Button>
+        </StackPanel>
+        
+        <StackPanel Grid.Column="1" Grid.Row="2" VerticalAlignment="Center" Orientation="Horizontal" HorizontalAlignment="Center">
+            <Button Name="AddCartButton" Width="100" Height="50" Margin="5" Click="AddCartButton_OnClick" Content="Добавить"/>
+        </StackPanel>
     </Grid>
 </Page>

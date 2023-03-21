@@ -10,6 +10,6 @@
         ui:WindowHelper.UseModernWindowStyle="True">
     <Grid>
         <Frame Name="MainFrame" NavigationUIVisibility="Hidden" ContentRendered="MainFrame_OnContentRendered"></Frame>
-        <ui:AppBarButton Icon="Back" VerticalAlignment="Top" HorizontalAlignment="Left" Name="BackButton" Click="BackButton_OnClick" ></ui:AppBarButton>
+        <ui:AppBarButton Icon="Back" VerticalAlignment="Top" HorizontalAlignment="Left" Name="BackButton" Click="BackButton_OnClick" Width="30" Height="40"/>
     </Grid>
 </Window>

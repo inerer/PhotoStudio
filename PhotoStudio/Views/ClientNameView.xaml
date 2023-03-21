@@ -18,10 +18,10 @@
                 </StackPanel>
                 
                 <StackPanel Orientation="Vertical">
-                    <TextBox Name="LastNameTextBox" Width="100" Height="32" Margin="5"/>
-                    <TextBox Name="FirstNameTextBox" Width="100" Height="32" Margin="5"/>
-                    <TextBox Name="MiddleNameTextBox" Width="100" Height="32" Margin="5"/>
-                    <TextBox Name="MobilePhoneTextBox" Width="100" Height="32" Margin="5"/>
+                    <TextBox Name="LastNameTextBox" Text="{Binding LastName}" Width="100" Height="32" Margin="5"/>
+                    <TextBox Name="FirstNameTextBox" Text="{Binding FirstName}" Width="100" Height="32" Margin="5"/>
+                    <TextBox Name="MiddleNameTextBox" Text="{Binding MiddleName}" Width="100" Height="32" Margin="5"/>
+                    <TextBox Name="MobilePhoneTextBox" Text="{Binding MobilePhone }" Width="100" Height="32" Margin="5"/>
                 </StackPanel>
                 
             </StackPanel>
