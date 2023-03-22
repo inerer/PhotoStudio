@@ -71,7 +71,7 @@ public partial class ClientPage : Page
 
     private void ButtonBase_OnClick(object sender, RoutedEventArgs e)
     {
-        ShowCartDialog(_supplies);
+        ShowCartDialog(_supplies, _client);
     }
     
    //private async Task ShowClientNameDialog()
