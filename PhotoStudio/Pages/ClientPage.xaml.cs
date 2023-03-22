@@ -17,16 +17,18 @@ public partial class ClientPage : Page
     private readonly SupplyService _supplyService;
     private readonly Supply _supply;
     private readonly List<Supply> _supplies;
+    private  Client _client;
+    private PersonalInfoService _personalInfoService;
 
-    public ClientPage()
+    public ClientPage(Client client)
     {
         InitializeComponent();
         _supplyService = new SupplyService();
         _supply = new Supply();
         _supplies = new List<Supply>();
+        _client = client;
         SupplyListViewRendered();
         RentListViewRendered();
-
     }
 
     private void SupplyListViewRendered()
@@ -57,20 +59,39 @@ public partial class ClientPage : Page
         _supplies.Add(selectedItem);
     }
 
-    private async Task ShowCartDialog(List<Supply> supplies)
+    private async Task ShowCartDialog(List<Supply> supplies, Client client)
     {
         ContentDialog contentDialog = new ContentDialog
         {
             Title = "Корзина",
-            Content = new CartView(supplies),
-            CloseButtonText = "Закрыть корзину"
+            Content = new CartView(supplies, client),
+            CloseButtonText = "Закрыть корзину",
         };
-        await contentDialog.ShowAsync();
-        
     }
 
     private void ButtonBase_OnClick(object sender, RoutedEventArgs e)
     {
         ShowCartDialog(_supplies);
     }
+    
+   //private async Task ShowClientNameDialog()
+   //{
+   //    _client = new Client();
+   //    ContentDialog contentDialog = new ContentDialog
+   //    {
+   //        Title = "Введите ваши данны",
+   //        Content = new ClientNameView(_client),
+   //        CloseButtonText = "Отменить оформление",
+   //        PrimaryButtonText = "Зарегистрировать"
+   //        
+   //    };
+   //   var result =  await contentDialog.ShowAsync();
+   //   if (result == ContentDialogResult.Primary) 
+   //       if (!string.IsNullOrWhiteSpace(_client.PersonalInfo.FirstName)) 
+   //       { 
+   //           var commandResult = await _recipeService.AddCategoryAsync(category); 
+   //           _categories.Add(category); 
+   //           Categories = new ObservableCollection<Category>(_categories); 
+   //       } 
+   //}
 }

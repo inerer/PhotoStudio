@@ -3,29 +3,40 @@ using System.Windows.Controls;
 using PhotoStudio.Models.DataBase;
 using PhotoStudio.Services;
 
-namespace PhotoStudio.Views;
+namespace PhotoStudio.Pages;
 
-public partial class ClientNameView : UserControl
+public partial class ClientInfoPage : Page
 {
     private readonly PersonalInfo _personalInfo;
     private readonly PersonalInfoService _personalInfoService;
     private readonly Client _client;
-    public ClientNameView(Client client)
+    
+    public ClientInfoPage()
     {
         InitializeComponent();
         _personalInfo = new();
-        _client = client;
+        _client = new();
         this.DataContext = _personalInfo;
+        _personalInfoService = new();
     }
 
     private void CancelButton_OnClick(object sender, RoutedEventArgs e)
     {
-        throw new System.NotImplementedException();
+        NavigationService.Navigate(new AuthPage());
     }
 
     private void SubmitButton_OnClick(object sender, RoutedEventArgs e)
     {
-        _client.PersonalInfo =
-            _personalInfoService.GetPersonalInfo(_personalInfoService.AddPersonalInfo(_personalInfo));
+        try
+        {
+            _client.PersonalInfo =
+                _personalInfoService.GetPersonalInfo(_personalInfoService.AddPersonalInfo((PersonalInfo)DataContext));
+            NavigationService.Navigate(new ClientPage(_client));
+        }
+        catch
+        {
+            MessageBox.Show("Ошибка");
+        }
+        
     }
 }

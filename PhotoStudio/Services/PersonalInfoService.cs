@@ -16,7 +16,7 @@ public class PersonalInfoService:IPersonalInfoRepository
 
     public PersonalInfo GetPersonalInfo(int id)
     {
-        throw new System.NotImplementedException();
+        return _personalInfoRepository.GetPersonalInfo(id);
     }
 
     public int AddPersonalInfo(PersonalInfo personalInfo)

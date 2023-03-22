@@ -58,6 +58,6 @@ public partial class AuthPage : Page
 
     private void GuestButton_OnClick(object sender, RoutedEventArgs e)
     {
-        NavigationService.Navigate(new ClientPage());
+        NavigationService.Navigate(new ClientInfoPage());
     }
 }

@@ -5,6 +5,7 @@ using System.Windows.Controls;
 using System.Windows.Navigation;
 using MahApps.Metro.Controls;
 using ModernWpf.Controls;
+using PhotoStudio.Models.DataBase;
 using PhotoStudio.Models.DataBase.SupplyRequestModels;
 
 namespace PhotoStudio.Views;
@@ -12,7 +13,7 @@ namespace PhotoStudio.Views;
 public partial class CartView : UserControl
 {
     private readonly List<Supply> _supplies;
-    public CartView(List<Supply> supplies)
+    public CartView(List<Supply> supplies , Client client)
     {
         _supplies = supplies;
         InitializeComponent();
@@ -40,16 +41,5 @@ public partial class CartView : UserControl
         var selectedItem = (Supply)CartListView.SelectedItem;
         _supplies.Remove(selectedItem);
         RenderCartListView();
-    }
-
-    private async Task ShowClientNameDialog()
-    {
-        ContentDialog contentDialog = new ContentDialog
-        {
-            Title = "Введите ваши данны",
-            Content = new ClientNameView(),
-            CloseButtonText = "Отменить оформление"
-        };
-        await contentDialog.ShowAsync();
     }
 }
