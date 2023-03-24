@@ -22,7 +22,7 @@ public class SupplyRequestService:ISupplyRequestInterface
 
     public SupplyRequest AddSupplyRequest(SupplyRequest supplyRequest)
     {
-        throw new System.NotImplementedException();
+        return _supplyRequestRepository.AddSupplyRequest(supplyRequest);
     }
 
     public bool EditSupplyRequest(SupplyRequest supplyRequest)

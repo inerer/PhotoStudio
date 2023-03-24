@@ -23,7 +23,6 @@ public partial class AuthPage : Page
     private void LoginButton_OnClick(object sender, RoutedEventArgs e)
     {
         Login();
-
     }
 
     private void Login()
