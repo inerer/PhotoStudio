@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -24,14 +25,12 @@ public partial class CartView : UserControl
     {
         _supplies = supplies;
         _requestService = new RequestService();
+        _supplyRequestService = new SupplyRequestService();
         _request = new Request
         {
             Client = client
         };
-        _supplyRequest = new SupplyRequest
-        {
-            Request = _request
-        };
+        _supplyRequest = new SupplyRequest();
         InitializeComponent();
         RenderCartListView();
     }
@@ -61,11 +60,18 @@ public partial class CartView : UserControl
 
     private void AddServiceRequest()
     {
-       _supplyRequest.Request=_requestService.AddRequest(_request);
-        foreach (var item in _supplies)
+        try
         {
-            _supplyRequest.Supply = item;
-            _supplyRequestService.AddSupplyRequest(_supplyRequest);
+            _supplyRequest.Request=_requestService.AddRequest(_request);
+            foreach (var item in _supplies)
+            {
+                _supplyRequest.Supply = item;
+                _supplyRequestService.AddSupplyRequest(_supplyRequest);
+            }
         }
+        catch (Exception e)
+        {
+            MessageBox.Show("Ошибка заказа");
+        } 
     }
 }

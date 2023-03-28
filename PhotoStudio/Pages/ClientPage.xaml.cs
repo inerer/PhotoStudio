@@ -17,7 +17,7 @@ public partial class ClientPage : Page
     private readonly SupplyService _supplyService;
     private readonly Supply _supply;
     private readonly List<Supply> _supplies;
-    private  Client _client;
+    private readonly Client _client;
     private PersonalInfoService _personalInfoService;
 
     public ClientPage(Client client)

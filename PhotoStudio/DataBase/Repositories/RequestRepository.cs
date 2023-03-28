@@ -51,18 +51,28 @@ public class RequestRepository:RepositoryBase ,IRequestInterface
     public Request AddRequest(Request request)
     {
         _connection.Open();
-        string query = "insert into request(id_client, request_timestamp) values ($1, $2)";
+        string query = "insert into request(id_client) values ($1) returning id_request";
         NpgsqlCommand command = new(query, _connection)
         {
             Parameters =
             {
                 new NpgsqlParameter() { Value = request.Client.Id },
-                new NpgsqlParameter() { Value = request.RequestTimestamp }
             }
         };
+        using (command)
+        {
+            // создаем reader
+            using (NpgsqlDataReader reader = command.ExecuteReader())
+            {
+                // проход по полученным данным
+                while (reader.Read())
+                {
+                    request.Id = Convert.ToInt32(reader["id_request"]);
+                }
+            }
+        }
         try
         {
-            command.ExecuteNonQuery();
             return request;
         }
         catch (Exception e)

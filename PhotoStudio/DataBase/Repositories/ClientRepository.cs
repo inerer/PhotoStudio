@@ -49,7 +49,7 @@ public class ClientRepository:RepositoryBase ,IClientInterface
     public Client AddClient(Client client)
     {
         _connection.Open();
-        string query = @"insert into client(id_personal_info) values ($1)";
+        string query = @"insert into client(id_personal_info) values ($1) returning id_client";
         NpgsqlCommand command = new NpgsqlCommand(query, _connection)
         {
             Parameters =
@@ -57,9 +57,20 @@ public class ClientRepository:RepositoryBase ,IClientInterface
                 new NpgsqlParameter() { Value = client.PersonalInfo.Id }
             }
         };
+        using (command)
+        {
+            // создаем reader
+            using (NpgsqlDataReader reader = command.ExecuteReader())
+            {
+                // проход по полученным данным
+                while (reader.Read())
+                {
+                    client.Id = Convert.ToInt32(reader["id_client"]);
+                }
+            }
+        }
         try
         {
-            command.ExecuteNonQuery();
             return client;
         }
         catch (Exception e)

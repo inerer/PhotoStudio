@@ -23,7 +23,7 @@ public class RequestService:IRequestInterface
 
     public Request AddRequest(Request request)
     {
-        throw new System.NotImplementedException();
+        return _requestRepository.AddRequest(request);
     }
 
     public bool EditRequest(Request request)

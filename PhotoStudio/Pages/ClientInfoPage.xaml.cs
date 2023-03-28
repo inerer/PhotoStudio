@@ -29,18 +29,16 @@ public partial class ClientInfoPage : Page
 
     private void SubmitButton_OnClick(object sender, RoutedEventArgs e)
     {
-        //try
-        //{
+        try
+        {
             _client.PersonalInfo =
                 _personalInfoService.GetPersonalInfo(_personalInfoService.AddPersonalInfo((PersonalInfo)DataContext));
-            
-            
             NavigationService.Navigate(new ClientPage(_clientService.AddClient(_client)));
-        //}
-        //catch
-        //{
-          //  MessageBox.Show("Ошибка");
-        //}
+        }
+        catch
+        {
+            MessageBox.Show("Ошибка");
+        }
         
     }
 }
