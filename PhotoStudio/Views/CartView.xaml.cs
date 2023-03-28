@@ -61,7 +61,7 @@ public partial class CartView : UserControl
 
     private void AddServiceRequest()
     {
-        _requestService.AddRequest(_request);
+       _supplyRequest.Request=_requestService.AddRequest(_request);
         foreach (var item in _supplies)
         {
             _supplyRequest.Supply = item;

@@ -67,6 +67,7 @@ public partial class ClientPage : Page
             Content = new CartView(supplies, client),
             CloseButtonText = "Закрыть корзину",
         };
+        await contentDialog.ShowAsync();
     }
 
     private void ButtonBase_OnClick(object sender, RoutedEventArgs e)

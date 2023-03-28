@@ -10,6 +10,7 @@ public partial class ClientInfoPage : Page
     private readonly PersonalInfo _personalInfo;
     private readonly PersonalInfoService _personalInfoService;
     private readonly Client _client;
+    private readonly ClientService _clientService;
     
     public ClientInfoPage()
     {
@@ -18,6 +19,7 @@ public partial class ClientInfoPage : Page
         _client = new();
         this.DataContext = _personalInfo;
         _personalInfoService = new();
+        _clientService = new ClientService();
     }
 
     private void CancelButton_OnClick(object sender, RoutedEventArgs e)
@@ -27,16 +29,18 @@ public partial class ClientInfoPage : Page
 
     private void SubmitButton_OnClick(object sender, RoutedEventArgs e)
     {
-        try
-        {
+        //try
+        //{
             _client.PersonalInfo =
                 _personalInfoService.GetPersonalInfo(_personalInfoService.AddPersonalInfo((PersonalInfo)DataContext));
-            NavigationService.Navigate(new ClientPage(_client));
-        }
-        catch
-        {
-            MessageBox.Show("Ошибка");
-        }
+            
+            
+            NavigationService.Navigate(new ClientPage(_clientService.AddClient(_client)));
+        //}
+        //catch
+        //{
+          //  MessageBox.Show("Ошибка");
+        //}
         
     }
 }
