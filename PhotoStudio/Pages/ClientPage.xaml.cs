@@ -19,6 +19,8 @@ public partial class ClientPage : Page
     private readonly List<Supply> _supplies;
     private readonly Client _client;
     private PersonalInfoService _personalInfoService;
+    private readonly List<Supply> _supplyList;
+    private readonly List<Supply> _rentList;
 
     public ClientPage(Client client)
     {
@@ -27,30 +29,28 @@ public partial class ClientPage : Page
         _supply = new Supply();
         _supplies = new List<Supply>();
         _client = client;
-        SupplyListViewRendered();
-        RentListViewRendered();
+        _rentList = new List<Supply>();
+        _supplyList = new List<Supply>();
+        AllListViewsRendered();
     }
 
-    private void SupplyListViewRendered()
+    private void AllListViewsRendered()
     {
-        SupplyListView.ItemsSource = _supplyService.GetAllSupplies(_supply);
-    }
+        foreach (var item in _supplyService.GetAllSupplies(_supply))
+        {
+            if(item.TypeSupply.Id==1)
+                _rentList.Add(item);
+            else
+                _supplyList.Add(item);
+        }
 
-    private void RentListViewRendered()
-    {
-        
-        RentListView.ItemsSource = _supplyService.GetAllSupplies(_supply);
+        SupplyListView.ItemsSource = _supplyList;
+        RentListView.ItemsSource = _rentList;
     }
 
     private void RentListView_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
     {
         var selectedItem = (Supply)SupplyListView.SelectedItem;
-        if (selectedItem.TypeSupply.Id == 2)
-        {
-            
-        }
-        else
-            MessageBox.Show("В попу иди");
     }
 
     private void AddCartButton_OnClick(object sender, RoutedEventArgs e)
@@ -75,24 +75,4 @@ public partial class ClientPage : Page
         ShowCartDialog(_supplies, _client);
     }
     
-   //private async Task ShowClientNameDialog()
-   //{
-   //    _client = new Client();
-   //    ContentDialog contentDialog = new ContentDialog
-   //    {
-   //        Title = "Введите ваши данны",
-   //        Content = new ClientNameView(_client),
-   //        CloseButtonText = "Отменить оформление",
-   //        PrimaryButtonText = "Зарегистрировать"
-   //        
-   //    };
-   //   var result =  await contentDialog.ShowAsync();
-   //   if (result == ContentDialogResult.Primary) 
-   //       if (!string.IsNullOrWhiteSpace(_client.PersonalInfo.FirstName)) 
-   //       { 
-   //           var commandResult = await _recipeService.AddCategoryAsync(category); 
-   //           _categories.Add(category); 
-   //           Categories = new ObservableCollection<Category>(_categories); 
-   //       } 
-   //}
 }

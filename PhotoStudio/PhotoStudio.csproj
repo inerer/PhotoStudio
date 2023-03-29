@@ -33,4 +33,11 @@
       <None Remove="appsettings.json" />
     </ItemGroup>
 
+    <ItemGroup>
+      <None Remove="Resources\photo_2023-03-30_00-09-02.png" />
+      <Resource Include="Resources\photo_2023-03-30_00-09-02.png" />
+      <None Remove="Resources\3081797.png" />
+      <Resource Include="Resources\3081797.png" />
+    </ItemGroup>
+
 </Project>
