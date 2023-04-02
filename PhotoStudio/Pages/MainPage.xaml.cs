@@ -1,4 +1,7 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Linq;
+using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using ModernWpf.Controls;
@@ -42,24 +45,36 @@ public partial class MainPage : Page
     private void RequestListView_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
     {
         var selectedItem = (Request)RequestListView.SelectedItem;
-
         ShowFullRequestInfoDialog(selectedItem);
-        //
-        // FullRequestInfoWindow fullRequestInfoWindow = new FullRequestInfoWindow(selectedItem);
-        // fullRequestInfoWindow.ShowDialog();
-        //NavigationService.Navigate(new FullInfo(selectedItem));
-
     }
 
     private async Task ShowFullRequestInfoDialog(Request request)
     {
         ContentDialog contentDialog = new ContentDialog
         {
-            Title = "Абоба",
+            Title = request.Client.PersonalInfo.FullName,
             Content = new FullRequestView(request),
             CloseButtonText = "Закрыть"
         };
 
         await contentDialog.ShowAsync();
+    }
+
+    private void SearchTextBox_OnTextChanged(object sender, TextChangedEventArgs e)
+    {
+        var search = SearchTextBox.Text;
+        if (search != String.Empty)
+        {
+            var searchResult = _requestService.Requests(_request)
+                .Where(r => r.Client.PersonalInfo.LastName.Contains(search));
+            RequestListView.ItemsSource = null;
+            RequestListView.ItemsSource = searchResult;
+        }
+        else
+        {
+            RequestListBoxRendered();
+        }
+        
+        
     }
 }

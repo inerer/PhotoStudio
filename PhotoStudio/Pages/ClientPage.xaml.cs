@@ -57,6 +57,7 @@ public partial class ClientPage : Page
     {
         var selectedItem = (Supply)SupplyListView.SelectedItem;
         _supplies.Add(selectedItem);
+        MessageBox.Show("Услуга добавлена");
     }
 
     private async Task ShowCartDialog(List<Supply> supplies, Client client)
@@ -68,6 +69,11 @@ public partial class ClientPage : Page
             CloseButtonText = "Закрыть корзину",
         };
         await contentDialog.ShowAsync();
+    }
+
+    private async Task ShowPhotoClientDialog()
+    {
+        
     }
 
     private void ButtonBase_OnClick(object sender, RoutedEventArgs e)

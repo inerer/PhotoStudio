@@ -7,7 +7,7 @@
       mc:Ignorable="d"
       
       Title="MainPage" Height="450" Width="800">
-    <Grid >
+    <Grid ShowGridLines="True">
         <Grid.RowDefinitions>
             <RowDefinition Height="10*"></RowDefinition>
             <RowDefinition Height="90*"></RowDefinition>
@@ -40,6 +40,13 @@
             <TabItem Header="Заказы">
                 
             </TabItem>
+            
         </TabControl>
+        
+        <StackPanel Grid.Row="0" Grid.Column="1" Orientation="Horizontal">
+            <Label Content="Поиск"/>
+            <TextBox Name="SearchTextBox" Height="20" Width="50" Margin="5" TextChanged="SearchTextBox_OnTextChanged"/>
+        </StackPanel>
+        
     </Grid>
 </Page>
