@@ -176,6 +176,7 @@ public class SupplyRequestRepository:RepositoryBase ,ISupplyRequestInterface
         _connection.Open();
         SupplyRequest supplyRequest = new();
         List<SupplyRequest> supplyRequests = new();
+        supplyRequest.Request = request;
         
         string query =
             "select * from supply_request join supply s on supply_request.id_supply = s.id_supply join request r on supply_request.id_request = r.id_request join rent r2 on s.id_rent = r2.id_rent join client c on r.id_client = c.id_client join type_supply ts on s.id_type_supply = ts.id_type_supply join hall h on r2.id_hall = h.id_hall where r.id_request=($1)";
@@ -198,6 +199,7 @@ public class SupplyRequestRepository:RepositoryBase ,ISupplyRequestInterface
                     supplyRequest.Supply.Rent.PriceHour = Convert.ToDecimal(reader["price_hour"]);
                     supplyRequest.Supply.Rent.Hall.Description = reader["description"].ToString();
                     supplyRequest.Supply.Rent.Hall.Address = reader["address"].ToString();
+                    supplyRequests.Add(supplyRequest);
                     
                    // supplyRequest.Request.RequestTimestamp = Convert.ToDateTime(reader["request_timestamp"]);
                    // supplyRequest.Request.Client.Id = Convert.ToInt32(reader["id_client"]);
@@ -210,9 +212,6 @@ public class SupplyRequestRepository:RepositoryBase ,ISupplyRequestInterface
             }
         }
         _connection.Close();
-        supplyRequest.Request = request;
-        supplyRequests.Add(supplyRequest);
-       
         return supplyRequests;
     }
 }
