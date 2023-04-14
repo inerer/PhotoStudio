@@ -30,8 +30,8 @@
                 </StackPanel>
             
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                    <Button Name="CancelButton" Content="Отмена" Width="50" Height="25" Margin="5" Click="CancelButton_OnClick"></Button>
-                    <Button Name="SubmitButton" Content="Зарегистрироваться" Width="125" Height="25" Margin="5" Click="SubmitButton_OnClick"></Button>
+                    <Button Name="CancelButton" Content="Отмена" Width="70" Height="30" Margin="5" Click="CancelButton_OnClick"></Button>
+                    <Button Name="SubmitButton" Content="Зарегистрироваться" Width="150" Height="30" Margin="5" Click="SubmitButton_OnClick"></Button>
                 </StackPanel>
             
             </StackPanel>

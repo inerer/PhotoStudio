@@ -171,4 +171,19 @@ public class PersonalInfoRepository:RepositoryBase ,IPersonalInfoRepository
         _connection.Close();
         return personalInfos;
     }
+
+    public bool CheckPersonalInfoByLastNameAndFirstName(PersonalInfo personalInfo)
+    {
+        _connection.Open();
+        string query = "select * from personal_info where ($1 AND $2)";
+        NpgsqlCommand command = new(query, _connection)
+        {
+            Parameters =
+            {
+                new NpgsqlParameter() { Value = personalInfo.LastName },
+                new NpgsqlParameter() { Value = personalInfo.FirstName }
+            }
+        };
+        
+    }
 }
