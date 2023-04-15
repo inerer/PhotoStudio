@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Windows;
 using System.Windows.Documents;
 using Npgsql;
 using PhotoStudio.Models.DataBase;
@@ -44,9 +45,7 @@ public class PersonalInfoRepository:RepositoryBase ,IPersonalInfoRepository
         _connection.Close();
         return personalInfo;
     }
-
     
-
     public int AddPersonalInfo(PersonalInfo personalInfo)
     {
         _connection.Open();
@@ -172,18 +171,47 @@ public class PersonalInfoRepository:RepositoryBase ,IPersonalInfoRepository
         return personalInfos;
     }
 
-    public bool CheckPersonalInfoByLastNameAndFirstName(PersonalInfo personalInfo)
+    public PersonalInfo CheckPersonalInfoByLastNameAndFirstName(PersonalInfo personalInfo)
     {
         _connection.Open();
-        string query = "select * from personal_info where ($1 AND $2)";
+        string query = "select * from personal_info where email = ($1)";
         NpgsqlCommand command = new(query, _connection)
         {
             Parameters =
             {
-                new NpgsqlParameter() { Value = personalInfo.LastName },
-                new NpgsqlParameter() { Value = personalInfo.FirstName }
+                new NpgsqlParameter() { Value = personalInfo.Email }
             }
         };
-        
+        using (command)
+        {
+            using (NpgsqlDataReader reader = command.ExecuteReader())
+            {
+                try
+                {
+                    while (reader.Read())
+                    {
+                        personalInfo = new();
+                        personalInfo.Id = Convert.ToInt32(reader["id_personal_info"]);
+                        personalInfo.LastName = reader["last_name"].ToString();
+                        personalInfo.FirstName = reader["first_name"].ToString();
+                        personalInfo.MiddleName = reader["middle_name"].ToString();
+                        personalInfo.Email = reader["email"].ToString();
+                        personalInfo.MobilePhone = reader["mobile_phone"].ToString();
+
+                    }
+                }
+                catch
+                {
+                    MessageBox.Show("Ошбка");
+                }
+                finally
+                {
+                    _connection.Close();
+                }
+
+            }
+        }
+
+        return personalInfo;
     }
 }

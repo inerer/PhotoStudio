@@ -10,4 +10,5 @@ public interface IClientInterface
     public bool EditClient(Client client);
     public bool DeleteClient(int id);
     public List<Client> GetAllClients(Client client);
+    public Client GetClientByIdPersonalInfo(PersonalInfo personalInfo);
 }

@@ -10,6 +10,6 @@ public interface IPersonalInfoRepository
     public bool EditPersonalInfo(PersonalInfo personalInfo);
     public bool DeletePersonalInfo(int id);
     public List<PersonalInfo> GelAllPersonalInfos(PersonalInfo personalInfo);
-    public bool CheckPersonalInfoByLastNameAndFirstName(PersonalInfo personalInfo);
+    public PersonalInfo CheckPersonalInfoByLastNameAndFirstName(PersonalInfo personalInfo);
     
 }

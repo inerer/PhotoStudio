@@ -38,4 +38,9 @@ public class ClientService:IClientInterface
     {
         throw new System.NotImplementedException();
     }
+
+    public Client GetClientByIdPersonalInfo(PersonalInfo personalInfo)
+    {
+        return _clientRepository.GetClientByIdPersonalInfo(personalInfo);
+    }
 }

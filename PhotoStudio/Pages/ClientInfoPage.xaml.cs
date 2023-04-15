@@ -31,9 +31,20 @@ public partial class ClientInfoPage : Page
     {
         try
         {
-            _client.PersonalInfo =
-                _personalInfoService.GetPersonalInfo(_personalInfoService.AddPersonalInfo((PersonalInfo)DataContext));
-            NavigationService.Navigate(new ClientPage(_clientService.AddClient(_client)));
+
+            if (_personalInfoService.CheckPersonalInfoByLastNameAndFirstName((PersonalInfo)DataContext) == null)
+            {
+                _client.PersonalInfo =
+                    _personalInfoService.GetPersonalInfo(_personalInfoService.AddPersonalInfo((PersonalInfo)DataContext));
+                NavigationService.Navigate(new ClientPage(_clientService.AddClient(_client)));
+            }
+            else
+            {
+                _client.PersonalInfo =
+                    _personalInfoService.CheckPersonalInfoByLastNameAndFirstName((PersonalInfo)DataContext);
+                NavigationService.Navigate(new ClientPage(_clientService.GetClientByIdPersonalInfo(_personalInfo)));
+            }
+            
         }
         catch
         {

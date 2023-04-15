@@ -38,4 +38,9 @@ public class PersonalInfoService:IPersonalInfoRepository
     {
         throw new System.NotImplementedException();
     }
+
+    public PersonalInfo CheckPersonalInfoByLastNameAndFirstName(PersonalInfo personalInfo)
+    {
+        return _personalInfoRepository.CheckPersonalInfoByLastNameAndFirstName(personalInfo);
+    }
 }

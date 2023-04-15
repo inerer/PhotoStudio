@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Windows;
 using Npgsql;
 using PhotoStudio.Models.DataBase;
 using PhotoStudio.Services.Interfaces;
@@ -163,5 +164,39 @@ public class ClientRepository:RepositoryBase ,IClientInterface
         }
         _connection.Close();
         return clients;
+    }
+
+    public Client GetClientByIdPersonalInfo(PersonalInfo personalInfo)
+    {
+        Client client = new();
+        _connection.Open();
+        string query = "select * from client where id_personal_info = ($1)";
+        NpgsqlCommand command = new(query, _connection)
+        {
+            Parameters = { new NpgsqlParameter() { Value = personalInfo.Id } }
+        };
+        using (command)
+        {
+            using (NpgsqlDataReader reader = command.ExecuteReader())
+            {
+                try
+                {
+                    while (reader.Read())
+                    {
+                        client.Id = Convert.ToInt32(reader["id_client"]);
+                    }
+                }
+                catch
+                {
+                    MessageBox.Show("Ошибка");
+                }
+                finally
+                {
+                    _connection.Close();
+                }
+            }
+        }
+
+        return client;
     }
 }
