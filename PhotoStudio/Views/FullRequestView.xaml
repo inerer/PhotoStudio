@@ -6,8 +6,9 @@
              xmlns:local="clr-namespace:PhotoStudio.Views"
              mc:Ignorable="d"
              d:DesignHeight="450" d:DesignWidth="800">
+    <ScrollViewer Margin="5">
     <StackPanel Orientation="Vertical">
-        <ScrollViewer Margin="5">
+        
             <StackPanel  Height="300" VerticalAlignment="Top">
                 <ScrollViewer Grid.Row="1" Grid.Column="1">
                     <ListView Name="FullInfoListView">
@@ -22,13 +23,20 @@
                     </ListView>
                 </ScrollViewer> 
             </StackPanel>
-        </ScrollViewer>
         
         
-        <StackPanel VerticalAlignment="Bottom" Height="100" Margin="5" >
+        
+        <StackPanel VerticalAlignment="Bottom" Height="50" Margin="3" Width="100" >
             <Label Content="Итого:" Margin="5" Width="50"/>
             <Label Name="TotalPriceLabel" Margin="5"/>
         </StackPanel>
         
+        <StackPanel HorizontalAlignment="Left" Margin="3" Height="100" VerticalAlignment="Center" >
+            
+            <Button Name="AddOrderButton" Click="AddOrderButton_OnClick" Width="80" Height="50" Content="Провести"/>
+            
+        </StackPanel>
+        
     </StackPanel>
+    </ScrollViewer>
 </UserControl>

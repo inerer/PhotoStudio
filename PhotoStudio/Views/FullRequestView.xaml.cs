@@ -1,5 +1,8 @@
-﻿using System.Windows.Controls;
+﻿using System.Windows;
+using System.Windows.Controls;
+using PhotoStudio.Models.DataBase;
 using PhotoStudio.Models.DataBase.SupplyRequestModels;
+using PhotoStudio.Services;
 using PhotoStudio.Services.Interfaces;
 
 namespace PhotoStudio.Views;
@@ -8,9 +11,15 @@ public partial class FullRequestView : UserControl
 {
     private readonly Request _request;
     private readonly SupplyRequestService _supplyRequestService;
-    public FullRequestView(Request request)
+    private readonly Worker _worker;
+    private readonly BookingService _bookingService;
+    private readonly Booking _booking;
+    public FullRequestView(Request request, Worker worker)
     {
         _request = request;
+        _worker = worker;
+        _booking = new Booking();
+        _bookingService = new BookingService();
         _supplyRequestService = new SupplyRequestService();
         InitializeComponent();
         RenderServiceRequestInfo();
@@ -32,5 +41,18 @@ public partial class FullRequestView : UserControl
         }
 
         TotalPriceLabel.Content = totalPrice;
+        _booking.TotalPrice = totalPrice;
+    }
+
+    private void AddOrderButton_OnClick(object sender, RoutedEventArgs e)
+    {
+        BookingFiling();
+        _bookingService.AddBooking(_booking);
+    }
+
+    private void BookingFiling()
+    {
+        _booking.Request = _request;
+        _booking.Worker = _worker;
     }
 }

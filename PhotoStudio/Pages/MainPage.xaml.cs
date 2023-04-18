@@ -45,15 +45,15 @@ public partial class MainPage : Page
     private void RequestListView_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
     {
         var selectedItem = (Request)RequestListView.SelectedItem;
-        ShowFullRequestInfoDialog(selectedItem);
+        ShowFullRequestInfoDialog(selectedItem, _worker);
     }
 
-    private async Task ShowFullRequestInfoDialog(Request request)
+    private async Task ShowFullRequestInfoDialog(Request request, Worker worker)
     {
         ContentDialog contentDialog = new ContentDialog
         {
             Title = request.Client.PersonalInfo.FullName,
-            Content = new FullRequestView(request),
+            Content = new FullRequestView(request, worker),
             CloseButtonText = "Закрыть"
         };
 
