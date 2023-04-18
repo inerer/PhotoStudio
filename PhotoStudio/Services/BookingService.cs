@@ -36,6 +36,6 @@ public class BookingService:IBookingInterface
 
     public List<Booking> GetAllBookings(Booking booking)
     {
-        throw new System.NotImplementedException();
+        return _bookingRepository.GetAllBookings(booking);
     }
 }

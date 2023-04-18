@@ -60,15 +60,14 @@ public class BookingRepository : RepositoryBase, IBookingInterface
     {
         _connection.Open();
         string query =
-            "insert into booking (id_worker, id_request, order_total_price, order_timestamp) values ($1, $2, $3, $4) ";
+            "insert into booking (id_worker, id_request, order_total_price) values ($1, $2, $3) ";
         NpgsqlCommand command = new(query, _connection)
         {
             Parameters =
             {
                 new NpgsqlParameter() { Value = booking.Worker.Id },
                 new NpgsqlParameter() { Value = booking.Request.Id },
-                new NpgsqlParameter() { Value = booking.TotalPrice },
-                new NpgsqlParameter() { Value = booking.OrderTimestamp }
+                new NpgsqlParameter() { Value = booking.TotalPrice }
             }
         };
         try
@@ -145,7 +144,7 @@ public class BookingRepository : RepositoryBase, IBookingInterface
         _connection.Open();
         List<Booking> bookings = new();
         string query =
-            "select * from booking join worker w on booking.id_worker = w.id_worker join request r on booking.id_request = r.id_request";
+            "select * from booking join worker w on booking.id_worker = w.id_worker join request r on booking.id_request = r.id_request join personal_info pi on w.id_personal_info = pi.id_personal_info join role r2 on w.id_role = r2.id_role";
         NpgsqlCommand command = new(query, _connection);
         using (command)
         {
@@ -160,6 +159,7 @@ public class BookingRepository : RepositoryBase, IBookingInterface
                     booking.Worker.PersonalInfo.Email = reader["email"].ToString();
                     booking.Worker.PersonalInfo.MobilePhone = reader["mobile_phone"].ToString();
                     booking.Worker.Role.RoleName = reader["role_name"].ToString();
+                    booking.Request.Id = Convert.ToInt32(reader["id_request"]);
                     booking.Request.Client.PersonalInfo.LastName = reader["last_name"].ToString();
                     booking.Request.Client.PersonalInfo.FirstName = reader["first_name"].ToString();
                     booking.Request.Client.PersonalInfo.MiddleName = reader["middle_name"].ToString();

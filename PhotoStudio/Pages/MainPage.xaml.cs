@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
@@ -19,16 +20,25 @@ public partial class MainPage : Page
     private readonly Worker _worker;
     private readonly Request _request;
     private readonly RequestService _requestService;
+    private readonly Booking _booking;
+    private readonly BookingService _bookingService;
+    private readonly List<Request> _requestList;
+    private readonly List<Booking> _bookingList;
 
     public MainPage(Worker worker)
     {
         _worker = worker;
         _request = new Request();
+        _booking = new Booking();
         _requestService = new RequestService();
-        
+        _bookingService = new BookingService();
+        _requestList = _requestService.Requests(_request);
+        _bookingList = _bookingService.GetAllBookings(_booking);
         InitializeComponent();
+        Delete();
         RenderWorker();
         RequestListBoxRendered();
+        BookingListViewRendered();
     }
 
     private void RenderWorker()
@@ -39,7 +49,7 @@ public partial class MainPage : Page
 
     private void RequestListBoxRendered()
     {
-        RequestListView.ItemsSource = _requestService.Requests(_request);
+        RequestListView.ItemsSource = _requestList;
     }
 
     private void RequestListView_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -74,7 +84,33 @@ public partial class MainPage : Page
         {
             RequestListBoxRendered();
         }
-        
-        
+    }
+
+    private void BookingListView_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
+    {
+        var selectedItem = (Booking)BookingListView.SelectedItem;
+        ShowBookingFullInfoDialog(selectedItem);
+
+    }
+
+    private void BookingListViewRendered()
+    {
+       BookingListView.ItemsSource = _bookingList;
+    }
+
+    private void Delete()
+    {
+        _requestList.RemoveAll(el => _bookingList.Exists(el2 => el2.Request.Id == el.Id));
+    }
+
+    private async Task ShowBookingFullInfoDialog(Booking booking)
+    {
+        ContentDialog contentDialog = new ContentDialog
+        {
+            Title = "Заказ",
+            Content = new BookingFullInfo(booking),
+            CloseButtonText = "Закрыть"
+        };
+        await contentDialog.ShowAsync();
     }
 }
