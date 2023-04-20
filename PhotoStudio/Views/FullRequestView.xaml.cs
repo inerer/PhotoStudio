@@ -1,4 +1,6 @@
-﻿using System.Windows;
+﻿using System;
+using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Controls;
 using PhotoStudio.Models.DataBase;
 using PhotoStudio.Models.DataBase.SupplyRequestModels;
@@ -21,6 +23,7 @@ public partial class FullRequestView : UserControl
         _booking = new Booking();
         _bookingService = new BookingService();
         _supplyRequestService = new SupplyRequestService();
+
         InitializeComponent();
         RenderServiceRequestInfo();
         RenderTotalPriceLabel();
@@ -46,13 +49,29 @@ public partial class FullRequestView : UserControl
 
     private void AddOrderButton_OnClick(object sender, RoutedEventArgs e)
     {
-        BookingFiling();
-        _bookingService.AddBooking(_booking);
+        try
+        {
+            BookingFiling();
+            _bookingService.AddBooking(_booking);
+            SendMessage(_booking);
+        }
+        catch
+        {
+            MessageBox.Show("Ошибка добавления заказа!");
+        }
     }
 
     private void BookingFiling()
     {
         _booking.Request = _request;
         _booking.Worker = _worker;
+    }
+
+    public async Task SendMessage(Booking booking)
+    {
+        EmailService emailService = new();
+        await emailService.SendEmailAsync(booking.Request.Client.PersonalInfo.Email, "Оформление заказа",
+            "Поздравляю вы оформили заказ!!!!!!!!");
+        
     }
 }
