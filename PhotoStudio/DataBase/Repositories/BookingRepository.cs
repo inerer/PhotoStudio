@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Npgsql;
 using PhotoStudio.Models.DataBase;
+using PhotoStudio.Models.DataBase.SupplyRequestModels;
 using PhotoStudio.Services.Interfaces;
 
 namespace PhotoStudio.DataBase.Repositories;
@@ -175,5 +176,28 @@ public class BookingRepository : RepositoryBase, IBookingInterface
         }
         _connection.Close();
         return bookings;
+    }
+
+    public bool DeleteBookingByRequestId(Request request)
+    {
+        _connection.Open();
+        string query = "delete from booking where  id_request = ($1)";
+        NpgsqlCommand command = new(query, _connection)
+        {
+            Parameters = { new NpgsqlParameter() { Value = request.Id } }
+        };
+        try
+        {
+            command.ExecuteNonQuery();
+            return true;
+        }
+        catch (Exception e)
+        {
+            return false;
+        }
+        finally
+        {
+            _connection.Close();
+        }
     }
 }

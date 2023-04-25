@@ -214,4 +214,27 @@ public class SupplyRequestRepository:RepositoryBase ,ISupplyRequestInterface
         _connection.Close();
         return supplyRequests;
     }
+
+    public bool DeleteSupplyRequestByRequestId(Request request)
+    {
+        _connection.Open();
+        string query = "delete from supply_request where id_request = ($1)";
+        NpgsqlCommand command = new(query, _connection)
+        {
+            Parameters = { new NpgsqlParameter() { Value = request.Id } }
+        };
+        try
+        {
+            command.ExecuteNonQuery();
+            return true;
+        }
+        catch (Exception e)
+        {
+            return false;
+        }
+        finally
+        {
+            _connection.Close();  
+        } 
+    }
 }

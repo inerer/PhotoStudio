@@ -33,7 +33,7 @@ public class RequestService:IRequestInterface
 
     public bool DeleteRequest(int id)
     {
-        throw new System.NotImplementedException();
+        return _requestRepository.DeleteRequest(id);
     }
 
     public List<Request> Requests(Request request)

@@ -56,7 +56,9 @@ public partial class ClientPage : Page
     private void AddCartButton_OnClick(object sender, RoutedEventArgs e)
     {
         var selectedItem = (Supply)SupplyListView.SelectedItem;
+        var selectedItemRent = (Supply)RentListView.SelectedItem;
         _supplies.Add(selectedItem);
+        _supplies.Add(selectedItemRent);
         MessageBox.Show("Услуга добавлена");
     }
 

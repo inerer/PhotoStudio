@@ -9,6 +9,7 @@ using ModernWpf.Controls;
 using PhotoStudio.Models.DataBase;
 using PhotoStudio.Models.DataBase.SupplyRequestModels;
 using PhotoStudio.Services;
+using PhotoStudio.Services.Interfaces;
 using PhotoStudio.Views;
 using PhotoStudio.Windows;
 using Page = System.Windows.Controls.Page;
@@ -24,6 +25,7 @@ public partial class MainPage : Page
     private readonly BookingService _bookingService;
     private readonly List<Request> _requestList;
     private readonly List<Booking> _bookingList;
+    private readonly SupplyRequestService _supplyRequestService;
 
     public MainPage(Worker worker)
     {
@@ -34,6 +36,7 @@ public partial class MainPage : Page
         _bookingService = new BookingService();
         _requestList = _requestService.Requests(_request);
         _bookingList = _bookingService.GetAllBookings(_booking);
+        _supplyRequestService = new SupplyRequestService();
         InitializeComponent();
         Delete();
         RenderWorker();
@@ -112,5 +115,18 @@ public partial class MainPage : Page
             CloseButtonText = "Закрыть"
         };
         await contentDialog.ShowAsync();
+    }
+
+    private void DeleteButton_OnClick(object sender, RoutedEventArgs e)
+    {
+        var selectedItemRequest = (Request)RequestListView.SelectedItem;
+        if(selectedItemRequest!=null)
+            if (MessageBox.Show("Вы уверены, что хотите удалить?", "подтвердите удаление", MessageBoxButton.YesNo) ==
+                MessageBoxResult.Yes)
+            {
+                _supplyRequestService.DeleteSupplyRequestByRequestId(selectedItemRequest);
+                _bookingService.DeleteBookingByRequestId(selectedItemRequest);
+                _requestService.DeleteRequest(selectedItemRequest.Id);
+            }
     }
 }

@@ -44,4 +44,9 @@ public class SupplyRequestService:ISupplyRequestInterface
     {
         return _supplyRequestRepository.GelSupplyRequestByRequestId(request);
     }
+
+    public bool DeleteSupplyRequestByRequestId(Request request)
+    {
+        return _supplyRequestRepository.DeleteSupplyRequestByRequestId(request);
+    }
 }

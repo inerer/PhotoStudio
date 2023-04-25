@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using PhotoStudio.DataBase.Repositories;
 using PhotoStudio.Models.DataBase;
+using PhotoStudio.Models.DataBase.SupplyRequestModels;
 using PhotoStudio.Services.Interfaces;
 
 namespace PhotoStudio.Services;
@@ -37,5 +38,10 @@ public class BookingService:IBookingInterface
     public List<Booking> GetAllBookings(Booking booking)
     {
         return _bookingRepository.GetAllBookings(booking);
+    }
+
+    public bool DeleteBookingByRequestId(Request request)
+    {
+        return _bookingRepository.DeleteBookingByRequestId(request);
     }
 }

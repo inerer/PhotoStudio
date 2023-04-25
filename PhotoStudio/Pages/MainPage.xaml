@@ -10,7 +10,8 @@
     <Grid ShowGridLines="True">
         <Grid.RowDefinitions>
             <RowDefinition Height="10*"></RowDefinition>
-            <RowDefinition Height="90*"></RowDefinition>
+            <RowDefinition Height="80*"></RowDefinition>
+            <RowDefinition Height="10*"/>
         </Grid.RowDefinitions>
         
         <Grid.ColumnDefinitions>
@@ -59,6 +60,11 @@
         <StackPanel Grid.Row="0" Grid.Column="1" Orientation="Horizontal">
             <Label Content="Поиск"/>
             <TextBox Name="SearchTextBox" Height="20" Width="80" Margin="5" TextChanged="SearchTextBox_OnTextChanged"/>
+        </StackPanel>
+        
+        <StackPanel Grid.Row="2" Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+            <Button Name="DeleteButton" Height="30" Width="80" Content="Удалить" Margin="5" Click="DeleteButton_OnClick"/>
+            
         </StackPanel>
         
     </Grid>
