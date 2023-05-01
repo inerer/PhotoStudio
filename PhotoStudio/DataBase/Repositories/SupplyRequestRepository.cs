@@ -58,6 +58,8 @@ public class SupplyRequestRepository:RepositoryBase ,ISupplyRequestInterface
 
     public SupplyRequest AddSupplyRequest(SupplyRequest supplyRequest)
     {
+        if (supplyRequest == null)
+            return null;
         _connection.Open();
         string query = "insert into supply_request(id_supply, id_request) values ($1, $2)";
         NpgsqlCommand command = new(query, _connection)

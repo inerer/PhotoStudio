@@ -6,8 +6,8 @@
       xmlns:local="clr-namespace:PhotoStudio.Pages"
       mc:Ignorable="d"
       
-      Title="MainPage" Height="450" Width="800">
-    <Grid ShowGridLines="True">
+      Title="MainPage">
+    <Grid >
         <Grid.RowDefinitions>
             <RowDefinition Height="10*"></RowDefinition>
             <RowDefinition Height="80*"></RowDefinition>
@@ -64,7 +64,19 @@
         
         <StackPanel Grid.Row="2" Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
             <Button Name="DeleteButton" Height="30" Width="80" Content="Удалить" Margin="5" Click="DeleteButton_OnClick"/>
+            <Button Name="AddNewSupplyButton"
+                    Height="30"
+                    Width="150"
+                    Content="Добавить услугу"
+                    Margin="5"
+                    Click="AddNewSupply_OnClick"/>
             
+            <Button Name="EditSupplyButton"
+                    Height="30"
+                    Width="150"
+                    Content="Изменить услугу"
+                    Margin="5"
+                    Click="EditSupplyButton_OnClick"/>
         </StackPanel>
         
     </Grid>

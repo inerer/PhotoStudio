@@ -37,6 +37,7 @@ public partial class MainPage : Page
         _requestList = _requestService.Requests(_request);
         _bookingList = _bookingService.GetAllBookings(_booking);
         _supplyRequestService = new SupplyRequestService();
+        
         InitializeComponent();
         Delete();
         RenderWorker();
@@ -93,7 +94,6 @@ public partial class MainPage : Page
     {
         var selectedItem = (Booking)BookingListView.SelectedItem;
         ShowBookingFullInfoDialog(selectedItem);
-
     }
 
     private void BookingListViewRendered()
@@ -128,5 +128,15 @@ public partial class MainPage : Page
                 _bookingService.DeleteBookingByRequestId(selectedItemRequest);
                 _requestService.DeleteRequest(selectedItemRequest.Id);
             }
+    }
+
+    private void AddNewSupply_OnClick(object sender, RoutedEventArgs e)
+    {
+        throw new NotImplementedException();
+    }
+
+    private void EditSupplyButton_OnClick(object sender, RoutedEventArgs e)
+    {
+        throw new NotImplementedException();
     }
 }

@@ -6,7 +6,24 @@
              xmlns:local="clr-namespace:PhotoStudio.Views"
              mc:Ignorable="d"
              d:DesignHeight="300" d:DesignWidth="300">
-    <Grid>
+    <StackPanel>
+        <StackPanel   VerticalAlignment="Top">
+            <ScrollViewer Grid.Row="1" Grid.Column="1">
+                <ListView Name="FullInfoBookingListView">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel>
+                                <Label Content="{Binding    Worker.Id}"/>
+                                <Label Content="{Binding Request.Id}"/>
+                            </StackPanel>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </ScrollViewer> 
+        </StackPanel>
         
-    </Grid>
+        
+        
+    </StackPanel>
+    
 </UserControl>

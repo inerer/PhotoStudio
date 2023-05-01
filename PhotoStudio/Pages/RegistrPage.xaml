@@ -5,7 +5,7 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:local="clr-namespace:PhotoStudio.Pages"
       mc:Ignorable="d"
-      Title="RegistrPage" Loaded="RegistrPage_OnLoaded" Height="450" Width="800">
+      Title="RegistrPage" Loaded="RegistrPage_OnLoaded">
     <Grid>
       <TextBlock Text="Регистрация" FontSize="30" Margin="20"></TextBlock>
         <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">

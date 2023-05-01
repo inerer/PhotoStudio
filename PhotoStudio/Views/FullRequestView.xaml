@@ -9,7 +9,7 @@
     <ScrollViewer Margin="5">
     <StackPanel Orientation="Vertical">
         
-            <StackPanel  Height="300" VerticalAlignment="Top">
+            <StackPanel   VerticalAlignment="Top">
                 <ScrollViewer Grid.Row="1" Grid.Column="1">
                     <ListView Name="FullInfoListView">
                         <ListView.ItemTemplate>

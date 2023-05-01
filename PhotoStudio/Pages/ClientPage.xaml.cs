@@ -57,8 +57,13 @@ public partial class ClientPage : Page
     {
         var selectedItem = (Supply)SupplyListView.SelectedItem;
         var selectedItemRent = (Supply)RentListView.SelectedItem;
-        _supplies.Add(selectedItem);
-        _supplies.Add(selectedItemRent);
+        
+        if (selectedItem != null)
+            _supplies.Add(selectedItem);
+
+        if (selectedItemRent != null)
+            _supplies.Add(selectedItemRent);
+        
         MessageBox.Show("Услуга добавлена");
     }
 
