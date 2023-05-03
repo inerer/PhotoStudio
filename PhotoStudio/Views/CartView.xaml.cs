@@ -68,6 +68,8 @@ public partial class CartView : UserControl
                 _supplyRequest.Supply = item;
                 _supplyRequestService.AddSupplyRequest(_supplyRequest);
             }
+
+            MessageBox.Show("Заказ был оформлен");
         }
         catch (Exception e)
         {
