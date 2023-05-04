@@ -127,10 +127,12 @@ public class TypeSupplyRepository:RepositoryBase ,ITypeSupplyInterface
             {
                 while (reader.Read())
                 {
-                    typeSupply.Id = Convert.ToInt32(reader["id_type_supply"]);
-                    typeSupply.Name = reader["type_supply_name"].ToString();
+                    typeSupply = new TypeSupply
+                    {
+                        Id = Convert.ToInt32(reader["id_type_supply"]),
+                        Name = reader["type_supply_name"].ToString()
+                    };
                     typeSupplies.Add(typeSupply);
-                    
                 }
             }
         }

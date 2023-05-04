@@ -132,7 +132,7 @@ public partial class MainPage : Page
 
     private void AddNewSupply_OnClick(object sender, RoutedEventArgs e)
     {
-        throw new NotImplementedException();
+        if (NavigationService != null) NavigationService.Navigate(new AddEditSupplyPage());
     }
 
     private void EditSupplyButton_OnClick(object sender, RoutedEventArgs e)
