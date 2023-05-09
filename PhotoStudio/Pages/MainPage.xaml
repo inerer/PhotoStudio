@@ -6,7 +6,7 @@
       xmlns:local="clr-namespace:PhotoStudio.Pages"
       mc:Ignorable="d"
       
-      Title="MainPage">
+      Title="Главная страница">
     <Grid >
         <Grid.RowDefinitions>
             <RowDefinition Height="10*"></RowDefinition>
@@ -28,12 +28,18 @@
         <TabControl Grid.Row="1" Grid.ColumnSpan="3" Grid.Column="0">
            
             <TabItem Header="Заявки">
-                <ListView Name="RequestListView" Margin="0,0,15,0" SelectionChanged="RequestListView_OnSelectionChanged" >
+                <ListView Name="RequestListView" 
+                          Margin="0,0,15,0" 
+                          SelectionChanged="RequestListView_OnSelectionChanged" >
                     <ListView.ItemTemplate>
                         <DataTemplate>
-                            <StackPanel Orientation="Vertical" Height="75" Margin="5" >
-                                <TextBlock Name="ClientLastNameNameTextBlock" Text="{Binding Client.PersonalInfo.FullName}"/>
-                                <TextBlock Name="RequestTimeStamp" Text="{Binding RequestTimestamp}"/>
+                            <StackPanel Orientation="Vertical" 
+                                        Height="75" 
+                                        Margin="5" >
+                                <TextBlock Name="ClientLastNameNameTextBlock" 
+                                           Text="{Binding Client.PersonalInfo.FullName}"/>
+                                <TextBlock Name="RequestTimeStamp" 
+                                           Text="{Binding RequestTimestamp}"/>
                             </StackPanel>
                         </DataTemplate>
                     </ListView.ItemTemplate>
@@ -41,16 +47,24 @@
             </TabItem>
             
             <TabItem Header="Заказы">
-                <ListView Name="BookingListView" Margin="0,0,15,0" SelectionChanged="BookingListView_OnSelectionChanged">
+                <ListView Name="BookingListView" 
+                          Margin="0,0,15,0" 
+                          SelectionChanged="BookingListView_OnSelectionChanged">
+                    
                     <ListView.ItemTemplate>
                         <DataTemplate>
                             <StackPanel Orientation="Vertical" Height="75" Margin="5">
-                                <TextBlock Name="WorkerFullName" Text="{Binding Worker.PersonalInfo.FullName }"/>
-                                <TextBlock Name="IdRequest" Text="{Binding Request.Id}"/>
-                                <TextBlock Name="TotalPrice" Text="{Binding TotalPrice}"/>
-                                <TextBlock Name="TimeStamp" Text="{Binding OrderTimestamp}"/>
+                                <TextBlock Name="WorkerFullName" 
+                                           Text="{Binding Worker.PersonalInfo.FullName }"/>
+                                <TextBlock Name="IdRequest" 
+                                           Text="{Binding Request.Id}"/>
+                                <TextBlock Name="TotalPrice" 
+                                           Text="{Binding TotalPrice}"/>
+                                <TextBlock Name="TimeStamp" 
+                                           Text="{Binding OrderTimestamp}"/>
                             </StackPanel>
                         </DataTemplate>
+                        
                     </ListView.ItemTemplate>
                 </ListView>
             </TabItem>
@@ -63,7 +77,13 @@
         </StackPanel>
         
         <StackPanel Grid.Row="2" Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
-            <Button Name="DeleteButton" Height="30" Width="80" Content="Удалить" Margin="5" Click="DeleteButton_OnClick"/>
+            
+            <Button Name="DeleteButton" Height="30" 
+                    Width="80" 
+                    Content="Удалить" 
+                    Margin="5" 
+                    Click="DeleteButton_OnClick"/>
+            
             <Button Name="AddNewSupplyButton"
                     Height="30"
                     Width="150"
@@ -77,6 +97,7 @@
                     Content="Изменить услугу"
                     Margin="5"
                     Click="EditSupplyButton_OnClick"/>
+            
         </StackPanel>
         
     </Grid>

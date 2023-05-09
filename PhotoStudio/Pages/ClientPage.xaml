@@ -25,10 +25,21 @@
                     <ListView Name="SupplyListView">
                         <ListView.ItemTemplate>
                             <DataTemplate>
-                                <StackPanel>
-                                    <Label Name="NameSupply" Content="{Binding Name}"/>
-                                    <Label Name="PriceSupply" Content="{Binding Price}"/>
-                                </StackPanel>
+                                <Border BorderThickness="1"
+                                        CornerRadius="10"
+                                        BorderBrush="Wheat"
+                                        Padding="12"
+                                        Margin="5">
+                                    <Grid>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="50*"/>
+                                            <RowDefinition Height="50*"/>
+                                        </Grid.RowDefinitions>
+                                        
+                                        <Label Name="NameSupply" Content="{Binding Name}"/>
+                                        <Label Grid.Row="1" Name="PriceSupply" Content="{Binding Price}"/>
+                                    </Grid>
+                                </Border>
                             </DataTemplate>  
                         </ListView.ItemTemplate>
                     </ListView>
@@ -50,7 +61,7 @@
         </StackPanel>
         
         <StackPanel Grid.Row="0" Grid.Column="2" Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
-            <Button Width="50" Height="50" Background="Gray" Click="ButtonBase_OnClick">
+            <Button Width="50" Height="50" Click="ButtonBase_OnClick">
                 <Image Source="\Resources\3081797.png"/>
             </Button>
         </StackPanel>

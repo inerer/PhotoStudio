@@ -53,6 +53,7 @@ public partial class MainPage : Page
 
     private void RequestListBoxRendered()
     {
+        RequestListView.ItemsSource = null;
         RequestListView.ItemsSource = _requestList;
     }
 
@@ -98,6 +99,7 @@ public partial class MainPage : Page
 
     private void BookingListViewRendered()
     {
+        BookingListView.ItemsSource = null;
        BookingListView.ItemsSource = _bookingList;
     }
 
@@ -127,6 +129,24 @@ public partial class MainPage : Page
                 _supplyRequestService.DeleteSupplyRequestByRequestId(selectedItemRequest);
                 _bookingService.DeleteBookingByRequestId(selectedItemRequest);
                 _requestService.DeleteRequest(selectedItemRequest.Id);
+                Delete();
+                RequestListBoxRendered();
+                BookingListViewRendered();
+            }
+
+        var selectedItemBooking = (Booking)BookingListView.SelectedItem;
+        if(selectedItemBooking!=null)
+            if (MessageBox.Show("Вы уверены, что хотите удалить?", "подтвердите удаление", MessageBoxButton.YesNo) ==
+                MessageBoxResult.Yes)
+            {
+                if (selectedItemBooking.Request != null)
+                {
+                    _bookingService.DeleteBookingByRequestId(selectedItemBooking.Request);
+                    _requestService.DeleteRequest(selectedItemBooking.Request.Id);
+                    Delete();
+                    RequestListBoxRendered();
+                    BookingListViewRendered();
+                }
             }
     }
 
@@ -137,6 +157,6 @@ public partial class MainPage : Page
 
     private void EditSupplyButton_OnClick(object sender, RoutedEventArgs e)
     {
-        throw new NotImplementedException();
+        if (NavigationService != null) NavigationService.Navigate(new AllSupplyPage());
     }
 }

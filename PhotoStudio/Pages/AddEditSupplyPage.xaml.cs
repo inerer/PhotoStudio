@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System;
+using System.Windows;
 using System.Windows.Controls;
 using PhotoStudio.Models.DataBase.SupplyRequestModels;
 using PhotoStudio.Services;
@@ -13,6 +14,7 @@ public partial class AddEditSupplyPage : Page
     private readonly Rent _rent;
     private readonly Hall _hall;
     private readonly SupplyService _supplyService;
+    private readonly RentService _rentService;
     public AddEditSupplyPage()
     {
         InitializeComponent();
@@ -22,6 +24,8 @@ public partial class AddEditSupplyPage : Page
         _rent = new Rent();
         _hall = new Hall();
         _supplyService = new SupplyService();
+        _rentService = new RentService();
+        this.DataContext = _supply;
         ComboBoxRendered();
     }
 
@@ -37,7 +41,7 @@ public partial class AddEditSupplyPage : Page
         RentComboBox.Visibility = Visibility.Collapsed;
         AddRentButton.Visibility = Visibility.Collapsed;
 
-        RentComboBox.ItemsSource = _supplyService.GetAllSupplies(_supply);
+        RentComboBox.ItemsSource = _rentService.GetAllRents(_rent);
 
     }
 
@@ -52,14 +56,37 @@ public partial class AddEditSupplyPage : Page
         }
            
     }
-
+    
     private void AddTypeSupplyButton_OnClick(object sender, RoutedEventArgs e)
     {
-        throw new System.NotImplementedException();
+       
     }
 
     private void AddRentButton_OnClick(object sender, RoutedEventArgs e)
     {
         throw new System.NotImplementedException();
+    }
+
+    private void AddButton_OnClick(object sender, RoutedEventArgs e)
+    {
+        try
+        {
+            if (_supply.TypeSupply is { Id: 1 })
+                _supplyService.AddSupplyForRent(_supply);
+            else
+                _supplyService.AddSupply(_supply);
+
+            MessageBox.Show("Услуга успешно добавлена");
+        }
+        catch
+        {
+
+            MessageBox.Show("Ошибка добавления услуги");
+        }
+    }
+
+    private void CancelButton_OnClick(object sender, RoutedEventArgs e)
+    {
+        throw new NotImplementedException();
     }
 }

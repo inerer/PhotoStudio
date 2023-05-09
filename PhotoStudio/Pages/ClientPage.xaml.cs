@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -18,10 +19,6 @@ public partial class ClientPage : Page
     private readonly Supply _supply;
     private readonly List<Supply> _supplies;
     private readonly Client _client;
-    private PersonalInfoService _personalInfoService;
-    private readonly List<Supply> _supplyList;
-    private readonly List<Supply> _rentList;
-
     public ClientPage(Client client)
     {
         InitializeComponent();
@@ -29,28 +26,19 @@ public partial class ClientPage : Page
         _supply = new Supply();
         _supplies = new List<Supply>();
         _client = client;
-        _rentList = new List<Supply>();
-        _supplyList = new List<Supply>();
         AllListViewsRendered();
     }
 
     private void AllListViewsRendered()
     {
-        foreach (var item in _supplyService.GetAllSupplies(_supply))
-        {
-            if(item.TypeSupply.Id==1)
-                _rentList.Add(item);
-            else
-                _supplyList.Add(item);
-        }
-
-        SupplyListView.ItemsSource = _supplyList;
-        RentListView.ItemsSource = _rentList;
+        SupplyListView.ItemsSource = _supplyService.GetAllSuppliesDontRent(_supply);
+        RentListView.ItemsSource = _supplyService.GetAllSupplies(_supply);
     }
 
     private void RentListView_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
     {
         var selectedItem = (Supply)SupplyListView.SelectedItem;
+       
     }
 
     private void AddCartButton_OnClick(object sender, RoutedEventArgs e)

@@ -23,21 +23,36 @@ public class SupplyService:ISupplyInterface
 
     public Supply AddSupply(Supply supply)
     {
-        throw new System.NotImplementedException();
+        return _supplyRepository.AddSupply(supply);
+    }
+
+    public Supply AddSupplyForRent(Supply supply)
+    {
+        return _supplyRepository.AddSupplyForRent(supply);
     }
 
     public bool EditSupply(Supply supply)
     {
-        throw new System.NotImplementedException();
+        return _supplyRepository.EditSupply(supply);
+    }
+
+    public bool EditSupplyForRent(Supply supply)
+    {
+        return _supplyRepository.EditSupplyForRent(supply);
     }
 
     public bool DeleteSupply(int id)
     {
-        throw new System.NotImplementedException();
+        return _supplyRepository.DeleteSupply(id);
     }
 
     public List<Supply> GetAllSupplies(Supply supply)
     {
         return _supplyRepository.GetAllSupplies(supply);
+    }
+
+    public List<Supply> GetAllSuppliesDontRent(Supply supply)
+    {
+        return _supplyRepository.GetAllSuppliesDontRent(supply);
     }
 }

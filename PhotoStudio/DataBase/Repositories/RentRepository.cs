@@ -73,7 +73,7 @@ public class RentRepository:RepositoryBase ,IRentInterface
     public bool EditRent(Rent rent)
     {
         _connection.Open();
-        string query = "update rent set price = ($1), id_hall = ($2) where id_rent = ($3)";
+        string query = "update rent set price_hour = ($1), id_hall = ($2) where id_rent = ($3)";
         NpgsqlCommand command = new(query, _connection)
         {
             Parameters =
@@ -133,10 +133,17 @@ public class RentRepository:RepositoryBase ,IRentInterface
             {
                 while (reader.Read())
                 {
-                    rent.Id = Convert.ToInt32(reader["id_rent"]);
-                    rent.PriceHour = Convert.ToDecimal(reader["price_hour"]);
-                    rent.Hall.Description = reader["description"].ToString();
-                    rent.Hall.Address = reader["address"].ToString();
+                    rent = new Rent
+                    {
+                        Id = Convert.ToInt32(reader["id_rent"]),
+                        PriceHour = Convert.ToDecimal(reader["price_hour"])
+                    };
+                    if (rent.Hall != null)
+                    {
+                        rent.Hall.Description = reader["description"].ToString();
+                        rent.Hall.Address = reader["address"].ToString();
+                    }
+
                     rents.Add(rent);
                 }
             }
