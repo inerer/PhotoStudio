@@ -74,6 +74,16 @@
         <StackPanel Grid.Row="0" Grid.Column="1" Orientation="Horizontal">
             <Label Content="Поиск"/>
             <TextBox Name="SearchTextBox" Height="20" Width="80" Margin="5" TextChanged="SearchTextBox_OnTextChanged"/>
+           
+            <Button Name="SortForAlphabet"
+                    Height="50"
+                    Width="50"
+                    Content="Алфавит"
+                    Click="SortForAlphabet_OnClick"/>
+            
+            <DatePicker Name="DatePicker"
+                        Margin="5"
+                        SelectedDateChanged="DatePicker_OnSelectedDateChanged"/>
         </StackPanel>
         
         <StackPanel Grid.Row="2" Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">

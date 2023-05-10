@@ -159,4 +159,21 @@ public partial class MainPage : Page
     {
         if (NavigationService != null) NavigationService.Navigate(new AllSupplyPage());
     }
+
+    private void SortForAlphabet_OnClick(object sender, RoutedEventArgs e)
+    {
+        List<Request> sortedList = new List<Request>(_requestService.Requests(_request)
+            .OrderBy(r => r.Client?.PersonalInfo?.LastName));
+        
+        sortedList.RemoveAll(el => _bookingList
+            .Exists(el2 => el2.Request != null && el2.Request.Id == el.Id));
+        
+        RequestListView.ItemsSource = null;
+        RequestListView.ItemsSource = sortedList;
+    }
+
+    private void DatePicker_OnSelectedDateChanged(object? sender, SelectionChangedEventArgs e)
+    {
+        throw new NotImplementedException();
+    }
 }

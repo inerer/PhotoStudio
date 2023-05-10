@@ -40,18 +40,19 @@ public partial class AllSupplyPage : Page
             CloseButtonText = "Закрыть"
         };
         await contentDialog.ShowAsync();
+        ListViewRendered();
     }
 
     private async void RentListView_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
     {
       await ShowEditSupplyDialog((Supply)RentListView.SelectedItem);
-        ListViewRendered();
+        
         
     }
 
-    private void SupplyListView_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
+    private async void SupplyListView_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
     {
-        ShowEditSupplyDialog((Supply)SupplyListView.SelectedItem);
+       await ShowEditSupplyDialog((Supply)SupplyListView.SelectedItem);
         
     }
 }
