@@ -11,8 +11,8 @@
     <Grid>
         
         <Grid.RowDefinitions>
-            <RowDefinition Height="10*"/>
-            <RowDefinition Height="90*"/>
+            <RowDefinition Height="20*"/>
+            <RowDefinition Height="80*"/>
         </Grid.RowDefinitions>
         
         <Frame Grid.Row="1"
@@ -28,6 +28,8 @@
             Name="BackButton" Click="BackButton_OnClick" 
             Width="30" 
             Height="40"/>
+        
+        <Image Grid.Row="0" Source="https://img.freepik.com/premium-vector/photo-studio-logo-design_567288-622.jpg?w=826" Height="200" Width="300" HorizontalAlignment="Right" VerticalAlignment="Top"/>
         
     </Grid>
 </Window>

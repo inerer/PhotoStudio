@@ -82,18 +82,25 @@
                      ui:ControlHelper.PlaceholderText="Поиск"/>
             
             <StackPanel Orientation="Vertical">
+                
                 <Button Name="UpButton" 
                         Click="UpRadioButton_OnClick"
-                        Background="Transparent">
+                        Background="Transparent"
+                        Width="30"
+                        Height="30">
                     <Image Width="20" 
-                           Source="C:\Users\arshi\Downloads\expand_less_FILL0_wght400_GRAD0_opsz48.png"/>
+                           Source ="/Resources/expand_less_FILL0_wght400_GRAD0_opsz48.png"/>
                 </Button>
+                
                 <Button Name="DownButton"
                         Click="DownRadioButton_OnClick"
-                        Background="Transparent">
+                        Background="Transparent"
+                        Width="30"
+                        Height="30">
                     <Image Width="20" 
-                           Source="C:\Users\arshi\Downloads\keyboard_arrow_down_FILL0_wght400_GRAD0_opsz48.png"/>
+                           Source="/Resources/expand_more_FILL0_wght400_GRAD0_opsz48.png"/>
                 </Button>
+                
             </StackPanel>
            
             
@@ -103,8 +110,8 @@
             
             <Button Name="CancelButton"
                     Margin="5"
-                    Height="50"
-                    Width="50"
+                    Height="30"
+                    Width="150"
                     Content="Отменить"
                     Click="CancelButton_OnClick"/>
         </StackPanel>
@@ -130,6 +137,13 @@
                     Content="Изменить услугу"
                     Margin="5"
                     Click="EditSupplyButton_OnClick"/>
+            
+            <Button Name="RegistrationButton"
+                    Height="30"
+                    Width="150"
+                    Content="Зарегестрировать"
+                    Margin="5"
+                    Click="RegistrationPage_OnClick"/>
             
         </StackPanel>
         

@@ -1,35 +1,29 @@
 ﻿using System.Windows;
+using System.Windows.Controls;
 using PhotoStudio.Models.DataBase;
 using PhotoStudio.Services;
 
-namespace PhotoStudio.Windows;
+namespace PhotoStudio.Views;
 
-public partial class AddRoleWindow : Window
+public partial class AddRoleView : UserControl
 {
-    private Role _newRole;
-    private RoleService _roleService;
-    public AddRoleWindow()
+    private readonly Role _newRole;
+    private readonly RoleService _roleService;
+    public AddRoleView()
     {
         InitializeComponent();
         _newRole = new Role();
         _roleService = new RoleService();
+        this.DataContext = _newRole;
     }
 
     private void AddRoleButton_OnClick(object sender, RoutedEventArgs e)
     {
-        
-       GetInfo();
-       _roleService.AddRole(_newRole);
-       Close();
+        _roleService.AddRole(_newRole);
     }
 
     private void CancelButton_OnClick(object sender, RoutedEventArgs e)
     {
-        Close();
-    }
-
-    private void GetInfo()
-    {
-        _newRole.RoleName = RoleNameTextBox.Text;
+        throw new System.NotImplementedException();
     }
 }

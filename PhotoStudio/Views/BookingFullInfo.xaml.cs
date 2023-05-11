@@ -42,19 +42,43 @@ public partial class BookingFullInfo : UserControl
         DocX document = DocX.Create(path);
  
         // Вставляем параграф и указываем текст
-        document.InsertParagraph($@"Заказ пользователя {_booking.Request.Client.PersonalInfo.FullName}").
+        document.InsertParagraph($"Договор пользователя:{_booking.Request.Client.PersonalInfo.FullName}").
             // устанавливаем шрифт
-            Font("Calibri").
+            Font("Times New Roman").
             // устанавливаем размер шрифта
-            FontSize(36).
+            FontSize(16).
             // устанавливаем цвет
-            Color(Color.Navy).
+            Color(Color.Black).
             // делаем текст жирным
             Bold().
-            // устанавливаем интервал между символами
-            Spacing(15).
             // выравниваем текст по центру
             Alignment = Alignment.center;
+
+        document.InsertParagraph("Заказанные услуги:").
+            Font("Times New Roman").
+            FontSize(16).
+            Alignment = Alignment.left;
+
+        Paragraph paragraph = document.InsertParagraph();
+        paragraph.Alignment = Alignment.left;
+        foreach (var supplyRequest in _supplyRequestService.GelSupplyRequestByRequestId(_request))
+        {
+            paragraph.AppendLine($"Имя: {supplyRequest.Supply?.Name}, Цена: {supplyRequest.Supply?.Price} рублей").
+                FontSize(14).
+                Font("Times New Roman");
+            paragraph.AppendLine();
+        }
+
+        Paragraph paragraph1 = document.InsertParagraph();
+        paragraph1.Alignment = Alignment.right;
+        decimal totalPrice = 0;
+        
+        foreach (var supplyRequest in _supplyRequestService.GelSupplyRequestByRequestId(_request))
+        {
+            if (supplyRequest.Supply != null) totalPrice += (decimal)supplyRequest.Supply.Price;
+        }
+
+        paragraph1.AppendLine($"Итоговая цена {totalPrice}").FontSize(14).Font("Times New Roman");
  
         // сохраняем документ
         document.Save();

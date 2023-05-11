@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Npgsql;
 using PhotoStudio.Models.DataBase;
 using PhotoStudio.Models.DataBase.SupplyRequestModels;
+using PhotoStudio.Services;
 using PhotoStudio.Services.Interfaces;
 
 namespace PhotoStudio.DataBase.Repositories;
@@ -10,11 +11,13 @@ namespace PhotoStudio.DataBase.Repositories;
 public class BookingRepository : RepositoryBase, IBookingInterface
 {
     private readonly NpgsqlConnection _connection;
+    private readonly ClientService _clientService;
 
     public BookingRepository()
     {
         
         _connection = GetConnection();
+        _clientService = new ClientService();
     }
 
     public Booking GetBooking(int id)
@@ -145,7 +148,7 @@ public class BookingRepository : RepositoryBase, IBookingInterface
         _connection.Open();
         List<Booking> bookings = new();
         string query =
-            "select * from booking join worker w on booking.id_worker = w.id_worker join request r on booking.id_request = r.id_request join personal_info pi on w.id_personal_info = pi.id_personal_info join role r2 on w.id_role = r2.id_role";
+            "select * from booking join worker w on booking.id_worker = w.id_worker join request r on booking.id_request = r.id_request join personal_info pi on w.id_personal_info = pi.id_personal_info join role r2 on w.id_role = r2.id_role join client c on c.id_client = r.id_client join personal_info p on p.id_personal_info = c.id_personal_info";
         NpgsqlCommand command = new(query, _connection);
         using (command)
         {
@@ -161,11 +164,8 @@ public class BookingRepository : RepositoryBase, IBookingInterface
                     booking.Worker.PersonalInfo.MobilePhone = reader["mobile_phone"].ToString();
                     booking.Worker.Role.RoleName = reader["role_name"].ToString();
                     booking.Request.Id = Convert.ToInt32(reader["id_request"]);
-                    booking.Request.Client.PersonalInfo.LastName = reader["last_name"].ToString();
-                    booking.Request.Client.PersonalInfo.FirstName = reader["first_name"].ToString();
-                    booking.Request.Client.PersonalInfo.MiddleName = reader["middle_name"].ToString();
-                    booking.Request.Client.PersonalInfo.Email = reader["email"].ToString();
-                    booking.Request.Client.PersonalInfo.MobilePhone = reader["mobile_phone"].ToString();
+                    booking.Request.ClientId = Convert.ToInt32(reader["id_client"]);
+                    booking.Request.Client = _clientService.GetClient(booking.Request.ClientId);
                     booking.Request.RequestTimestamp = Convert.ToDateTime(reader["order_timestamp"]);
                     booking.OrderTimestamp = Convert.ToDateTime(reader["order_timestamp"]);
                     booking.TotalPrice = Convert.ToDecimal(reader["order_total_price"]);

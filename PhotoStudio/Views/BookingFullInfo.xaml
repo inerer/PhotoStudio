@@ -12,8 +12,8 @@
                     <ListView.ItemTemplate>
                         <DataTemplate>
                             <StackPanel>
-                                <Label Content="{Binding   Worker.Id}"/>
-                                <Label Content="{Binding Request.Id}"/>
+                                <Label Content="{Binding    Supply.Name}"/>
+                                <Label Content="{Binding Supply.Price}"/>
                             </StackPanel>
                         </DataTemplate>
                     </ListView.ItemTemplate>

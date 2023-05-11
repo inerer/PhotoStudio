@@ -6,7 +6,7 @@
       xmlns:local="clr-namespace:PhotoStudio.Pages"
       mc:Ignorable="d"
       Title="ClientPage">
-    <Grid ShowGridLines="True">
+    <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="50*"/>
             <ColumnDefinition Width="200*"/>
@@ -61,7 +61,7 @@
         </StackPanel>
         
         <StackPanel Grid.Row="0" Grid.Column="2" Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
-            <Button Width="50" Height="50" Click="ButtonBase_OnClick">
+            <Button Width="150" Height="150" Click="ButtonBase_OnClick">
                 <Image Source="\Resources\3081797.png"/>
             </Button>
         </StackPanel>

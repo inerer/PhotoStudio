@@ -11,7 +11,6 @@ using PhotoStudio.Models.DataBase.SupplyRequestModels;
 using PhotoStudio.Services;
 using PhotoStudio.Services.Interfaces;
 using PhotoStudio.Views;
-using PhotoStudio.Windows;
 using Page = System.Windows.Controls.Page;
 
 namespace PhotoStudio.Pages;
@@ -84,6 +83,9 @@ public partial class MainPage : Page
                 .Where(r => r.Client.PersonalInfo.LastName.Contains(search));
             RequestListView.ItemsSource = null;
             RequestListView.ItemsSource = searchResult;
+            var searchRentResult = _bookingList.Where(b => b.Request.Client.PersonalInfo.FullName.Contains(search));
+            BookingListView.ItemsSource = null;
+            BookingListView.ItemsSource = searchRentResult;
         }
         else
         {
@@ -170,12 +172,20 @@ public partial class MainPage : Page
 
     private void DatePicker_OnSelectedDateChanged(object? sender, SelectionChangedEventArgs e)
     {
-       
+        List<Request> filterList = new List<Request>();
+        foreach (var req in _requestList)
+        {
+            if(req.RequestTimestamp != null && DatePicker.SelectedDate != null && DatePicker.SelectedDate.Value == req.RequestTimestamp.Value.Date)
+                filterList.Add(req);
+        }
+
+        RequestListView.ItemsSource = null;
+        RequestListView.ItemsSource = filterList;
     }
 
     private void CancelButton_OnClick(object sender, RoutedEventArgs e)
     {
-        throw new NotImplementedException();
+        RequestListBoxRendered();
     }
 
     private void DownRadioButton_OnClick(object sender, RoutedEventArgs e)
@@ -184,6 +194,10 @@ public partial class MainPage : Page
             .OrderBy(r => r.Client?.PersonalInfo?.LastName));
         RequestListView.ItemsSource = null;
         RequestListView.ItemsSource = sortedList;
+
+        var sortedBookingList = new List<Booking>(_bookingList.OrderBy(b => b.Request.Client.PersonalInfo.FullName));
+        BookingListView.ItemsSource = null;
+        RequestListView.ItemsSource = sortedBookingList;
     }
 
     private void UpRadioButton_OnClick(object sender, RoutedEventArgs e)
@@ -192,5 +206,23 @@ public partial class MainPage : Page
             .OrderByDescending(r => r.Client?.PersonalInfo?.LastName));
         RequestListView.ItemsSource = null;
         RequestListView.ItemsSource = sortedList;
+
+        var sortedBookingList =
+            new List<Booking>(_bookingList.OrderByDescending(b => b.Request.Client.PersonalInfo.FullName));
+        BookingListView.ItemsSource = null;
+        BookingListView.ItemsSource = sortedBookingList;
+    }
+
+    private void RegistrationPage_OnClick(object sender, RoutedEventArgs e)
+    {
+        if (NavigationService != null) NavigationService.Navigate(new RegistrPage());
+    }
+
+    private void RegistrBlock()
+    {
+        if (_worker.Role.Id != 1)
+            RegistrationButton.Visibility = Visibility.Collapsed;
+        else
+            RegistrationButton.Visibility = Visibility.Visible;
     }
 }

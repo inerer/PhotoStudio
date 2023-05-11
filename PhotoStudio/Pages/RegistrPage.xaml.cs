@@ -1,10 +1,14 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using ModernWpf.Controls;
 using PhotoStudio.DataBase.Repositories;
 using PhotoStudio.Models.DataBase;
 using PhotoStudio.Services;
-using PhotoStudio.Windows;
+using PhotoStudio.Views;
+using Page = System.Windows.Controls.Page;
 
 namespace PhotoStudio.Pages;
 
@@ -37,10 +41,9 @@ public partial class RegistrPage : Page
         _newWorker.Role = (Role)RoleComboBox.SelectedItem;
     }
 
-    private void AddRoleButton_OnClick(object sender, RoutedEventArgs e)
+    private async void AddRoleButton_OnClick(object sender, RoutedEventArgs e)
     {
-        AddRoleWindow addRoleWindow = new();
-        addRoleWindow.ShowDialog();
+        await AddRoleDialog();
     }
 
     private void CancelButton_OnClick(object sender, RoutedEventArgs e)
@@ -51,10 +54,19 @@ public partial class RegistrPage : Page
 
     private void RegistrationButton_OnClick(object sender, RoutedEventArgs e)
     {
-        GetAllInfoFromPage();
-        PasswordCheck();
-        _newWorker.PersonalInfoId = _personalInfoService.AddPersonalInfo(_newPersonalInfo);
-        _workerService.AddWorker(_newWorker);
+        try
+        {
+            GetAllInfoFromPage();
+            PasswordCheck();
+            _newWorker.PersonalInfoId = _personalInfoService.AddPersonalInfo(_newPersonalInfo);
+            _workerService.AddWorker(_newWorker);
+        }
+        catch (Exception exception)
+        {
+            MessageBox.Show("Ошибка регистрации!");
+        }
+        
+        
     }
 
     private void RegistrPage_OnLoaded(object sender, RoutedEventArgs e)
@@ -81,6 +93,17 @@ public partial class RegistrPage : Page
             _newWorker.Password = _getHash.GetHash1(PasswordBox.Password);
         else
             MessageBox.Show("Пароль не подходит под стандарты");
+    }
+
+    private async Task AddRoleDialog()
+    {
+        ContentDialog contentDialog = new ContentDialog
+        {
+            Title = "Создание роль",
+            Content = new AddRoleView(),
+            CloseButtonText = "Закрыть"
+        };
+        await contentDialog.ShowAsync();
     }
     
 }

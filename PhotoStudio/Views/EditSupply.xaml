@@ -48,11 +48,6 @@
                             Margin="5"
                             Click="AddButton_OnClick"/>
                     
-                    <Button Name="CancelButton"
-                            Content="Отменить"
-                            Margin="5"
-                            Click="CancelButton_OnClick"/>
-                    
                     <Button Name="DeleteButton"
                             Content="Удалить"
                             Margin="5"

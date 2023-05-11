@@ -36,10 +36,11 @@
     </ItemGroup>
 
     <ItemGroup>
-      <None Remove="Resources\photo_2023-03-30_00-09-02.png" />
       <Resource Include="Resources\photo_2023-03-30_00-09-02.png" />
-      <None Remove="Resources\3081797.png" />
       <Resource Include="Resources\3081797.png" />
+      <Resource Include="Resources\arrow_upward_FILL0_wght400_GRAD0_opsz48.png" />
+      <Resource Include="Resources\expand_less_FILL0_wght400_GRAD0_opsz48.png" />
+      <Resource Include="Resources\expand_more_FILL0_wght400_GRAD0_opsz48.png" />
     </ItemGroup>
 
 </Project>

@@ -16,7 +16,7 @@ public class ClientService:IClientInterface
 
     public Client GetClient(int id)
     {
-        throw new System.NotImplementedException();
+        return _clientRepository.GetClient(id);
     }
 
     public Client AddClient(Client client)
