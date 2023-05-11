@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System;
+using System.Windows;
 using System.Windows.Controls;
 using PhotoStudio.Models.DataBase;
 using PhotoStudio.Services;
@@ -36,7 +37,7 @@ public partial class ClientInfoPage : Page
                     _personalInfoService.GetPersonalInfo(_personalInfoService.AddPersonalInfo((PersonalInfo)DataContext));
                 NavigationService.Navigate(new ClientPage(_clientService.AddClient(_client)));
         }
-        catch
+        catch(Exception exception)
         {
             MessageBox.Show("Ошибка");
         }

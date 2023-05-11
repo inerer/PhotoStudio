@@ -80,7 +80,7 @@ public partial class MainPage : Page
         var search = SearchTextBox.Text;
         if (search != String.Empty)
         {
-            var searchResult = _requestService.Requests(_request)
+            var searchResult = _requestList
                 .Where(r => r.Client.PersonalInfo.LastName.Contains(search));
             RequestListView.ItemsSource = null;
             RequestListView.ItemsSource = searchResult;
@@ -98,9 +98,9 @@ public partial class MainPage : Page
     }
 
     private void BookingListViewRendered()
-    {
+    { 
         BookingListView.ItemsSource = null;
-       BookingListView.ItemsSource = _bookingList;
+        BookingListView.ItemsSource = _bookingList;
     }
 
     private void Delete()
@@ -162,18 +162,35 @@ public partial class MainPage : Page
 
     private void SortForAlphabet_OnClick(object sender, RoutedEventArgs e)
     {
-        List<Request> sortedList = new List<Request>(_requestService.Requests(_request)
+        List<Request> sortedList = new List<Request>(_requestList
             .OrderBy(r => r.Client?.PersonalInfo?.LastName));
-        
-        sortedList.RemoveAll(el => _bookingList
-            .Exists(el2 => el2.Request != null && el2.Request.Id == el.Id));
-        
         RequestListView.ItemsSource = null;
         RequestListView.ItemsSource = sortedList;
     }
 
     private void DatePicker_OnSelectedDateChanged(object? sender, SelectionChangedEventArgs e)
     {
+       
+    }
+
+    private void CancelButton_OnClick(object sender, RoutedEventArgs e)
+    {
         throw new NotImplementedException();
+    }
+
+    private void DownRadioButton_OnClick(object sender, RoutedEventArgs e)
+    {
+        var sortedList = new List<Request>(_requestList
+            .OrderBy(r => r.Client?.PersonalInfo?.LastName));
+        RequestListView.ItemsSource = null;
+        RequestListView.ItemsSource = sortedList;
+    }
+
+    private void UpRadioButton_OnClick(object sender, RoutedEventArgs e)
+    {
+        var sortedList = new List<Request>(_requestList
+            .OrderByDescending(r => r.Client?.PersonalInfo?.LastName));
+        RequestListView.ItemsSource = null;
+        RequestListView.ItemsSource = sortedList;
     }
 }

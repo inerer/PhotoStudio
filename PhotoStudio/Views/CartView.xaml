@@ -30,8 +30,18 @@
         </ScrollViewer>
         
         <StackPanel Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Horizontal">
-            <Button Name="DeleteCartElementButton" Width="70" Height="40" Content="Удалить" Click="DeleteCartElementButton_OnClick"/>
-            <Button Name="DesignCartButton" Width="70" Height="40" Content="Заказать" Click="DesignCartButton_OnClick"/>
+            <Button Name="DeleteCartElementButton" 
+                    Width="70" 
+                    Height="40" 
+                    Content="Удалить" 
+                    Click="DeleteCartElementButton_OnClick"
+                    Margin="5"/>
+            <Button Name="DesignCartButton"
+                    Width="70" 
+                    Height="40" 
+                    Content="Заказать" 
+                    Click="DesignCartButton_OnClick"
+                    Margin="5"/>
         </StackPanel>
         
     </Grid>

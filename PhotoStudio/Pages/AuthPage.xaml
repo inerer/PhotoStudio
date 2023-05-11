@@ -4,6 +4,8 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:local="clr-namespace:PhotoStudio.Pages"
+      xmlns:ui="http://schemas.modernwpf.com/2019"
+
       mc:Ignorable="d"
       Title="AuthPage">
     <Grid>
@@ -12,15 +14,21 @@
             
             <!-- блоки с вводом текста -->
             <StackPanel Orientation="Horizontal">
-                <!-- подписи к блокам -->
-                <StackPanel Orientation="Vertical">
-                    <Label Content="Login" Width="100" Height="32" Margin="5"/>
-                    <Label Content="Password" Width="100" Height="32" Margin="5"/>
-                </StackPanel>
                 <!-- блоки ввода данных -->
                 <StackPanel Orientation="Vertical">
-                    <TextBox Name="LoginTextBox" FontSize="16" Height="32" Width="150" Margin="5">admin</TextBox>
-                    <PasswordBox Name="PasswordBox" FontSize="16" Height="32" Width="150" Margin="5" Password="admin"></PasswordBox>
+                    <TextBox Name="LoginTextBox"
+                             FontSize="16"
+                             Height="32"
+                             Width="150"
+                             Margin="5"
+                             ui:ControlHelper.PlaceholderText="Логин">admin</TextBox>
+                    <PasswordBox Name="PasswordBox" 
+                                 FontSize="16" 
+                                 Height="32"
+                                 Width="150"
+                                 Margin="5"
+                                 Password="admin"
+                                 ui:ControlHelper.PlaceholderText="Пароль"/>
                 </StackPanel>
                 
             </StackPanel>

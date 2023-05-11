@@ -4,6 +4,7 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:local="clr-namespace:PhotoStudio.Pages"
+      xmlns:ui="http://schemas.modernwpf.com/2019"
       mc:Ignorable="d"
       
       Title="Главная страница">
@@ -72,18 +73,40 @@
         </TabControl>
         
         <StackPanel Grid.Row="0" Grid.Column="1" Orientation="Horizontal">
-            <Label Content="Поиск"/>
-            <TextBox Name="SearchTextBox" Height="20" Width="80" Margin="5" TextChanged="SearchTextBox_OnTextChanged"/>
            
-            <Button Name="SortForAlphabet"
-                    Height="50"
-                    Width="50"
-                    Content="Алфавит"
-                    Click="SortForAlphabet_OnClick"/>
+            <TextBox Name="SearchTextBox"
+                     Height="20"
+                     Width="80"
+                     Margin="5"
+                     TextChanged="SearchTextBox_OnTextChanged"
+                     ui:ControlHelper.PlaceholderText="Поиск"/>
+            
+            <StackPanel Orientation="Vertical">
+                <Button Name="UpButton" 
+                        Click="UpRadioButton_OnClick"
+                        Background="Transparent">
+                    <Image Width="20" 
+                           Source="C:\Users\arshi\Downloads\expand_less_FILL0_wght400_GRAD0_opsz48.png"/>
+                </Button>
+                <Button Name="DownButton"
+                        Click="DownRadioButton_OnClick"
+                        Background="Transparent">
+                    <Image Width="20" 
+                           Source="C:\Users\arshi\Downloads\keyboard_arrow_down_FILL0_wght400_GRAD0_opsz48.png"/>
+                </Button>
+            </StackPanel>
+           
             
             <DatePicker Name="DatePicker"
                         Margin="5"
                         SelectedDateChanged="DatePicker_OnSelectedDateChanged"/>
+            
+            <Button Name="CancelButton"
+                    Margin="5"
+                    Height="50"
+                    Width="50"
+                    Content="Отменить"
+                    Click="CancelButton_OnClick"/>
         </StackPanel>
         
         <StackPanel Grid.Row="2" Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">

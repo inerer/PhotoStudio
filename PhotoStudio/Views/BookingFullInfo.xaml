@@ -8,18 +8,26 @@
              d:DesignHeight="300" d:DesignWidth="300">
     <StackPanel>
         <StackPanel   VerticalAlignment="Top">
-            <ScrollViewer Grid.Row="1" Grid.Column="1">
-                <ListView Name="FullInfoBookingListView">
+            <ListView Name="FullInfoBookingListView">
                     <ListView.ItemTemplate>
                         <DataTemplate>
                             <StackPanel>
-                                <Label Content="{Binding    Worker.Id}"/>
+                                <Label Content="{Binding   Worker.Id}"/>
                                 <Label Content="{Binding Request.Id}"/>
                             </StackPanel>
                         </DataTemplate>
                     </ListView.ItemTemplate>
                 </ListView>
-            </ScrollViewer> 
+            <StackPanel Orientation="Horizontal"
+                        HorizontalAlignment="Center">
+                
+                <Button Name="GenerateWordButton"
+                        Height="50"
+                        Width="50"
+                        Content="Word"
+                        Click="GenerateWordButton_OnClick"/>
+                        
+            </StackPanel>
         </StackPanel>
         
         
