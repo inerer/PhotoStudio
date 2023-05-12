@@ -74,6 +74,6 @@ public partial class CartView : UserControl
         catch (Exception e)
         {
             MessageBox.Show("Ошибка заказа");
-        } 
+        }
     }
 }

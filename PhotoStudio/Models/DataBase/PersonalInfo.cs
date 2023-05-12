@@ -1,4 +1,6 @@
-﻿namespace PhotoStudio.Models.DataBase;
+﻿using System.Net.Mail;
+
+namespace PhotoStudio.Models.DataBase;
 
 public class PersonalInfo
 {

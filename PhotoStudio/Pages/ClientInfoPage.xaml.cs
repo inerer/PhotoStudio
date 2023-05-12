@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Net.Mail;
 using System.Windows;
 using System.Windows.Controls;
 using PhotoStudio.Models.DataBase;
@@ -30,6 +31,8 @@ public partial class ClientInfoPage : Page
 
     private void SubmitButton_OnClick(object sender, RoutedEventArgs e)
     {
+        CheckPhoneNumber();
+        CheckEmail();
         try
         {
             MessageBox.Show("Бо");
@@ -40,6 +43,27 @@ public partial class ClientInfoPage : Page
         catch(Exception exception)
         {
             MessageBox.Show("Ошибка");
+        }
+        
+    }
+    private void CheckPhoneNumber()
+    {
+        PhoneNumberValidate validate = new PhoneNumberValidate();
+        if (validate.CheckFirstSymbol(MobilePhoneTextBox.Text))
+            _personalInfo.MobilePhone = MobilePhoneTextBox.Text;
+        else
+            MessageBox.Show("Номер не подходит под стандарты");
+    }
+
+    private void CheckEmail()
+    {
+        try
+        {
+            _personalInfo.Email = new MailAddress(EmailTextBox.Text).ToString();
+        }
+        catch (Exception e)
+        {
+            MessageBox.Show("Почта не подходит под стандарты");
         }
         
     }

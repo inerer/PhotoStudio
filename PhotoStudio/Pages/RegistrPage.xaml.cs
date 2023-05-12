@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Net.Mail;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -57,9 +58,12 @@ public partial class RegistrPage : Page
         try
         {
             GetAllInfoFromPage();
+            CheckPhoneNumber();
+            CheckEmail();
             PasswordCheck();
             _newWorker.PersonalInfoId = _personalInfoService.AddPersonalInfo(_newPersonalInfo);
             _workerService.AddWorker(_newWorker);
+
         }
         catch (Exception exception)
         {
@@ -80,8 +84,6 @@ public partial class RegistrPage : Page
         _newPersonalInfo.FirstName = FirstNameTextBox.Text;
         _newPersonalInfo.LastName = LastNameTextBox.Text;
         _newPersonalInfo.MiddleName = MiddleNameTextBox.Text;
-        _newPersonalInfo.MobilePhone = MobilePhoneTextBox.Text;
-        _newPersonalInfo.Email = EmailTextBox.Text;
         _newWorker.Login = LoginTextBox.Text;
     }
 
@@ -104,6 +106,28 @@ public partial class RegistrPage : Page
             CloseButtonText = "Закрыть"
         };
         await contentDialog.ShowAsync();
+    }
+
+    private void CheckPhoneNumber()
+    {
+        PhoneNumberValidate validate = new PhoneNumberValidate();
+        if (validate.CheckFirstSymbol(MobilePhoneTextBox.Text))
+            _newPersonalInfo.MobilePhone = MobilePhoneTextBox.Text;
+        else
+            MessageBox.Show("Номер не подходит под стандарты");
+    }
+
+    private void CheckEmail()
+    {
+        try
+        {
+            _newPersonalInfo.Email = new MailAddress(EmailTextBox.Text).ToString();
+        }
+        catch (Exception e)
+        {
+            MessageBox.Show("Почта не подходит под стандарты");
+        }
+        
     }
     
 }

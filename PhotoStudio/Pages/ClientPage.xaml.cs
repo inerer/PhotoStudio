@@ -66,9 +66,15 @@ public partial class ClientPage : Page
         await contentDialog.ShowAsync();
     }
 
-    private async Task ShowPhotoClientDialog()
+    private async Task ShowPhotoClientDialog(Client client)
     {
-        
+        ContentDialog contentDialog = new ContentDialog
+        {
+            Title = "Фото",
+            Content = new PhotoClientView(client),
+            CloseButtonText = "Закрыть"
+        };
+        await contentDialog.ShowAsync();
     }
 
     private void ButtonBase_OnClick(object sender, RoutedEventArgs e)

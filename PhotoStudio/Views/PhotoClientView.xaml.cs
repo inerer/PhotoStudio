@@ -4,16 +4,21 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media.Imaging;
 using Microsoft.Win32;
+using PhotoStudio.Models.DataBase;
 
 namespace PhotoStudio.Views;
 
 public partial class PhotoClientView : UserControl
 {
-    private OpenFileDialog _openFileDialog;
-    public PhotoClientView()
+    private readonly OpenFileDialog _openFileDialog;
+    private ClientPhotos _clientPhotos;
+    private Client _client;
+    public PhotoClientView(Client client)
     {
         InitializeComponent();
         _openFileDialog = new OpenFileDialog();
+        _clientPhotos = new ClientPhotos();
+        
     }
 
     private void ClientPhotoBorder_OnMouseDown(object sender, MouseButtonEventArgs e)
@@ -68,6 +73,6 @@ public partial class PhotoClientView : UserControl
 
     private void AddPhotoButton_OnClick(object sender, RoutedEventArgs e)
     {
-        throw new NotImplementedException();
+        
     }
 }
