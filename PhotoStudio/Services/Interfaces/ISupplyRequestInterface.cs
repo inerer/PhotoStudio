@@ -14,4 +14,6 @@ public interface ISupplyRequestInterface
     public List<SupplyRequest> GelSupplyRequestByRequestId(Request request);
 
     public bool DeleteSupplyRequestByRequestId(Request request);
+    
+    
 }

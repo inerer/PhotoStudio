@@ -38,6 +38,7 @@ public partial class MainPage : Page
         _supplyRequestService = new SupplyRequestService();
         
         InitializeComponent();
+        Role();
         Delete();
         RenderWorker();
         RequestListBoxRendered();
@@ -46,8 +47,8 @@ public partial class MainPage : Page
 
     private void RenderWorker()
     {
-        LastNameTextBlock.Text = _worker.PersonalInfo.LastName;
-        FirstNameTextBlock.Text = _worker.PersonalInfo.FirstName;
+        // LastNameTextBlock.Text = _worker.PersonalInfo.LastName;
+        // FirstNameTextBlock.Text = _worker.PersonalInfo.FirstName;
     }
 
     private void RequestListBoxRendered()
@@ -190,27 +191,40 @@ public partial class MainPage : Page
 
     private void DownRadioButton_OnClick(object sender, RoutedEventArgs e)
     {
-        var sortedList = new List<Request>(_requestList
-            .OrderBy(r => r.Client?.PersonalInfo?.LastName));
-        RequestListView.ItemsSource = null;
-        RequestListView.ItemsSource = sortedList;
-
-        var sortedBookingList = new List<Booking>(_bookingList.OrderBy(b => b.Request.Client.PersonalInfo.FullName));
-        BookingListView.ItemsSource = null;
-        RequestListView.ItemsSource = sortedBookingList;
+        if (RTabControl.SelectedItem == RequestItem)
+        {
+            var sortedList = new List<Request>(_requestList
+                .OrderBy(r => r.Client?.PersonalInfo?.LastName));
+            RequestListView.ItemsSource = null;
+            RequestListView.ItemsSource = sortedList;
+        }
+        else
+        {
+            var sortedBookingList = new List<Booking>(_bookingList.OrderBy(b => b.Request.Client.PersonalInfo.FullName));
+            BookingListView.ItemsSource = null;
+            RequestListView.ItemsSource = sortedBookingList;
+        }
     }
 
     private void UpRadioButton_OnClick(object sender, RoutedEventArgs e)
     {
-        var sortedList = new List<Request>(_requestList
-            .OrderByDescending(r => r.Client?.PersonalInfo?.LastName));
-        RequestListView.ItemsSource = null;
-        RequestListView.ItemsSource = sortedList;
+        if (RTabControl.SelectedItem == RequestItem)
+        {
+            var sortedList = new List<Request>(_requestList
+                .OrderByDescending(r => r.Client?.PersonalInfo?.LastName));
+            RequestListView.ItemsSource = null;
+            RequestListView.ItemsSource = sortedList;
 
-        var sortedBookingList =
-            new List<Booking>(_bookingList.OrderByDescending(b => b.Request.Client.PersonalInfo.FullName));
-        BookingListView.ItemsSource = null;
-        BookingListView.ItemsSource = sortedBookingList;
+        }
+        else
+        {
+            var sortedBookingList =
+                new List<Booking>(_bookingList.OrderByDescending(b => b.Request.Client.PersonalInfo.FullName));
+            BookingListView.ItemsSource = null;
+            BookingListView.ItemsSource = sortedBookingList;
+        }
+       
+        
     }
 
     private void RegistrationPage_OnClick(object sender, RoutedEventArgs e)
@@ -224,5 +238,20 @@ public partial class MainPage : Page
             RegistrationButton.Visibility = Visibility.Collapsed;
         else
             RegistrationButton.Visibility = Visibility.Visible;
+    }
+
+    private void ClientPage_OnClick(object sender, RoutedEventArgs e)
+    {
+        if (NavigationService != null) NavigationService.Navigate(new ClientInfoPage());
+    }
+
+    private void Role()
+    {
+        if (_worker.Role != null && _worker.Role.Id != 1)
+        {
+            AddNewSupplyButton.Visibility = Visibility.Collapsed;
+            EditSupplyButton.Visibility = Visibility.Collapsed;
+            RegistrationButton.Visibility = Visibility.Collapsed;
+        }
     }
 }

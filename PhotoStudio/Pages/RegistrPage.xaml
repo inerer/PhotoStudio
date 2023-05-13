@@ -12,14 +12,14 @@
             
             <StackPanel Orientation="Horizontal">
                 <StackPanel Orientation="Vertical">
-                    <Label Content="Login"  Width="100" Height="32" Margin="5" />
-                    <Label Content="Password" Width="100" Height="32" Margin="5"/>
-                    <Label Content="LastName" Width="100" Height="32" Margin="5"/>
-                    <Label Content="FirstName" Width="100" Height="32" Margin="5"/>
-                    <Label Content="MiddleName" Width="100" Height="32" Margin="5"/>
-                    <Label Content="Email" Width="100" Height="32" Margin="5"/>
-                    <Label Content="Phone" Width="100" Height="32" Margin="5"/>
-                    <Label Content="Role" Width="100" Height="32" Margin="5"/>
+                    <Label Content="Логин"  Width="100" Height="32" Margin="5" />
+                    <Label Content="Пароль" Width="100" Height="32" Margin="5"/>
+                    <Label Content="Фамилия" Width="100" Height="32" Margin="5"/>
+                    <Label Content="Имя" Width="100" Height="32" Margin="5"/>
+                    <Label Content="Отчество" Width="100" Height="32" Margin="5"/>
+                    <Label Content="Емэйл" Width="100" Height="32" Margin="5"/>
+                    <Label Content="Номер" Width="100" Height="32" Margin="5"/>
+                    <Label Content="Роль" Width="100" Height="32" Margin="5"/>
                 </StackPanel>
             
                 <StackPanel Orientation="Vertical">

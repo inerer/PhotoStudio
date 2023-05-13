@@ -173,4 +173,37 @@ public class RequestRepository:RepositoryBase ,IRequestInterface
         _connection.Close();
         return requests;
     }
+
+    public Request GetRequestByClientId(Client client)
+    {
+        
+        _connection.Open();
+        Request request = new();
+        string query =
+            "select * from request join client  on request.id_client = client.id_client join personal_info pi on client.id_personal_info = pi.id_personal_info where client.id_client=($1)";
+        NpgsqlCommand command = new(query, _connection)
+        {
+            Parameters = { new NpgsqlParameter() { Value = client.Id} }
+        };
+        using (command)
+        {
+            using (NpgsqlDataReader reader = command.ExecuteReader())
+            {
+                while (reader.Read())
+                {
+                    request.Id = Convert.ToInt32(reader["id_request"]);
+                    request.RequestTimestamp = Convert.ToDateTime(reader["request_timestamp"]);
+                    request.Client.Id = Convert.ToInt32(reader["id_client"]);
+                    request.Client.PersonalInfo.LastName = reader["last_name"].ToString();
+                    request.Client.PersonalInfo.FirstName = reader["first_name"].ToString();
+                    request.Client.PersonalInfo.MiddleName = reader["middle_name"].ToString();
+                    request.Client.PersonalInfo.MobilePhone = reader["mobile_phone"].ToString();
+                    request.Client.PersonalInfo.Email = reader["email"].ToString();
+                }
+            }
+        }
+        _connection.Close();
+        return request;
+    
+    }
 }

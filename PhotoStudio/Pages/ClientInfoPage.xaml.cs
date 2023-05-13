@@ -35,9 +35,10 @@ public partial class ClientInfoPage : Page
         CheckEmail();
         try
         {
-            MessageBox.Show("Бо");
+            
                 _client.PersonalInfo =
                     _personalInfoService.GetPersonalInfo(_personalInfoService.AddPersonalInfo((PersonalInfo)DataContext));
+                MessageBox.Show("Ваши данные получены");
                 NavigationService.Navigate(new ClientPage(_clientService.AddClient(_client)));
         }
         catch(Exception exception)

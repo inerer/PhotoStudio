@@ -42,7 +42,7 @@ public partial class BookingFullInfo : UserControl
         DocX document = DocX.Create(path);
  
         // Вставляем параграф и указываем текст
-        document.InsertParagraph($"Договор пользователя:{_booking.Request.Client.PersonalInfo.FullName}").
+        document.InsertParagraph($"Заказ пользователя:{_booking.Request.Client.PersonalInfo.FullName}").
             // устанавливаем шрифт
             Font("Times New Roman").
             // устанавливаем размер шрифта
@@ -53,6 +53,8 @@ public partial class BookingFullInfo : UserControl
             Bold().
             // выравниваем текст по центру
             Alignment = Alignment.center;
+        Paragraph para = document.InsertParagraph();
+        para.AppendLine();
 
         document.InsertParagraph("Заказанные услуги:").
             Font("Times New Roman").
@@ -79,6 +81,19 @@ public partial class BookingFullInfo : UserControl
         }
 
         paragraph1.AppendLine($"Итоговая цена {totalPrice}").FontSize(14).Font("Times New Roman");
+
+        Paragraph paragraph2 = document.InsertParagraph();
+        paragraph2.Alignment = Alignment.right;
+        paragraph2.AppendLine($"Дата заказа :{_booking.OrderTimestamp}").FontSize(14).Font("Times New Roman");
+
+        Paragraph paragraph3 = document.InsertParagraph();
+        paragraph3.Alignment = Alignment.right;
+        paragraph3.AppendLine($"Клиент: {_booking.Request.Client.PersonalInfo.FullName} ________").FontSize(14).Bold()
+            .Font("Times New Roman");
+        Paragraph paragraph4 = document.InsertParagraph();
+        paragraph4.Alignment = Alignment.right;
+        paragraph4.AppendLine($"Сотрудник: {_booking.Worker.PersonalInfo.FullName}________").FontSize(14).Bold()
+            .Font("Times New Roman");
  
         // сохраняем документ
         document.Save();

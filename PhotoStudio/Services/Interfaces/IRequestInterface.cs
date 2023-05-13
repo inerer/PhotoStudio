@@ -11,4 +11,6 @@ public interface IRequestInterface
     public bool EditRequest(Request request);
     public bool DeleteRequest(int id);
     public List<Request> Requests(Request request);
+
+    public Request GetRequestByClientId(Client client);
 }

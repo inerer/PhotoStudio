@@ -40,4 +40,9 @@ public class RequestService:IRequestInterface
     {
         return _requestRepository.Requests(request);
     }
+
+    public Request GetRequestByClientId(Client client)
+    {
+        return _requestRepository.GetRequestByClientId(client);
+    }
 }

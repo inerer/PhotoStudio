@@ -39,7 +39,7 @@ public partial class AddEditSupplyPage : Page
         TypeSupplyComboBox.ItemsSource = _typeSupplyService.GetAllTypeSupplies(_typeSupply);
         
         RentComboBox.Visibility = Visibility.Collapsed;
-        AddRentButton.Visibility = Visibility.Collapsed;
+        
 
         RentComboBox.ItemsSource = _rentService.GetAllRents(_rent);
 
@@ -52,7 +52,7 @@ public partial class AddEditSupplyPage : Page
         if (_supply.TypeSupply.Id == 1)
         {
             RentComboBox.Visibility = Visibility.Visible;
-            AddRentButton.Visibility = Visibility.Visible;
+            
         }
            
     }

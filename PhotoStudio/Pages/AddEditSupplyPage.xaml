@@ -35,36 +35,20 @@
                              ui:ControlHelper.Header="Время выполнения"
                              Text="{Binding SupplyTimestamp}"/>
                    
-                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                        <ComboBox Name="TypeSupplyComboBox"
-                                  Width="125"
-                                  Margin="5"
-                                  ui:ControlHelper.Header="Тип услуги"
-                                  DisplayMemberPath="Name"
-                                  SelectionChanged="TypeSupplyComboBox_OnSelectionChanged"
-                                  />
-                        
-                        <Button Name="AddTypeSupplyButton"
-                                Content="+"
-                                Margin="5"
-                                Click="AddTypeSupplyButton_OnClick"/>
-                    </StackPanel>
+                    <ComboBox Name="TypeSupplyComboBox"
+                              Width="150"
+                              Margin="5"
+                              ui:ControlHelper.Header="Тип услуги"
+                              DisplayMemberPath="Name"
+                              SelectionChanged="TypeSupplyComboBox_OnSelectionChanged"
+                    />
                     
-                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                        
-                        <ComboBox Name="RentComboBox"
-                                  Width="125"
-                                  Margin="5"
-                                  ui:ControlHelper.Header="Помещение"
-                                  DisplayMemberPath="Hall.Address"
-                                  SelectionChanged="RentComboBox_OnSelectionChanged"/>
-                        
-                        <Button Name="AddRentButton"
-                                Content="+"
-                                Margin="5"
-                                Click="AddRentButton_OnClick"/>
-                        
-                    </StackPanel>
+                    <ComboBox Name="RentComboBox"
+                              Width="150"
+                              Margin="5"
+                              ui:ControlHelper.Header="Помещение"
+                              DisplayMemberPath="Hall.Address"
+                              SelectionChanged="RentComboBox_OnSelectionChanged"/>
                     
                     <TextBox Name="DescriptionSupplyTextBox"
                              Width="150"

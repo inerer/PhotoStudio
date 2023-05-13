@@ -4,7 +4,10 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media.Imaging;
 using Microsoft.Win32;
+using PhotoStudio.DataBase.Repositories;
 using PhotoStudio.Models.DataBase;
+using PhotoStudio.Models.DataBase.SupplyRequestModels;
+using PhotoStudio.Services;
 
 namespace PhotoStudio.Views;
 
@@ -12,13 +15,22 @@ public partial class PhotoClientView : UserControl
 {
     private readonly OpenFileDialog _openFileDialog;
     private ClientPhotos _clientPhotos;
+    private ClientPhotosRepository _clientPhotosRepository;
+    private Request _request;
     private Client _client;
+    private RequestService _requestService;
+    private ClientPhotosService _clientPhotosService;
     public PhotoClientView(Client client)
     {
         InitializeComponent();
         _openFileDialog = new OpenFileDialog();
         _clientPhotos = new ClientPhotos();
-        
+        _clientPhotosRepository = new ClientPhotosRepository();
+        _client = client;
+        _request = new Request();
+        _requestService = new RequestService();
+        _clientPhotosService = new ClientPhotosService();
+
     }
 
     private void ClientPhotoBorder_OnMouseDown(object sender, MouseButtonEventArgs e)
@@ -73,6 +85,18 @@ public partial class PhotoClientView : UserControl
 
     private void AddPhotoButton_OnClick(object sender, RoutedEventArgs e)
     {
+        try
+        {
+            _clientPhotos.Request = _requestService.GetRequestByClientId(_client);
+            _clientPhotos.Photo = _openFileDialog.FileName;
+            _clientPhotosService.AddClientPhotos(_clientPhotos);
+            MessageBox.Show("Фото добавлено");
+        }
+        catch (Exception exception)
+        {
+            MessageBox.Show("Сначала сделайте заказ!");
+        }
         
+
     }
 }

@@ -23,8 +23,8 @@
                 
                 <Button Name="GenerateWordButton"
                         Height="50"
-                        Width="50"
-                        Content="Word"
+                        Width="300"
+                        Content="Генерация документа"
                         Click="GenerateWordButton_OnClick"/>
                         
             </StackPanel>

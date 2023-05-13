@@ -81,5 +81,9 @@ public partial class ClientPage : Page
     {
         ShowCartDialog(_supplies, _client);
     }
-    
+
+    private void PhotoButton_OnClick(object sender, RoutedEventArgs e)
+    {
+        ShowPhotoClientDialog(_client);
+    }
 }
