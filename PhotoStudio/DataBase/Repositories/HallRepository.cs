@@ -63,7 +63,7 @@ public class HallRepository:RepositoryBase ,IHallInterface
                 // проход по полученным данным
                 while (reader.Read())
                 {
-                    hall.Id = Convert.ToInt32(reader["id_client"]);
+                    hall.Id = Convert.ToInt32(reader["id_hall"]);
                 }
             }
         }

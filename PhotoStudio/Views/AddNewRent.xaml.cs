@@ -87,6 +87,7 @@ public partial class AddNewRent : UserControl
             _hall.Photo = _openFileDialog.FileName;
             _rent.PriceHour = Convert.ToDecimal(PriceNumberBox.Text);
             _rent.Hall = _hallService.AddHall(_hall);
+            _rentService.AddRent(_rent);
             MessageBox.Show("Успешно");
         }
         catch (Exception exception)

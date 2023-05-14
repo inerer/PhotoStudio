@@ -6,25 +6,25 @@
              xmlns:ui="http://schemas.modernwpf.com/2019"
              xmlns:local="clr-namespace:PhotoStudio.Views"
              mc:Ignorable="d"
-             >
-    <Grid>
+              >
+    <ScrollViewer>
         <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
             <TextBox Name="AddressTextBox"
-                     Height="50"
+                     Height="80"
                      Width="100"
                      Margin="5"
                      Text="{Binding Address}"
                      ui:ControlHelper.Header="Адрес"/>
             
             <TextBox Name="DescriptionTextBox"
-                     Height="50"
+                     Height="80"
                      Width="100"
                      Margin="5"
                      Text="{Binding Description}"
-                     ui:ControlHelper.Header="Описание поменщения"/>
+                     ui:ControlHelper.Header="Описание "/>
             
             <ui:NumberBox Name="PriceNumberBox"
-                          Height="50"
+                          Height="80"
                           Width="100"
                           Margin="5"
                           ui:ControlHelper.Header="Цена"/>
@@ -32,7 +32,7 @@
             <Border Name="ImageBorder"
                     Background="Transparent"
                     BorderThickness="1"
-                    Margin="5"
+                    Margin="10"
                     MouseDown="ImageBorder_OnMouseDown"
                     Drop="ImageBorder_OnDrop"
                     AllowDrop="True">
@@ -44,11 +44,11 @@
             </Border>
             
             <Button Name="AddButton"
-                    Height="100"
-                    Width="150"
+                    Height="30"
+                    Width="100"
                     Content="Добавить"
                     Margin="5"
                     Click="AddButton_OnClick"/>
         </StackPanel>
-    </Grid>
+    </ScrollViewer>
 </UserControl>

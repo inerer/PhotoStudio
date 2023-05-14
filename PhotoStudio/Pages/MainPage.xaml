@@ -27,7 +27,8 @@
         <!-- </StackPanel> -->
         
         <TabControl Grid.Row="1" Grid.ColumnSpan="3" Grid.Column="0"
-                    Name="RTabControl">
+                    Name="RTabControl"
+                    >
            
             <TabItem Header="Заявки"
                      Name="RequestItem">
@@ -98,7 +99,8 @@
                         Click="DownRadioButton_OnClick"
                         Background="Transparent"
                         Width="30"
-                        Height="30">
+                        Height="30"
+                        >
                     <Image Width="20" 
                            Source="/Resources/expand_more_FILL0_wght400_GRAD0_opsz48.png"/>
                 </Button>
