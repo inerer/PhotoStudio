@@ -1,8 +1,12 @@
 ﻿using System;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using ModernWpf.Controls;
 using PhotoStudio.Models.DataBase.SupplyRequestModels;
 using PhotoStudio.Services;
+using PhotoStudio.Views;
+using Page = System.Windows.Controls.Page;
 
 namespace PhotoStudio.Pages;
 
@@ -62,9 +66,9 @@ public partial class AddEditSupplyPage : Page
        
     }
 
-    private void AddRentButton_OnClick(object sender, RoutedEventArgs e)
+    private async void AddRentButton_OnClick(object sender, RoutedEventArgs e)
     {
-        throw new System.NotImplementedException();
+        await ShowNewRentContent();
     }
 
     private void AddButton_OnClick(object sender, RoutedEventArgs e)
@@ -88,5 +92,16 @@ public partial class AddEditSupplyPage : Page
     private void CancelButton_OnClick(object sender, RoutedEventArgs e)
     {
         throw new NotImplementedException();
+    }
+
+    private async Task ShowNewRentContent()
+    {
+        ContentDialog contentDialog = new ContentDialog
+        {
+            Title = "Добавление",
+            Content = new AddNewRent(),
+            CloseButtonText = "Закрыть"
+        };
+        await contentDialog.ShowAsync();
     }
 }

@@ -43,12 +43,21 @@
                               SelectionChanged="TypeSupplyComboBox_OnSelectionChanged"
                     />
                     
-                    <ComboBox Name="RentComboBox"
-                              Width="150"
-                              Margin="5"
-                              ui:ControlHelper.Header="Помещение"
-                              DisplayMemberPath="Hall.Address"
-                              SelectionChanged="RentComboBox_OnSelectionChanged"/>
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                        
+                        <ComboBox Name="RentComboBox"
+                                  Width="125"
+                                  Margin="5"
+                                  ui:ControlHelper.Header="Помещение"
+                                  DisplayMemberPath="Hall.Address"
+                                  SelectionChanged="RentComboBox_OnSelectionChanged"/>
+                        
+                        <Button Name="AddRentButton"
+                                Content="+"
+                                Margin="5"
+                                Click="AddRentButton_OnClick"/>
+                        
+                    </StackPanel>
                     
                     <TextBox Name="DescriptionSupplyTextBox"
                              Width="150"

@@ -1,0 +1,54 @@
+﻿<UserControl x:Class="PhotoStudio.Views.AddNewRent"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:ui="http://schemas.modernwpf.com/2019"
+             xmlns:local="clr-namespace:PhotoStudio.Views"
+             mc:Ignorable="d"
+             >
+    <Grid>
+        <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
+            <TextBox Name="AddressTextBox"
+                     Height="50"
+                     Width="100"
+                     Margin="5"
+                     Text="{Binding Address}"
+                     ui:ControlHelper.Header="Адрес"/>
+            
+            <TextBox Name="DescriptionTextBox"
+                     Height="50"
+                     Width="100"
+                     Margin="5"
+                     Text="{Binding Description}"
+                     ui:ControlHelper.Header="Описание поменщения"/>
+            
+            <ui:NumberBox Name="PriceNumberBox"
+                          Height="50"
+                          Width="100"
+                          Margin="5"
+                          ui:ControlHelper.Header="Цена"/>
+            
+            <Border Name="ImageBorder"
+                    Background="Transparent"
+                    BorderThickness="1"
+                    Margin="5"
+                    MouseDown="ImageBorder_OnMouseDown"
+                    Drop="ImageBorder_OnDrop"
+                    AllowDrop="True">
+                
+                <Image Name="Image" 
+                       Source="/Resources/free-icon-upload-3580382.png"
+                       Height="100"
+                       Width="100"/>
+            </Border>
+            
+            <Button Name="AddButton"
+                    Height="100"
+                    Width="150"
+                    Content="Добавить"
+                    Margin="5"
+                    Click="AddButton_OnClick"/>
+        </StackPanel>
+    </Grid>
+</UserControl>

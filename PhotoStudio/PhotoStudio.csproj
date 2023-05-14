@@ -41,6 +41,8 @@
       <Resource Include="Resources\arrow_upward_FILL0_wght400_GRAD0_opsz48.png" />
       <Resource Include="Resources\expand_less_FILL0_wght400_GRAD0_opsz48.png" />
       <Resource Include="Resources\expand_more_FILL0_wght400_GRAD0_opsz48.png" />
+      <None Remove="Resources\free-icon-upload-3580382.png" />
+      <Resource Include="Resources\free-icon-upload-3580382.png" />
     </ItemGroup>
 
 </Project>

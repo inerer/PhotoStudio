@@ -20,7 +20,7 @@ public class RentService : IRentInterface
 
     public Rent AddRent(Rent rent)
     {
-        throw new System.NotImplementedException();
+        return _rentRepository.AddRent(rent);
     }
 
     public bool EditRent(Rent rent)

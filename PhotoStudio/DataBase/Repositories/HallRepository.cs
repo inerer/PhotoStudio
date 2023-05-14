@@ -46,7 +46,7 @@ public class HallRepository:RepositoryBase ,IHallInterface
     public Hall AddHall(Hall hall)
     {
         _connection.Open();
-        string query = "insert into hall(description, address) values ($1, $2)";
+        string query = "insert into hall(description, address) values ($1, $2) returning id_hall";
         NpgsqlCommand command = new(query, _connection)
         {
             Parameters =
@@ -55,9 +55,20 @@ public class HallRepository:RepositoryBase ,IHallInterface
                 new NpgsqlParameter() { Value = hall.Address }
             }
         };
+        using (command)
+        {
+            // создаем reader
+            using (NpgsqlDataReader reader = command.ExecuteReader())
+            {
+                // проход по полученным данным
+                while (reader.Read())
+                {
+                    hall.Id = Convert.ToInt32(reader["id_client"]);
+                }
+            }
+        }
         try
         {
-            command.ExecuteNonQuery();
             return hall;
         }
         catch (Exception e)
