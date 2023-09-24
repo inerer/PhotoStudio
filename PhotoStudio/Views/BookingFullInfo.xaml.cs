@@ -1,5 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Diagnostics;
 using System.Drawing;
+using System.IO;
+using System.Net.Mime;
 using System.Windows;
 using System.Windows.Controls;
 using PhotoStudio.Models.DataBase;
@@ -7,6 +11,7 @@ using PhotoStudio.Models.DataBase.SupplyRequestModels;
 using PhotoStudio.Services.Interfaces;
 using Xceed.Document.NET;
 using Xceed.Words.NET;
+using Image = System.Drawing.Image;
 
 namespace PhotoStudio.Views;
 
@@ -36,11 +41,19 @@ public partial class BookingFullInfo : UserControl
     private void GenerateWordButton_OnClick(object sender, RoutedEventArgs e)
     {
         string path = @"C:\Users\arshi\Downloads\Boba.docx";
-        string pathDocument = AppDomain.CurrentDomain.BaseDirectory + "example.docx";
- 
-        // создаём документ
         DocX document = DocX.Create(path);
- 
+        string pathDocument = AppDomain.CurrentDomain.BaseDirectory + "example.docx";
+        
+        // создаём документ
+        var image = document.AddImage(@"C:\Users\arshi\Downloads\photo-studio-logo-design_567288-622.png");
+        var picture = image.CreatePicture(100, 100);
+
+
+        Paragraph par = document.InsertParagraph();
+        //Paragraph paras = document.InsertParagraph();
+        par.AppendPicture(picture).Alignment= Alignment.center;
+        par.AppendLine(" ООО ФотоСтудия Аршинов").Bold().Font("Times New Roman").FontSize(14).Alignment=Alignment.center;
+        par.AppendLine();
         // Вставляем параграф и указываем текст
         document.InsertParagraph($"Заказ пользователя:{_booking.Request.Client.PersonalInfo.FullName}").
             // устанавливаем шрифт
@@ -94,9 +107,23 @@ public partial class BookingFullInfo : UserControl
         paragraph4.Alignment = Alignment.right;
         paragraph4.AppendLine($"Сотрудник: {_booking.Worker.PersonalInfo.FullName}________").FontSize(14).Bold()
             .Font("Times New Roman");
- 
-        // сохраняем документ
-        document.Save();
         
+
+        // document.AddImage(@"C:\Users\arshi\RiderProjects\PhotoStudio\PhotoStudio\Resources\3081797.png");
+       
+        // Picture picture = new Picture(document,
+        //     ,
+        //     Image.FromFile());
+        // paragraph.AppendPicture((Picture))
+            
+        // сохраняем документ
+             document.Save();
+             
+             Process.Start(new ProcessStartInfo
+       {
+           FileName = @"C:\Users\arshi\Downloads\Boba.docx",
+           UseShellExecute = true
+       });
+
     }
 }

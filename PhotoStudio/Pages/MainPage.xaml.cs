@@ -54,7 +54,7 @@ public partial class MainPage : Page
     private void RequestListBoxRendered()
     {
         RequestListView.ItemsSource = null;
-        RequestListView.ItemsSource = _requestList;
+        RequestListView.ItemsSource = _requestService.Requests(_request);
     }
 
     private void RequestListView_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -135,6 +135,7 @@ public partial class MainPage : Page
                 Delete();
                 RequestListBoxRendered();
                 BookingListViewRendered();
+                
             }
 
         var selectedItemBooking = (Booking)BookingListView.SelectedItem;

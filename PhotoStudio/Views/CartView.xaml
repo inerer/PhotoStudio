@@ -6,7 +6,7 @@
              xmlns:local="clr-namespace:PhotoStudio.Views"
              mc:Ignorable="d"
              d:DesignHeight="300" d:DesignWidth="300">
-    <Grid ShowGridLines="True">
+    <Grid>
         
         <Grid.RowDefinitions>
             <RowDefinition Height="5*"/>

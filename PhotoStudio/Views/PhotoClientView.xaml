@@ -19,7 +19,8 @@
                     Drop="ClientPhotoBorder_OnDrop"
                     AllowDrop="True">
                     
-                <Image Name="PhotoImage"/>
+                <Image Name="PhotoImage"
+                       Source="/Resources/free-icon-upload-3580382.png"/>
                     
             </Border>
             

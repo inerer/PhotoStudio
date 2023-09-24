@@ -6,7 +6,7 @@
       xmlns:local="clr-namespace:PhotoStudio.Pages"
       mc:Ignorable="d"
       Title="ClientPage">
-    <Grid ShowGridLines="True">
+    <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="50*"/>
             <ColumnDefinition Width="200*"/>

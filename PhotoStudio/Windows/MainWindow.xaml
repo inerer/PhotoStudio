@@ -5,10 +5,10 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PhotoStudio"
         mc:Ignorable="d"
-        Title="MainWindow" 
+        Title="PhotoStudio" 
         xmlns:ui="http://schemas.modernwpf.com/2019"
         ui:WindowHelper.UseModernWindowStyle="True">
-    <Grid>
+    <Grid ShowGridLines="True">
         
         <Grid.RowDefinitions>
             <RowDefinition Height="20*"/>

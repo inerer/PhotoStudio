@@ -54,6 +54,7 @@ public partial class FullRequestView : UserControl
             BookingFiling();
             _bookingService.AddBooking(_booking);
             SendMessage(_booking);
+            MessageBox.Show("Заказ проведен");
         }
         catch
         {
